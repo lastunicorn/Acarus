@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneWindowWithViewOnConstructor", "OneWindowWithViewOnConstructor\OneWindowWithViewOnConstructor.csproj", "{851F8714-82A1-4507-972D-095CB588DC69}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneWindowWithViewProperty", "OneWindowWithViewProperty\OneWindowWithViewProperty.csproj", "{666C7908-331B-4D4A-BC7A-FBCA6E3FB20D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{851F8714-82A1-4507-972D-095CB588DC69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{851F8714-82A1-4507-972D-095CB588DC69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{851F8714-82A1-4507-972D-095CB588DC69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{851F8714-82A1-4507-972D-095CB588DC69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{666C7908-331B-4D4A-BC7A-FBCA6E3FB20D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{666C7908-331B-4D4A-BC7A-FBCA6E3FB20D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{666C7908-331B-4D4A-BC7A-FBCA6E3FB20D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{666C7908-331B-4D4A-BC7A-FBCA6E3FB20D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
