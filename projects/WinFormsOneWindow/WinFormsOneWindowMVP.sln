@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneWindowWithViewOnConstruc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneWindowWithViewProperty", "OneWindowWithViewProperty\OneWindowWithViewProperty.csproj", "{666C7908-331B-4D4A-BC7A-FBCA6E3FB20D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneWindowWithOneUserControl", "OneWindowWithOneUserControl\OneWindowWithOneUserControl.csproj", "{ADDFD153-E1A9-4269-A803-B057D87DCAA9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{666C7908-331B-4D4A-BC7A-FBCA6E3FB20D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{666C7908-331B-4D4A-BC7A-FBCA6E3FB20D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{666C7908-331B-4D4A-BC7A-FBCA6E3FB20D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ADDFD153-E1A9-4269-A803-B057D87DCAA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADDFD153-E1A9-4269-A803-B057D87DCAA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADDFD153-E1A9-4269-A803-B057D87DCAA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADDFD153-E1A9-4269-A803-B057D87DCAA9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("OneWindowViewProperty")]
+[assembly: AssemblyTitle("OneWindowWithOneUserControl")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyProduct("OneWindowViewProperty")]
+[assembly: AssemblyProduct("OneWindowWithOneUserControl")]
 [assembly: AssemblyCopyright("Copyright © Microsoft 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -19,7 +19,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("f1933a50-9f09-48b9-9e61-afcf77c04448")]
+[assembly: Guid("779adcfc-e459-44de-b7bc-1f46c0f1aeff")]
 
 // Version information for an assembly consists of the following four values:
 //
