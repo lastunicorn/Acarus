@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BindingList", "BindingList\BindingList.csproj", "{3DBE772D-9334-4BB6-8B7D-A4645D245AAB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomSimpleBinding", "SimpleBinding\CustomSimpleBinding.csproj", "{A39C737B-55BF-42A2-A7F9-C0EBA9DBD027}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3DBE772D-9334-4BB6-8B7D-A4645D245AAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DBE772D-9334-4BB6-8B7D-A4645D245AAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DBE772D-9334-4BB6-8B7D-A4645D245AAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DBE772D-9334-4BB6-8B7D-A4645D245AAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A39C737B-55BF-42A2-A7F9-C0EBA9DBD027}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A39C737B-55BF-42A2-A7F9-C0EBA9DBD027}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A39C737B-55BF-42A2-A7F9-C0EBA9DBD027}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A39C737B-55BF-42A2-A7F9-C0EBA9DBD027}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

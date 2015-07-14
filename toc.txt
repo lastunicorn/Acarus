@@ -1,3 +1,19 @@
 WindowsForm - one window
 
 - Is it better to receive the view on constructor or to have a View property that can be set later?
+
+
+
+Who creates the Form?
+	- the Main method
+	- the DC
+
+Who creates the Form's Presenter?
+	- the Presenter
+	- the Main method
+	- the DC
+
+Who creates the UserControl?
+Who creates the UserControl's Presenter?
+Who is making the binding between Form and Presenter?
+Who is making the binding between UserControl and Presenter?
