@@ -94,6 +94,9 @@
   <ItemGroup>
     <None Include="Images\plain-flat-round-up-arrow-256-000000.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\left_right_double_arrow_u21D4_icon_256x256.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

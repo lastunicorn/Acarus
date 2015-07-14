@@ -63,6 +63,16 @@ namespace SimpleBinding.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap left_right_double_arrow_u21D4_icon_256x256 {
+            get {
+                object obj = ResourceManager.GetObject("left_right_double_arrow_u21D4_icon_256x256", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap up_arrow {
             get {
                 object obj = ResourceManager.GetObject("up_arrow", resourceCulture);
