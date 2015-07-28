@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using ApplicationExit.Presentation;
 
 namespace ApplicationExit.Business
@@ -13,6 +14,8 @@ namespace ApplicationExit.Business
     class TheData
     {
         private readonly UserInterface userInterface;
+        private readonly MyApplication myApplication;
+
         private bool isModified;
 
         public bool IsModified
@@ -25,12 +28,30 @@ namespace ApplicationExit.Business
             }
         }
 
-        public TheData(UserInterface userInterface)
+        public TheData(UserInterface userInterface, MyApplication myApplication)
         {
             if (userInterface == null) throw new ArgumentNullException("userInterface");
+            if (myApplication == null) throw new ArgumentNullException("myApplication");
 
             this.userInterface = userInterface;
+            this.myApplication = myApplication;
+
             IsModified = true;
+
+            myApplication.Exiting += HandleMyApplicationExiting;
+        }
+
+        private void HandleMyApplicationExiting(object sender, CancelEventArgs e)
+        {
+            bool allowToContinue = AskAndSave();
+
+            if (allowToContinue)
+            {
+                string text = IsModified ? "The date is NOT saved." : "The data is saved.";
+                userInterface.DisplayInfo(text);
+            }
+
+            e.Cancel = e.Cancel || !allowToContinue;
         }
 
         public event EventHandler Changed;

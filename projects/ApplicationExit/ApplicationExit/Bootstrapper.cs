@@ -8,9 +8,10 @@ namespace ApplicationExit
         public void Initialize()
         {
             UserInterface userInterface = new UserInterface();
-            TheData theData = new TheData(userInterface);
+            
 
-            MyApplication myApplication = new MyApplication(userInterface, theData);
+            MyApplication myApplication = new MyApplication(userInterface);
+            TheData theData = new TheData(userInterface, myApplication);
 
             MainForm mainForm = new MainForm
             {

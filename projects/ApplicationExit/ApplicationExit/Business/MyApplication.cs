@@ -9,19 +9,16 @@ namespace ApplicationExit.Business
     class MyApplication
     {
         private readonly UserInterface userInterface;
-        private readonly TheData theData;
 
         public event EventHandler<CancelEventArgs> Exiting;
         public event EventHandler BeforeExiting;
         public event EventHandler AfterExiting;
 
-        public MyApplication(UserInterface userInterface, TheData theData)
+        public MyApplication(UserInterface userInterface)
         {
             if (userInterface == null) throw new ArgumentNullException("userInterface");
-            if (theData == null) throw new ArgumentNullException("theData");
 
             this.userInterface = userInterface;
-            this.theData = theData;
         }
 
         public bool Exit()
@@ -31,22 +28,12 @@ namespace ApplicationExit.Business
             CancelEventArgs args = new CancelEventArgs();
             OnExiting(args);
 
-            if (args.Cancel)
-                return false;
-
-            bool allowToContinue = theData.AskAndSave();
-
-            if (allowToContinue)
-            {
-                string text = theData.IsModified ? "The date is NOT saved." : "The data is saved.";
-                userInterface.DisplayInfo(text);
-
+            if (!args.Cancel)
                 userInterface.Exit();
-            }
 
             OnAfterExiting();
 
-            return allowToContinue;
+            return !args.Cancel;
         }
 
         protected virtual void OnExiting(CancelEventArgs e)
