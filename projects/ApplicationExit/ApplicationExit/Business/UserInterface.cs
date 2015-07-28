@@ -1,5 +1,4 @@
 ﻿using System.Windows.Forms;
-using ApplicationExit.Presentation;
 using ApplicationExit.Presentation.UI;
 
 namespace ApplicationExit.Business
@@ -32,6 +31,11 @@ namespace ApplicationExit.Business
         public void Exit()
         {
             Application.Exit();
+        }
+
+        public void DisplayInfo(string text)
+        {
+            MessageBox.Show(MainForm, text);
         }
     }
 }

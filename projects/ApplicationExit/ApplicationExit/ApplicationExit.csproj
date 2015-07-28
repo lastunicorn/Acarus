@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Presentation\Controls\BindingExtensions.cs" />
+    <Compile Include="Presentation\UI\ChangeButtonModel.cs" />
     <Compile Include="Presentation\UI\SaveButtonModel.cs" />
     <Compile Include="Presentation\UI\TheDataView.cs">
       <SubType>UserControl</SubType>

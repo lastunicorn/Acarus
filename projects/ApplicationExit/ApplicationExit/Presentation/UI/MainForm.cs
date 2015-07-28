@@ -9,6 +9,32 @@ namespace ApplicationExit.Presentation.UI
         private readonly MyApplication myApplication;
 
         private bool allowToExit;
+        private MainViewModel viewModel;
+
+        public MainViewModel ViewModel
+        {
+            get { return viewModel; }
+            set
+            {
+                if (viewModel != null)
+                {
+                    theDataView.ViewModel = null;
+                    customButtonExit.ViewModel = null;
+                    buttonSave.ViewModel = null;
+                    buttonChange.ViewModel = null;
+                }
+
+                viewModel = value;
+
+                if (viewModel != null)
+                {
+                    theDataView.ViewModel = viewModel.TheDataModel;
+                    customButtonExit.ViewModel = viewModel.ExitButtonModel;
+                    buttonSave.ViewModel = viewModel.SaveButtonModel;
+                    buttonChange.ViewModel = viewModel.ChangeButtonModel;
+                }
+            }
+        }
 
         public MainForm(MyApplication myApplication)
         {
@@ -18,12 +44,13 @@ namespace ApplicationExit.Presentation.UI
 
             InitializeComponent();
 
-            MainViewModel viewModel = new MainViewModel(myApplication);
-
-            theDataView.ViewModel = viewModel.TheDataModel;
-            customButtonExit.ViewModel = viewModel.ExitButtonModel;
-            buttonSave.ViewModel = viewModel.SaveButtonModel;
+            //myApplication.BeforeExiting += HandleMyApplicationBeforeExiting;
         }
+
+        //private void HandleMyApplicationBeforeExiting(object sender, EventArgs eventArgs)
+        //{
+        //    allowToExit = true;
+        //}
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -38,11 +65,6 @@ namespace ApplicationExit.Presentation.UI
                 allowToExit = false;
                 e.Cancel = true;
             }
-        }
-
-        private void buttonChange_Click(object sender, EventArgs e)
-        {
-            myApplication.TheData.ChangeData();
         }
 
         private void buttonExit_Click(object sender, EventArgs e)

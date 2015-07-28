@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Forms;
 using ApplicationExit.Business;
 using ApplicationExit.Presentation;
 using ApplicationExit.Presentation.UI;
@@ -27,7 +28,12 @@ namespace ApplicationExit
 
             MyApplication myApplication = new MyApplication(userInterface, theData);
 
-            userInterface.MainForm = new MainForm(myApplication);
+            MainForm mainForm = new MainForm(myApplication)
+            {
+                ViewModel = new MainViewModel(myApplication)
+            };
+
+            userInterface.MainForm = mainForm;
             userInterface.Run();
         }
     }

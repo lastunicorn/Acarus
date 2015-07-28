@@ -12,6 +12,8 @@ namespace ApplicationExit.Business
         public UserInterface UserInterface { get; private set; }
 
         public event EventHandler<CancelEventArgs> Exiting;
+        public event EventHandler BeforeExiting;
+        public event EventHandler Exited;
 
         public MyApplication(UserInterface userInterface, TheData theData)
         {
@@ -23,6 +25,8 @@ namespace ApplicationExit.Business
 
         public bool Exit()
         {
+            OnBeforeExiting();
+
             CancelEventArgs args = new CancelEventArgs();
             OnExiting(args);
 
@@ -32,7 +36,14 @@ namespace ApplicationExit.Business
             bool allowToContinue = TheData.AskAndSave();
 
             if (allowToContinue)
+            {
+                string text = TheData.IsModified ? "The date is NOT saved." : "The data is saved.";
+                UserInterface.DisplayInfo(text);
+
                 UserInterface.Exit();
+            }
+
+            OnExited();
 
             return allowToContinue;
         }
@@ -43,6 +54,22 @@ namespace ApplicationExit.Business
 
             if (handler != null)
                 handler(this, e);
+        }
+
+        protected virtual void OnBeforeExiting()
+        {
+            EventHandler handler = BeforeExiting;
+
+            if (handler != null)
+                handler(this, EventArgs.Empty);
+        }
+
+        protected virtual void OnExited()
+        {
+            EventHandler handler = Exited;
+
+            if (handler != null)
+                handler(this, EventArgs.Empty);
         }
     }
 }

@@ -31,7 +31,7 @@ namespace ApplicationExit.Presentation.UI
         private void InitializeComponent()
         {
             this.buttonSave = new ApplicationExit.Presentation.Controls.CustomButton();
-            this.buttonChange = new System.Windows.Forms.Button();
+            this.buttonChange = new CustomButton();
             this.buttonExit = new System.Windows.Forms.Button();
             this.theDataView = new ApplicationExit.Presentation.UI.TheDataView();
             this.customButtonExit = new ApplicationExit.Presentation.Controls.CustomButton();
@@ -59,7 +59,6 @@ namespace ApplicationExit.Presentation.UI
             this.buttonChange.TabIndex = 2;
             this.buttonChange.Text = "Change";
             this.buttonChange.UseVisualStyleBackColor = true;
-            this.buttonChange.Click += new System.EventHandler(this.buttonChange_Click);
             // 
             // buttonExit
             // 
@@ -133,7 +132,7 @@ namespace ApplicationExit.Presentation.UI
         #endregion
 
         private CustomButton buttonSave;
-        private System.Windows.Forms.Button buttonChange;
+        private CustomButton buttonChange;
         private System.Windows.Forms.Button buttonExit;
         private CustomButton customButtonExit;
         private TheDataView theDataView;

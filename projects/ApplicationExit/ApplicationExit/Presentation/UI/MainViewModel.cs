@@ -9,6 +9,7 @@ namespace ApplicationExit.Presentation.UI
         public TheDataViewModel TheDataModel { get; set; }
         public ExitButtonModel ExitButtonModel { get; set; }
         public SaveButtonModel SaveButtonModel { get; set; }
+        public ButtonViewModelBase ChangeButtonModel { get; set; }
 
         public MainViewModel(MyApplication myApplication)
         {
@@ -17,6 +18,7 @@ namespace ApplicationExit.Presentation.UI
             TheDataModel = new TheDataViewModel(myApplication.TheData);
             ExitButtonModel = new ExitButtonModel(myApplication);
             SaveButtonModel = new SaveButtonModel(myApplication.TheData);
+            ChangeButtonModel = new ChangeButtonModel(myApplication.TheData);
         }
     }
 }
