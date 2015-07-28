@@ -1,0 +1,13 @@
+ApplicationExit
+---------------
+
+i tried to implement a mechanism to guard the data loaded by the application and save it if the application is closing.
+
+- the user has to be able to close the application from the 'x' button of the main window.
+- the user has to be able to close the application from another part of the application, that has no access to the main form:
+	- File->Exit menu item;
+	- a button from another form;
+	- an Exit menu item of the NotifyIcon.
+
+- when closing, if the user changed the current loaded data, a pop-up should ask him to save it before exiting.
+- the user has to be able to cancel the process of exiting the application.
