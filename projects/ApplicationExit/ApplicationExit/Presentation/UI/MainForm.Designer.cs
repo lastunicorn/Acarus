@@ -33,7 +33,7 @@ namespace ApplicationExit.Presentation.UI
             this.buttonSave = new ApplicationExit.Presentation.Controls.CustomButton();
             this.buttonChange = new ApplicationExit.Presentation.Controls.CustomButton();
             this.theDataView = new ApplicationExit.Presentation.UI.TheDataView();
-            this.customButtonExit = new ApplicationExit.Presentation.Controls.CustomButton();
+            this.buttonExit = new ApplicationExit.Presentation.Controls.CustomButton();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -71,17 +71,17 @@ namespace ApplicationExit.Presentation.UI
             this.theDataView.TabIndex = 5;
             this.theDataView.ViewModel = null;
             // 
-            // customButtonExit
+            // buttonExit
             // 
-            this.customButtonExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.SetColumnSpan(this.customButtonExit, 2);
-            this.customButtonExit.Location = new System.Drawing.Point(3, 135);
-            this.customButtonExit.Name = "customButtonExit";
-            this.customButtonExit.Size = new System.Drawing.Size(300, 23);
-            this.customButtonExit.TabIndex = 4;
-            this.customButtonExit.Text = "Exit";
-            this.customButtonExit.UseVisualStyleBackColor = true;
-            this.customButtonExit.ViewModel = null;
+            this.buttonExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.SetColumnSpan(this.buttonExit, 2);
+            this.buttonExit.Location = new System.Drawing.Point(3, 135);
+            this.buttonExit.Name = "buttonExit";
+            this.buttonExit.Size = new System.Drawing.Size(300, 23);
+            this.buttonExit.TabIndex = 4;
+            this.buttonExit.Text = "Exit";
+            this.buttonExit.UseVisualStyleBackColor = true;
+            this.buttonExit.ViewModel = null;
             // 
             // tableLayoutPanel1
             // 
@@ -91,7 +91,7 @@ namespace ApplicationExit.Presentation.UI
             this.tableLayoutPanel1.Controls.Add(this.theDataView, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.buttonSave, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.buttonChange, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.customButtonExit, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.buttonExit, 0, 3);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -122,7 +122,7 @@ namespace ApplicationExit.Presentation.UI
 
         private CustomButton buttonSave;
         private CustomButton buttonChange;
-        private CustomButton customButtonExit;
+        private CustomButton buttonExit;
         private TheDataView theDataView;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
