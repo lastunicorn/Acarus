@@ -25,7 +25,6 @@ namespace WpfApplicationExit.Business
         public void Run()
         {
             MainWindow.Show();
-            //Application.Current.Run(MainWindow);
         }
 
         public void Exit()

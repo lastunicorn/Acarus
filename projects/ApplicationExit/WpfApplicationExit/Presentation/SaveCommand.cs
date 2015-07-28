@@ -12,6 +12,7 @@ namespace WpfApplicationExit.Presentation
         public SaveCommand(TheData theData)
         {
             if (theData == null) throw new ArgumentNullException("theData");
+
             this.theData = theData;
             this.theData.Changed += HandleTheDataChanged;
         }

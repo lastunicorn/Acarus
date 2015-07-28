@@ -4,16 +4,16 @@ using WpfApplicationExit.Business;
 
 namespace WpfApplicationExit.Presentation
 {
-    public class ChangeCommand : ICommand
+    public class ExitCommand : ICommand
     {
-        private readonly TheData theData;
+        private readonly MyApplication myApplication;
         public event EventHandler CanExecuteChanged;
 
-        public ChangeCommand(TheData theData)
+        public ExitCommand(MyApplication myApplication)
         {
-            if (theData == null) throw new ArgumentNullException("theData");
+            if (myApplication == null) throw new ArgumentNullException("myApplication");
 
-            this.theData = theData;
+            this.myApplication = myApplication;
         }
 
         public bool CanExecute(object parameter)
@@ -23,7 +23,7 @@ namespace WpfApplicationExit.Presentation
 
         public void Execute(object parameter)
         {
-            theData.ChangeData();
+            myApplication.Exit();
         }
 
         protected virtual void OnCanExecuteChanged()

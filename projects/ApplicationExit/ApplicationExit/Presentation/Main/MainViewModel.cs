@@ -44,7 +44,7 @@ namespace ApplicationExit.Presentation.Main
             ChangeButtonModel = new ChangeButtonModel(theData);
 
             myApplication.BeforeExiting += HandleMyApplicationBeforeExiting;
-            myApplication.AfterExiting += HandleMyApplicationAfterExiting;
+            myApplication.ExitCanceled += HandleMyApplicationExitCanceled;
         }
 
         private void HandleMyApplicationBeforeExiting(object sender, EventArgs eventArgs)
@@ -52,7 +52,7 @@ namespace ApplicationExit.Presentation.Main
             allowToExit = true;
         }
 
-        private void HandleMyApplicationAfterExiting(object sender, EventArgs eventArgs)
+        private void HandleMyApplicationExitCanceled(object sender, EventArgs eventArgs)
         {
             allowToExit = false;
         }

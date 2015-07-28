@@ -2,8 +2,8 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:presentation="clr-namespace:WpfApplicationExit.Presentation"
-        Title="MainWindow" Height="250" Width="322"
-        WindowStartupLocation="CenterScreen">
+        Title="Main Window" Height="250" Width="322"
+        WindowStartupLocation="CenterScreen" Closing="Window_Closing">
    
     <Grid Margin="8">
         
@@ -41,6 +41,7 @@
         <Button Grid.Row="3"
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
+                Command="{Binding ExitCommand}"
                 Content="Exit"/>
         
     </Grid>

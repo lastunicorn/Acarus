@@ -28,7 +28,7 @@ namespace WpfApplicationExit.Business
 
         public event EventHandler<CancelEventArgs> Exiting;
         public event EventHandler BeforeExiting;
-        public event EventHandler AfterExiting;
+        public event EventHandler ExitCanceled;
 
         public MyApplication(UserInterface userInterface)
         {
@@ -46,8 +46,8 @@ namespace WpfApplicationExit.Business
 
             if (!args.Cancel)
                 userInterface.Exit();
-
-            OnAfterExiting();
+            else
+                OnExitCanceled();
 
             return !args.Cancel;
         }
@@ -68,9 +68,9 @@ namespace WpfApplicationExit.Business
                 handler(this, EventArgs.Empty);
         }
 
-        protected virtual void OnAfterExiting()
+        protected virtual void OnExitCanceled()
         {
-            EventHandler handler = AfterExiting;
+            EventHandler handler = ExitCanceled;
 
             if (handler != null)
                 handler(this, EventArgs.Empty);
