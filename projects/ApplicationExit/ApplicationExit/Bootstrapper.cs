@@ -14,7 +14,7 @@ namespace ApplicationExit
 
             MainForm mainForm = new MainForm
             {
-                ViewModel = new MainViewModel(myApplication)
+                ViewModel = new MainViewModel(myApplication, theData)
             };
 
             userInterface.MainForm = mainForm;

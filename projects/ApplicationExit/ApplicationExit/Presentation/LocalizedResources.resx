@@ -130,4 +130,7 @@ Do you wanna save it before proceedeing?</value>
   <data name="SaveButtonDescription" xml:space="preserve">
     <value>Saves the data.</value>
   </data>
+  <data name="ChangeButton_Description" xml:space="preserve">
+    <value>Modifies the data.</value>
+  </data>
 </root>

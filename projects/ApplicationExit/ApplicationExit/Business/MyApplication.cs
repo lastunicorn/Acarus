@@ -8,8 +8,8 @@ namespace ApplicationExit.Business
     /// </summary>
     class MyApplication
     {
-        public TheData TheData { get; private set; }
-        public UserInterface UserInterface { get; private set; }
+        private readonly UserInterface userInterface;
+        private readonly TheData theData;
 
         public event EventHandler<CancelEventArgs> Exiting;
         public event EventHandler BeforeExiting;
@@ -18,9 +18,10 @@ namespace ApplicationExit.Business
         public MyApplication(UserInterface userInterface, TheData theData)
         {
             if (userInterface == null) throw new ArgumentNullException("userInterface");
+            if (theData == null) throw new ArgumentNullException("theData");
 
-            UserInterface = userInterface;
-            TheData = theData;
+            this.userInterface = userInterface;
+            this.theData = theData;
         }
 
         public bool Exit()
@@ -33,14 +34,14 @@ namespace ApplicationExit.Business
             if (args.Cancel)
                 return false;
 
-            bool allowToContinue = TheData.AskAndSave();
+            bool allowToContinue = theData.AskAndSave();
 
             if (allowToContinue)
             {
-                string text = TheData.IsModified ? "The date is NOT saved." : "The data is saved.";
-                UserInterface.DisplayInfo(text);
+                string text = theData.IsModified ? "The date is NOT saved." : "The data is saved.";
+                userInterface.DisplayInfo(text);
 
-                UserInterface.Exit();
+                userInterface.Exit();
             }
 
             OnAfterExiting();

@@ -61,6 +61,15 @@ namespace ApplicationExit.Presentation {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Modifies the data..
+        /// </summary>
+        internal static string ChangeButton_Description {
+            get {
+                return ResourceManager.GetString("ChangeButton_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Current data is not saved.
         ///Do you wanna save it before proceedeing?.
         /// </summary>

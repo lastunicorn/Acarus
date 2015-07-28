@@ -15,15 +15,17 @@ namespace ApplicationExit.Presentation.UI
         public SaveButtonModel SaveButtonModel { get; private set; }
         public ChangeButtonModel ChangeButtonModel { get; private set; }
 
-        public MainViewModel(MyApplication myApplication)
+        public MainViewModel(MyApplication myApplication, TheData theData)
         {
-            this.myApplication = myApplication;
             if (myApplication == null) throw new ArgumentNullException("myApplication");
+            if (theData == null) throw new ArgumentNullException("theData");
 
-            TheDataModel = new TheDataViewModel(myApplication.TheData);
+            this.myApplication = myApplication;
+
+            TheDataModel = new TheDataViewModel(theData);
             ExitButtonModel = new ExitButtonModel(myApplication);
-            SaveButtonModel = new SaveButtonModel(myApplication.TheData);
-            ChangeButtonModel = new ChangeButtonModel(myApplication.TheData);
+            SaveButtonModel = new SaveButtonModel(theData);
+            ChangeButtonModel = new ChangeButtonModel(theData);
 
             myApplication.BeforeExiting += HandleMyApplicationBeforeExiting;
             myApplication.AfterExiting += HandleMyApplicationAfterExiting;
@@ -41,10 +43,7 @@ namespace ApplicationExit.Presentation.UI
 
         public bool FormIsClosing()
         {
-            if (allowToExit)
-                return true;
-
-            return myApplication.Exit();
+            return allowToExit || myApplication.Exit();
         }
     }
 }

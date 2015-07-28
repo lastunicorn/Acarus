@@ -45,7 +45,7 @@ namespace ApplicationExit.Presentation.UI
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(147, 23);
             this.buttonSave.TabIndex = 1;
-            this.buttonSave.Text = "Save";
+            this.buttonSave.Text = "Save Data";
             this.buttonSave.UseVisualStyleBackColor = true;
             this.buttonSave.ViewModel = null;
             // 
@@ -56,7 +56,7 @@ namespace ApplicationExit.Presentation.UI
             this.buttonChange.Name = "buttonChange";
             this.buttonChange.Size = new System.Drawing.Size(147, 23);
             this.buttonChange.TabIndex = 2;
-            this.buttonChange.Text = "Change";
+            this.buttonChange.Text = "Change Data";
             this.buttonChange.UseVisualStyleBackColor = true;
             this.buttonChange.ViewModel = null;
             // 

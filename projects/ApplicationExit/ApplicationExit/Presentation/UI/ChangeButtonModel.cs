@@ -16,7 +16,7 @@ namespace ApplicationExit.Presentation.UI
 
         public override string Description
         {
-            get { return "Modifies the data."; }
+            get { return LocalizedResources.ChangeButton_Description; }
         }
 
         protected override void Execute()
