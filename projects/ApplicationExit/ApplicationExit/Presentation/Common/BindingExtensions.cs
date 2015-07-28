@@ -18,7 +18,7 @@ using System;
 using System.Linq.Expressions;
 using System.Windows.Forms;
 
-namespace ApplicationExit.Presentation.Controls
+namespace ApplicationExit.Presentation.Common
 {
     internal static class BindingExtensions
     {

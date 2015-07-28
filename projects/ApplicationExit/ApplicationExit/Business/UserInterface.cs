@@ -15,7 +15,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System.Windows.Forms;
-using ApplicationExit.Presentation.UI;
+using ApplicationExit.Presentation.Main;
 
 namespace ApplicationExit.Business
 {

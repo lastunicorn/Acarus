@@ -14,21 +14,30 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
+using System;
+using ApplicationExit.Business;
+using ApplicationExit.Presentation.Common;
 
-namespace ApplicationExit.Presentation.Controls
+namespace ApplicationExit.Presentation.Main
 {
-    internal abstract class ViewModelBase : INotifyPropertyChanged
+    internal class ChangeButtonModel : ButtonViewModelBase
     {
-        public virtual event PropertyChangedEventHandler PropertyChanged;
+        private readonly TheData theData;
 
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        public ChangeButtonModel(TheData theData)
         {
-            PropertyChangedEventHandler handler = PropertyChanged;
+            if (theData == null) throw new ArgumentNullException("theData");
+            this.theData = theData;
+        }
 
-            if (handler != null)
-                handler(this, new PropertyChangedEventArgs(propertyName));
+        public override string Description
+        {
+            get { return LocalizedResources.ChangeButton_Description; }
+        }
+
+        protected override void Execute()
+        {
+            theData.ChangeData();
         }
     }
 }

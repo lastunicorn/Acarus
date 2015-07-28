@@ -16,9 +16,9 @@
 
 using System;
 using ApplicationExit.Business;
-using ApplicationExit.Presentation.Controls;
+using ApplicationExit.Presentation.Common;
 
-namespace ApplicationExit.Presentation.UI
+namespace ApplicationExit.Presentation.Main
 {
     internal class SaveButtonModel : ButtonViewModelBase
     {

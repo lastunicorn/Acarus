@@ -1,6 +1,6 @@
-﻿using ApplicationExit.Presentation.Controls;
+﻿using ApplicationExit.Presentation.Common;
 
-namespace ApplicationExit.Presentation.UI
+namespace ApplicationExit.Presentation.Main
 {
     partial class MainForm
     {
@@ -30,10 +30,10 @@ namespace ApplicationExit.Presentation.UI
         /// </summary>
         private void InitializeComponent()
         {
-            this.buttonSave = new ApplicationExit.Presentation.Controls.CustomButton();
-            this.buttonChange = new ApplicationExit.Presentation.Controls.CustomButton();
-            this.theDataView = new ApplicationExit.Presentation.UI.TheDataView();
-            this.buttonExit = new ApplicationExit.Presentation.Controls.CustomButton();
+            this.buttonSave = new CustomButton();
+            this.buttonChange = new CustomButton();
+            this.theDataView = new TheDataView();
+            this.buttonExit = new CustomButton();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();

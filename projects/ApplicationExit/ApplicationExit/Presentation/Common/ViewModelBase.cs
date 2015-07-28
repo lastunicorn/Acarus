@@ -1,4 +1,4 @@
-﻿// Acarus
+// Acarus
 // Copyright (C) 2015 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -14,31 +14,21 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-using ApplicationExit.Business;
-using ApplicationExit.Presentation.Controls;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
-namespace ApplicationExit.Presentation.UI
+namespace ApplicationExit.Presentation.Common
 {
-    internal class ExitButtonModel : ButtonViewModelBase
+    internal abstract class ViewModelBase : INotifyPropertyChanged
     {
-        private readonly MyApplication myApplication;
+        public virtual event PropertyChangedEventHandler PropertyChanged;
 
-        public override string Description
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            get { return LocalizedResources.ExitButton_Description; }
-        }
+            PropertyChangedEventHandler handler = PropertyChanged;
 
-        public ExitButtonModel(MyApplication myApplication)
-        {
-            if (myApplication == null) throw new ArgumentNullException("myApplication");
-
-            this.myApplication = myApplication;
-        }
-
-        protected override void Execute()
-        {
-            myApplication.Exit();
+            if (handler != null)
+                handler(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

@@ -17,7 +17,7 @@
 using System;
 using System.Windows.Forms;
 
-namespace ApplicationExit.Presentation.Controls
+namespace ApplicationExit.Presentation.Common
 {
     partial class CustomButton : Button
     {

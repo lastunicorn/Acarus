@@ -1,4 +1,4 @@
-// Acarus
+﻿// Acarus
 // Copyright (C) 2015 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -16,28 +16,29 @@
 
 using System;
 using ApplicationExit.Business;
-using ApplicationExit.Presentation.Controls;
+using ApplicationExit.Presentation.Common;
 
-namespace ApplicationExit.Presentation.UI
+namespace ApplicationExit.Presentation.Main
 {
-    internal class ChangeButtonModel : ButtonViewModelBase
+    internal class ExitButtonModel : ButtonViewModelBase
     {
-        private readonly TheData theData;
-
-        public ChangeButtonModel(TheData theData)
-        {
-            if (theData == null) throw new ArgumentNullException("theData");
-            this.theData = theData;
-        }
+        private readonly MyApplication myApplication;
 
         public override string Description
         {
-            get { return LocalizedResources.ChangeButton_Description; }
+            get { return LocalizedResources.ExitButton_Description; }
+        }
+
+        public ExitButtonModel(MyApplication myApplication)
+        {
+            if (myApplication == null) throw new ArgumentNullException("myApplication");
+
+            this.myApplication = myApplication;
         }
 
         protected override void Execute()
         {
-            theData.ChangeData();
+            myApplication.Exit();
         }
     }
 }

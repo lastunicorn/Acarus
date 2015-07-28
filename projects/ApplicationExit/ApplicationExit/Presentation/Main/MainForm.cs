@@ -16,7 +16,7 @@
 
 using System.Windows.Forms;
 
-namespace ApplicationExit.Presentation.UI
+namespace ApplicationExit.Presentation.Main
 {
     partial class MainForm : Form
     {

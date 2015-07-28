@@ -16,9 +16,9 @@
 
 using System.Drawing;
 using System.Windows.Forms;
-using ApplicationExit.Presentation.Controls;
+using ApplicationExit.Presentation.Common;
 
-namespace ApplicationExit.Presentation.UI
+namespace ApplicationExit.Presentation.Main
 {
     partial class TheDataView : UserControl
     {

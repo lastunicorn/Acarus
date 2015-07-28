@@ -1,4 +1,4 @@
-﻿namespace ApplicationExit.Presentation.Controls
+﻿namespace ApplicationExit.Presentation.Common
 {
     partial class CustomButton
     {

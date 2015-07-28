@@ -35,38 +35,30 @@
       <FileName>Business\UserInterface.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ApplicationExit.Presentation.UI.MainViewModel">
+  <Class Name="ApplicationExit.Presentation.Main.MainViewModel">
     <Position X="6.25" Y="6" Width="2.5" />
-    <InheritanceLine Type="ApplicationExit.Presentation.Controls.ViewModelBase" FixedFromPoint="true">
-      <Path>
-        <Point X="2.75" Y="6.938" />
-        <Point X="4.605" Y="6.938" Type="JumpStart" />
-        <Point X="4.771" Y="6.938" Type="JumpEnd" />
-        <Point X="6.25" Y="6.938" />
-      </Path>
-    </InheritanceLine>
-    <AssociationLine Name="TheDataModel" Type="ApplicationExit.Presentation.UI.TheDataViewModel" FixedFromPoint="true" FixedToPoint="true">
+    <AssociationLine Name="TheDataModel" Type="ApplicationExit.Presentation.Main.TheDataViewModel" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="8.5" Y="8.261" />
         <Point X="8.5" Y="15.312" />
         <Point X="6.25" Y="15.312" />
       </Path>
     </AssociationLine>
-    <AssociationLine Name="ExitButtonModel" Type="ApplicationExit.Presentation.UI.ExitButtonModel" FixedFromPoint="true" FixedToPoint="true">
+    <AssociationLine Name="ExitButtonModel" Type="ApplicationExit.Presentation.Main.ExitButtonModel" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="6.25" Y="7.5" />
         <Point X="5" Y="7.5" />
         <Point X="5" Y="7.75" />
       </Path>
     </AssociationLine>
-    <AssociationLine Name="SaveButtonModel" Type="ApplicationExit.Presentation.UI.SaveButtonModel" FixedFromPoint="true" FixedToPoint="true">
+    <AssociationLine Name="SaveButtonModel" Type="ApplicationExit.Presentation.Main.SaveButtonModel" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="6.625" Y="8.261" />
         <Point X="6.625" Y="10.673" />
         <Point X="6.25" Y="10.673" />
       </Path>
     </AssociationLine>
-    <AssociationLine Name="ChangeButtonModel" Type="ApplicationExit.Presentation.UI.ChangeButtonModel" FixedFromPoint="true" FixedToPoint="true">
+    <AssociationLine Name="ChangeButtonModel" Type="ApplicationExit.Presentation.Main.ChangeButtonModel" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="7.562" Y="8.261" />
         <Point X="7.562" Y="12.687" />
@@ -75,7 +67,7 @@
     </AssociationLine>
     <TypeIdentifier>
       <HashCode>AAgAAAAAAAAAAAAAAAIIAhAAAAAggIAAAAAAAAAAAAE=</HashCode>
-      <FileName>Presentation\UI\MainViewModel.cs</FileName>
+      <FileName>Presentation\Main\MainViewModel.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Field Name="myApplication" />
@@ -85,20 +77,14 @@
       <Property Name="ChangeButtonModel" />
     </ShowAsAssociation>
   </Class>
-  <Class Name="ApplicationExit.Presentation.Controls.ButtonViewModelBase">
+  <Class Name="ApplicationExit.Presentation.Common.ButtonViewModelBase">
     <Position X="1.75" Y="8.5" Width="2" />
-    <InheritanceLine Type="ApplicationExit.Presentation.Controls.ViewModelBase" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="2.188" Y="7.555" />
-        <Point X="2.188" Y="8.5" />
-      </Path>
-    </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAgAIQAAgCAAABAAAAAACAAAAAAAAAAAAA=</HashCode>
-      <FileName>Presentation\Controls\ButtonViewModelBase.cs</FileName>
+      <FileName>Presentation\Common\ButtonViewModelBase.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ApplicationExit.Presentation.UI.ExitButtonModel">
+  <Class Name="ApplicationExit.Presentation.Main.ExitButtonModel">
     <Position X="4.25" Y="7.75" Width="1.5" />
     <AssociationLine Name="myApplication" Type="ApplicationExit.Business.MyApplication" FixedFromPoint="true" FixedToPoint="true">
       <Path>
@@ -109,31 +95,24 @@
     </AssociationLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAgAAQAAAIAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Presentation\UI\ExitButtonModel.cs</FileName>
+      <FileName>Presentation\Main\ExitButtonModel.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Field Name="myApplication" />
     </ShowAsAssociation>
   </Class>
-  <Class Name="ApplicationExit.Presentation.UI.SaveButtonModel">
+  <Class Name="ApplicationExit.Presentation.Main.SaveButtonModel">
     <Position X="4.25" Y="10" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAgAAQAAAAAABAAAAAAAAAAAAAAAAAAAQA=</HashCode>
-      <FileName>Presentation\UI\SaveButtonModel.cs</FileName>
+      <FileName>Presentation\Main\SaveButtonModel.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Field Name="theData" />
     </ShowAsAssociation>
   </Class>
-  <Class Name="ApplicationExit.Presentation.UI.TheDataViewModel">
+  <Class Name="ApplicationExit.Presentation.Main.TheDataViewModel">
     <Position X="4.25" Y="15" Width="2" />
-    <InheritanceLine Type="ApplicationExit.Presentation.Controls.ViewModelBase" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="1.375" Y="7.555" />
-        <Point X="1.375" Y="16" />
-        <Point X="4.25" Y="16" />
-      </Path>
-    </InheritanceLine>
     <AssociationLine Name="theData" Type="ApplicationExit.Business.TheData" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="6.25" Y="16.351" />
@@ -143,29 +122,22 @@
     </AssociationLine>
     <TypeIdentifier>
       <HashCode>AAAAIAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAASA=</HashCode>
-      <FileName>Presentation\UI\TheDataViewModel.cs</FileName>
+      <FileName>Presentation\Main\TheDataViewModel.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Field Name="theData" />
     </ShowAsAssociation>
   </Class>
-  <Class Name="ApplicationExit.Presentation.Controls.ViewModelBase">
+  <Class Name="ApplicationExit.Presentation.Common.ViewModelBase">
     <Position X="1" Y="6" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Presentation\Controls\ViewModelBase.cs</FileName>
+      <FileName>Presentation\Common\ViewModelBase.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="ApplicationExit.Presentation.UI.ChangeButtonModel">
+  <Class Name="ApplicationExit.Presentation.Main.ChangeButtonModel">
     <Position X="4.25" Y="12.5" Width="1.75" />
-    <InheritanceLine Type="ApplicationExit.Presentation.Controls.ButtonViewModelBase" FixedToPoint="true">
-      <Path>
-        <Point X="2.75" Y="11.598" />
-        <Point X="2.75" Y="13.375" />
-        <Point X="4.25" Y="13.375" />
-      </Path>
-    </InheritanceLine>
     <AssociationLine Name="theData" Type="ApplicationExit.Business.TheData" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="6" Y="13.563" />
@@ -179,7 +151,7 @@
     </AssociationLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAgAAQAAAAAAAAAAAAAAAAAAAAAAAAAAQA=</HashCode>
-      <FileName>Presentation\UI\ChangeButtonModel.cs</FileName>
+      <FileName>Presentation\Main\ChangeButtonModel.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Field Name="theData" />
