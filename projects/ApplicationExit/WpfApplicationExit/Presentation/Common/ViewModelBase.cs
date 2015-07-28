@@ -14,27 +14,21 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using ApplicationExit.Business;
-using ApplicationExit.Presentation.Main;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
-namespace ApplicationExit
+namespace WpfApplicationExit.Presentation.Common
 {
-    internal class Bootstrapper
+    public abstract class ViewModelBase : INotifyPropertyChanged
     {
-        public void Initialize()
+        public virtual event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            UserInterface userInterface = new UserInterface();
-            
-            MyApplication myApplication = new MyApplication(userInterface);
-            TheData theData = new TheData(userInterface, myApplication);
+            PropertyChangedEventHandler handler = PropertyChanged;
 
-            MainForm mainForm = new MainForm
-            {
-                ViewModel = new MainViewModel(myApplication, theData)
-            };
-
-            userInterface.MainForm = mainForm;
-            userInterface.Run();
+            if (handler != null)
+                handler(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

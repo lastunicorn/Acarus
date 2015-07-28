@@ -14,10 +14,10 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using ApplicationExit.Business;
-using ApplicationExit.Presentation.Main;
+using WpfApplicationExit.Business;
+using WpfApplicationExit.Presentation;
 
-namespace ApplicationExit
+namespace WpfApplicationExit
 {
     internal class Bootstrapper
     {
@@ -28,12 +28,12 @@ namespace ApplicationExit
             MyApplication myApplication = new MyApplication(userInterface);
             TheData theData = new TheData(userInterface, myApplication);
 
-            MainForm mainForm = new MainForm
+            MainWindow mainForm = new MainWindow
             {
                 ViewModel = new MainViewModel(myApplication, theData)
             };
 
-            userInterface.MainForm = mainForm;
+            userInterface.MainWindow = mainForm;
             userInterface.Run();
         }
     }

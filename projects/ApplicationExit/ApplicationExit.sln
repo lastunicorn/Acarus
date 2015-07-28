@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApplicationExit", "ApplicationExit\ApplicationExit.csproj", "{5A17DF72-9E5F-42C9-8512-5E61BCFB68EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfApplicationExit", "WpfApplicationExit\WpfApplicationExit.csproj", "{BFF39A88-B31C-4548-8767-FEE0C414DDCF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{5A17DF72-9E5F-42C9-8512-5E61BCFB68EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5A17DF72-9E5F-42C9-8512-5E61BCFB68EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5A17DF72-9E5F-42C9-8512-5E61BCFB68EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFF39A88-B31C-4548-8767-FEE0C414DDCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFF39A88-B31C-4548-8767-FEE0C414DDCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFF39A88-B31C-4548-8767-FEE0C414DDCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFF39A88-B31C-4548-8767-FEE0C414DDCF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
