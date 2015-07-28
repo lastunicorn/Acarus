@@ -23,8 +23,6 @@ namespace ApplicationExit.Presentation.UI
             theDataView.ViewModel = viewModel.TheDataModel;
             customButtonExit.ViewModel = viewModel.ExitButtonModel;
             buttonSave.ViewModel = viewModel.SaveButtonModel;
-
-            //buttonSave.CreateBinding(x => x.Enabled, viewModel, x=>x.AllowToSave, false, DataSourceUpdateMode.Never);
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)

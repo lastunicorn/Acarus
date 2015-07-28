@@ -10,7 +10,7 @@ namespace ApplicationExit.Presentation.UI
 
         public override string Description
         {
-            get { return "Exits the application"; }
+            get { return LocalizedResources.ExitButton_Description; }
         }
 
         public ExitButtonModel(MyApplication myApplication)

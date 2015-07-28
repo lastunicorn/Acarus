@@ -118,10 +118,16 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="EnsureAddressBookIsSaved_Question" xml:space="preserve">
-    <value>Current address book is not saved.
+    <value>Current data is not saved.
 Do you wanna save it before proceedeing?</value>
   </data>
   <data name="EnsureAddressBookIsSaved_Title" xml:space="preserve">
     <value>Save?</value>
+  </data>
+  <data name="ExitButton_Description" xml:space="preserve">
+    <value>Exits the application</value>
+  </data>
+  <data name="SaveButtonDescription" xml:space="preserve">
+    <value>Saves the data.</value>
   </data>
 </root>

@@ -43,7 +43,7 @@ namespace ApplicationExit.Presentation.UI
 
         private static string GetLabelText(bool b)
         {
-            return b ? "Changed" : "Saved";
+            return b ? "Data is Changed" : "Data is Saved";
         }
 
         public TheDataView()

@@ -10,7 +10,7 @@ namespace ApplicationExit.Presentation.UI
 
         public override string Description
         {
-            get { return "Saves the data."; }
+            get { return LocalizedResources.SaveButtonDescription; }
         }
 
         public SaveButtonModel(TheData theData)
