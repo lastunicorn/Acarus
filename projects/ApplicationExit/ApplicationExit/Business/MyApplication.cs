@@ -13,7 +13,7 @@ namespace ApplicationExit.Business
 
         public event EventHandler<CancelEventArgs> Exiting;
         public event EventHandler BeforeExiting;
-        public event EventHandler Exited;
+        public event EventHandler AfterExiting;
 
         public MyApplication(UserInterface userInterface, TheData theData)
         {
@@ -43,7 +43,7 @@ namespace ApplicationExit.Business
                 UserInterface.Exit();
             }
 
-            OnExited();
+            OnAfterExiting();
 
             return allowToContinue;
         }
@@ -64,9 +64,9 @@ namespace ApplicationExit.Business
                 handler(this, EventArgs.Empty);
         }
 
-        protected virtual void OnExited()
+        protected virtual void OnAfterExiting()
         {
-            EventHandler handler = Exited;
+            EventHandler handler = AfterExiting;
 
             if (handler != null)
                 handler(this, EventArgs.Empty);

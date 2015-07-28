@@ -1,14 +1,9 @@
-﻿using System;
-using System.Windows.Forms;
-using ApplicationExit.Business;
+﻿using System.Windows.Forms;
 
 namespace ApplicationExit.Presentation.UI
 {
     partial class MainForm : Form
     {
-        private readonly MyApplication myApplication;
-
-        private bool allowToExit;
         private MainViewModel viewModel;
 
         public MainViewModel ViewModel
@@ -36,45 +31,14 @@ namespace ApplicationExit.Presentation.UI
             }
         }
 
-        public MainForm(MyApplication myApplication)
+        public MainForm()
         {
-            if (myApplication == null) throw new ArgumentNullException("myApplication");
-
-            this.myApplication = myApplication;
-
             InitializeComponent();
-
-            //myApplication.BeforeExiting += HandleMyApplicationBeforeExiting;
         }
-
-        //private void HandleMyApplicationBeforeExiting(object sender, EventArgs eventArgs)
-        //{
-        //    allowToExit = true;
-        //}
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (allowToExit)
-                return;
-
-            allowToExit = true;
-            bool allowToContinue = myApplication.Exit();
-
-            if (!allowToContinue)
-            {
-                allowToExit = false;
-                e.Cancel = true;
-            }
-        }
-
-        private void buttonExit_Click(object sender, EventArgs e)
-        {
-            allowToExit = true;
-
-            bool allowToContinue = myApplication.Exit();
-
-            if (!allowToContinue)
-                allowToExit = false;
+            e.Cancel = !viewModel.FormIsClosing();
         }
     }
 }

@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bootstrapper.cs" />
     <Compile Include="Presentation\Controls\BindingExtensions.cs" />
     <Compile Include="Presentation\UI\ChangeButtonModel.cs" />
     <Compile Include="Presentation\UI\SaveButtonModel.cs" />
