@@ -103,6 +103,17 @@
   </Class>
   <Class Name="ApplicationExit.Presentation.Main.SaveButtonModel">
     <Position X="4.25" Y="10" Width="2" />
+    <AssociationLine Name="theData" Type="ApplicationExit.Business.TheData" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="6.25" Y="11.402" />
+        <Point X="7.479" Y="11.402" Type="JumpStart" />
+        <Point X="7.645" Y="11.402" Type="JumpEnd" />
+        <Point X="8.417" Y="11.402" Type="JumpStart" />
+        <Point X="8.583" Y="11.402" Type="JumpEnd" />
+        <Point X="9.188" Y="11.402" />
+        <Point X="9.188" Y="3.92" />
+      </Path>
+    </AssociationLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAgAAQAAAAAABAAAAAAAAAAAAAAAAAAAQA=</HashCode>
       <FileName>Presentation\Main\SaveButtonModel.cs</FileName>
@@ -113,11 +124,18 @@
   </Class>
   <Class Name="ApplicationExit.Presentation.Main.TheDataViewModel">
     <Position X="4.25" Y="15" Width="2" />
+    <InheritanceLine Type="ApplicationExit.Presentation.Common.ViewModelBase" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="1.375" Y="7.555" />
+        <Point X="1.375" Y="16.125" />
+        <Point X="4.25" Y="16.125" />
+      </Path>
+    </InheritanceLine>
     <AssociationLine Name="theData" Type="ApplicationExit.Business.TheData" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="6.25" Y="16.351" />
-        <Point X="9.25" Y="16.351" />
-        <Point X="9.25" Y="3.92" />
+        <Point X="11.062" Y="16.351" />
+        <Point X="11.062" Y="3.92" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
@@ -138,15 +156,20 @@
   </Class>
   <Class Name="ApplicationExit.Presentation.Main.ChangeButtonModel">
     <Position X="4.25" Y="12.5" Width="1.75" />
+    <InheritanceLine Type="ApplicationExit.Presentation.Common.ButtonViewModelBase" FixedToPoint="true">
+      <Path>
+        <Point X="2.75" Y="11.598" />
+        <Point X="2.75" Y="13.5" />
+        <Point X="4.25" Y="13.5" />
+      </Path>
+    </InheritanceLine>
     <AssociationLine Name="theData" Type="ApplicationExit.Business.TheData" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="6" Y="13.563" />
         <Point X="8.417" Y="13.563" Type="JumpStart" />
         <Point X="8.583" Y="13.563" Type="JumpEnd" />
-        <Point X="9.167" Y="13.563" Type="JumpStart" />
-        <Point X="9.333" Y="13.563" Type="JumpEnd" />
-        <Point X="11.062" Y="13.563" />
-        <Point X="11.062" Y="3.92" />
+        <Point X="10.125" Y="13.563" />
+        <Point X="10.125" Y="3.92" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
