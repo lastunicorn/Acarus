@@ -13,16 +13,6 @@ namespace ApplicationExit.Business
             Application.SetCompatibleTextRenderingDefault(false);
         }
 
-        public bool? DisplayYesNoQuestion(string question, string title)
-        {
-            DialogResult dialogResult = MessageBox.Show(MainForm, question, title, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
-
-            if (dialogResult == DialogResult.Cancel)
-                return null;
-
-            return dialogResult == DialogResult.Yes;
-        }
-
         public void Run()
         {
             Application.Run(MainForm);
@@ -35,7 +25,17 @@ namespace ApplicationExit.Business
 
         public void DisplayInfo(string text)
         {
-            MessageBox.Show(MainForm, text);
+            MessageBox.Show(MainForm, text, "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        public bool? DisplayYesNoQuestion(string question, string title)
+        {
+            DialogResult dialogResult = MessageBox.Show(MainForm, question, title, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+
+            if (dialogResult == DialogResult.Cancel)
+                return null;
+
+            return dialogResult == DialogResult.Yes;
         }
     }
 }

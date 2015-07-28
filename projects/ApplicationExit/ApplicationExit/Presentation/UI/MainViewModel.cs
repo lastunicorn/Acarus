@@ -10,10 +10,10 @@ namespace ApplicationExit.Presentation.UI
 
         private bool allowToExit;
 
-        public TheDataViewModel TheDataModel { get; set; }
-        public ExitButtonModel ExitButtonModel { get; set; }
-        public SaveButtonModel SaveButtonModel { get; set; }
-        public ButtonViewModelBase ChangeButtonModel { get; set; }
+        public TheDataViewModel TheDataModel { get; private set; }
+        public ExitButtonModel ExitButtonModel { get; private set; }
+        public SaveButtonModel SaveButtonModel { get; private set; }
+        public ChangeButtonModel ChangeButtonModel { get; private set; }
 
         public MainViewModel(MyApplication myApplication)
         {

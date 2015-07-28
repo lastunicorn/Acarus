@@ -5,10 +5,10 @@ namespace ApplicationExit.Business
 {
     /// <summary>
     /// purpose:
-    ///     - to store the data (ex: an address book) and its meta-data (ex: location from where it was loaded);
+    ///     - to store the data (ex: a list of items loaded from file) and its meta-data (ex: the file from where it was loaded the list);
     ///     - to perform different actions on the data (ex: load, save, etc...).
     /// 
-    /// note: the actions may be delegated to some tools, because the logic is complex enough to be extracted in separate classes.
+    /// note: the actions may be delegated to some tools. because the logic is complex enough, it can be extracted in separate classes.
     /// </summary>
     class TheData
     {

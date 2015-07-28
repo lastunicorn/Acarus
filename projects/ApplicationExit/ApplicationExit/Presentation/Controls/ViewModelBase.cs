@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 
 namespace ApplicationExit.Presentation.Controls
 {
-    internal class ViewModelBase : INotifyPropertyChanged
+    internal abstract class ViewModelBase : INotifyPropertyChanged
     {
         public virtual event PropertyChangedEventHandler PropertyChanged;
 
