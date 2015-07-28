@@ -56,7 +56,7 @@ namespace ApplicationExit.Business
 
         public void Save()
         {
-            // to do: instantiate some tool and use it to save the data.
+            // to do: instantiate some helper and use it to save the data.
 
             IsModified = false;
         }

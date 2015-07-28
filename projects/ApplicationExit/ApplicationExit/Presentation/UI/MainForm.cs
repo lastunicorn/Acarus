@@ -1,39 +1,30 @@
 ﻿using System;
-using System.Drawing;
 using System.Windows.Forms;
 using ApplicationExit.Business;
 
-namespace ApplicationExit.Presentation
+namespace ApplicationExit.Presentation.UI
 {
     partial class MainForm : Form
     {
         private readonly MyApplication myApplication;
 
         private bool allowToExit;
-        private MainViewModel viewModel;
-
-        public MainForm()
-        {
-        }
 
         public MainForm(MyApplication myApplication)
         {
-            InitializeComponent();
-
             if (myApplication == null) throw new ArgumentNullException("myApplication");
 
             this.myApplication = myApplication;
 
-            viewModel = new MainViewModel(myApplication);
+            InitializeComponent();
 
-            Binding bind = new Binding("BackColor", viewModel, "IsDataChanged");
-            bind.Format += (s, e) =>
-            {
-                e.Value = (bool)e.Value ? Color.LightSalmon : Color.LawnGreen;
-            };
-            labelData.DataBindings.Add(bind);
+            MainViewModel viewModel = new MainViewModel(myApplication);
 
-            customButtonExit.Model = new ExitButtonModel(myApplication);
+            theDataView.ViewModel = viewModel.TheDataModel;
+            customButtonExit.ViewModel = viewModel.ExitButtonModel;
+            buttonSave.ViewModel = viewModel.SaveButtonModel;
+
+            //buttonSave.CreateBinding(x => x.Enabled, viewModel, x=>x.AllowToSave, false, DataSourceUpdateMode.Never);
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -49,11 +40,6 @@ namespace ApplicationExit.Presentation
                 allowToExit = false;
                 e.Cancel = true;
             }
-        }
-
-        private void buttonSave_Click(object sender, EventArgs e)
-        {
-            myApplication.TheData.Save();
         }
 
         private void buttonChange_Click(object sender, EventArgs e)

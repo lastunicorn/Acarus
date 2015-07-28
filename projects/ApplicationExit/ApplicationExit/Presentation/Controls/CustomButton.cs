@@ -1,23 +1,23 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace ApplicationExit.Presentation
+namespace ApplicationExit.Presentation.Controls
 {
     partial class CustomButton : Button
     {
-        private IButtonModel model;
+        private ButtonViewModelBase viewModel;
 
-        public IButtonModel Model
+        public ButtonViewModelBase ViewModel
         {
-            get { return model; }
+            get { return viewModel; }
             set
             {
                 DataBindings.Clear();
 
-                model = value;
+                viewModel = value;
 
-                if (model != null)
-                    DataBindings.Add("Enabled", model, "Enabled");
+                if (viewModel != null)
+                    DataBindings.Add("Enabled", viewModel, "Enabled");
             }
         }
 
@@ -28,24 +28,24 @@ namespace ApplicationExit.Presentation
 
         protected override void OnMouseEnter(EventArgs e)
         {
-            if (Model != null)
-                Model.MouseEnter();
+            if (ViewModel != null)
+                ViewModel.MouseEnter();
 
             base.OnMouseEnter(e);
         }
 
         protected override void OnMouseLeave(EventArgs e)
         {
-            if (Model != null)
-                Model.MouseLeave();
+            if (ViewModel != null)
+                ViewModel.MouseLeave();
 
             base.OnMouseLeave(e);
         }
 
         protected override void OnClick(EventArgs e)
         {
-            if (Model != null)
-                Model.Clicked();
+            if (ViewModel != null)
+                ViewModel.Clicked();
 
             base.OnClick(e);
         }

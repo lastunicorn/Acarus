@@ -1,4 +1,6 @@
-﻿namespace ApplicationExit.Presentation
+﻿using ApplicationExit.Presentation.Controls;
+
+namespace ApplicationExit.Presentation.UI
 {
     partial class MainForm
     {
@@ -28,34 +30,26 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.labelData = new System.Windows.Forms.Label();
-            this.buttonSave = new System.Windows.Forms.Button();
+            this.buttonSave = new CustomButton();
             this.buttonChange = new System.Windows.Forms.Button();
             this.buttonExit = new System.Windows.Forms.Button();
-            this.customButtonExit = new ApplicationExit.Presentation.CustomButton();
+            this.theDataView = new TheDataView();
+            this.customButtonExit = new CustomButton();
             this.SuspendLayout();
-            // 
-            // labelData
-            // 
-            this.labelData.BackColor = System.Drawing.Color.LawnGreen;
-            this.labelData.Location = new System.Drawing.Point(46, 20);
-            this.labelData.Name = "labelData";
-            this.labelData.Size = new System.Drawing.Size(100, 100);
-            this.labelData.TabIndex = 0;
             // 
             // buttonSave
             // 
-            this.buttonSave.Location = new System.Drawing.Point(152, 20);
+            this.buttonSave.Location = new System.Drawing.Point(12, 156);
             this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(75, 23);
+            this.buttonSave.Size = new System.Drawing.Size(134, 23);
             this.buttonSave.TabIndex = 1;
             this.buttonSave.Text = "Save";
             this.buttonSave.UseVisualStyleBackColor = true;
-            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
+            this.buttonSave.ViewModel = null;
             // 
             // buttonChange
             // 
-            this.buttonChange.Location = new System.Drawing.Point(152, 49);
+            this.buttonChange.Location = new System.Drawing.Point(152, 20);
             this.buttonChange.Name = "buttonChange";
             this.buttonChange.Size = new System.Drawing.Size(75, 23);
             this.buttonChange.TabIndex = 2;
@@ -65,7 +59,7 @@
             // 
             // buttonExit
             // 
-            this.buttonExit.Location = new System.Drawing.Point(152, 97);
+            this.buttonExit.Location = new System.Drawing.Point(152, 98);
             this.buttonExit.Name = "buttonExit";
             this.buttonExit.Size = new System.Drawing.Size(75, 23);
             this.buttonExit.TabIndex = 3;
@@ -73,26 +67,35 @@
             this.buttonExit.UseVisualStyleBackColor = true;
             this.buttonExit.Click += new System.EventHandler(this.buttonExit_Click);
             // 
+            // theDataView
+            // 
+            this.theDataView.BackColor = System.Drawing.Color.Gainsboro;
+            this.theDataView.Location = new System.Drawing.Point(12, 20);
+            this.theDataView.Name = "theDataView";
+            this.theDataView.Size = new System.Drawing.Size(134, 130);
+            this.theDataView.TabIndex = 5;
+            this.theDataView.ViewModel = null;
+            // 
             // customButtonExit
             // 
             this.customButtonExit.Location = new System.Drawing.Point(152, 127);
-            this.customButtonExit.Model = null;
             this.customButtonExit.Name = "customButtonExit";
             this.customButtonExit.Size = new System.Drawing.Size(75, 23);
             this.customButtonExit.TabIndex = 4;
             this.customButtonExit.Text = "Exit 2";
             this.customButtonExit.UseVisualStyleBackColor = true;
+            this.customButtonExit.ViewModel = null;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(268, 183);
+            this.ClientSize = new System.Drawing.Size(385, 241);
+            this.Controls.Add(this.theDataView);
             this.Controls.Add(this.customButtonExit);
             this.Controls.Add(this.buttonExit);
             this.Controls.Add(this.buttonChange);
             this.Controls.Add(this.buttonSave);
-            this.Controls.Add(this.labelData);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Main Form";
@@ -103,11 +106,11 @@
 
         #endregion
 
-        private System.Windows.Forms.Label labelData;
-        private System.Windows.Forms.Button buttonSave;
+        private CustomButton buttonSave;
         private System.Windows.Forms.Button buttonChange;
         private System.Windows.Forms.Button buttonExit;
         private CustomButton customButtonExit;
+        private TheDataView theDataView;
     }
 }
 
