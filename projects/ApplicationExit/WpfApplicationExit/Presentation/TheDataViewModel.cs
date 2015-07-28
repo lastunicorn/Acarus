@@ -25,8 +25,9 @@ namespace WpfApplicationExit.Presentation
     {
         private readonly TheData theData;
         private bool isChanged;
-        private Brush theColor;
+        private Brush theBackground;
         private string theText;
+        private Brush theForeground;
 
         public bool IsChanged
         {
@@ -36,16 +37,28 @@ namespace WpfApplicationExit.Presentation
                 isChanged = value;
                 OnPropertyChanged();
 
-                TheColor = isChanged ? new SolidColorBrush(Colors.Red) : new SolidColorBrush(Colors.Green);
+                TheBackground = isChanged ? new SolidColorBrush(Colors.IndianRed) : new SolidColorBrush(Colors.LawnGreen);
+                TheForeground = isChanged ? new SolidColorBrush(Colors.Maroon) : new SolidColorBrush(Colors.Green);
+                TheText = isChanged ? "Data is Changed" : "Data is Saved";
             }
         }
 
-        public Brush TheColor
+        public Brush TheBackground
         {
-            get { return theColor; }
+            get { return theBackground; }
             set
             {
-                theColor = value;
+                theBackground = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public Brush TheForeground
+        {
+            get { return theForeground; }
+            set
+            {
+                theForeground = value;
                 OnPropertyChanged();
             }
         }
@@ -66,7 +79,6 @@ namespace WpfApplicationExit.Presentation
             theData.Changed += HandleTheDataChanged;
 
             IsChanged = theData.IsModified;
-            TheText = "alez";
         }
 
         private void HandleTheDataChanged(object sender, EventArgs eventArgs)

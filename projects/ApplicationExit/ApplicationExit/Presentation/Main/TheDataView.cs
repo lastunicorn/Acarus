@@ -57,9 +57,9 @@ namespace ApplicationExit.Presentation.Main
             return value ? Color.Maroon : Color.Green;
         }
 
-        private static string GetLabelText(bool b)
+        private static string GetLabelText(bool value)
         {
-            return b ? "Data is Changed" : "Data is Saved";
+            return value ? "Data is Changed" : "Data is Saved";
         }
 
         public TheDataView()

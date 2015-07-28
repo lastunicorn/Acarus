@@ -4,16 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300"
-             Background="{Binding TheColor, Mode=OneWay}">
+             d:DesignHeight="300" d:DesignWidth="300">
 
     <Label VerticalAlignment="Stretch"
            HorizontalAlignment="Stretch"
-           Margin="8"
-           Height="100"
            HorizontalContentAlignment="Center"
            VerticalContentAlignment="Center"
            FontSize="20"
+           Background="{Binding TheBackground, Mode=OneWay}"
+           Foreground="{Binding TheForeground, Mode=OneWay}"
            Content="{Binding TheText, Mode=OneWay}"/>
 
 </UserControl>
