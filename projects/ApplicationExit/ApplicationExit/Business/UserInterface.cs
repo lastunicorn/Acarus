@@ -14,6 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System;
+using System.Threading;
 using System.Windows.Forms;
 using ApplicationExit.Presentation.Main;
 
@@ -21,12 +23,19 @@ namespace ApplicationExit.Business
 {
     internal class UserInterface
     {
+        private readonly SynchronizationContext synchronizationContext;
+
         public MainForm MainForm { get; set; }
 
         public UserInterface()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            Form form = new Form();
+            form.Dispose();
+
+            synchronizationContext = SynchronizationContext.Current;
         }
 
         public void Run()
@@ -41,17 +50,35 @@ namespace ApplicationExit.Business
 
         public void DisplayInfo(string text)
         {
-            MessageBox.Show(MainForm, text, "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            ExecuteOnMainThread(() =>
+            {
+                MessageBox.Show(MainForm, text, "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            });
         }
 
         public bool? DisplayYesNoQuestion(string question, string title)
         {
-            DialogResult dialogResult = MessageBox.Show(MainForm, question, title, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+            bool? result = null;
 
-            if (dialogResult == DialogResult.Cancel)
-                return null;
+            ExecuteOnMainThread(() =>
+            {
+                DialogResult dialogResult = MessageBox.Show(MainForm, question, title, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
 
-            return dialogResult == DialogResult.Yes;
+                if (dialogResult == DialogResult.Cancel)
+                    result = null;
+
+                result = dialogResult == DialogResult.Yes;
+            });
+
+            return result;
+        }
+
+        private void ExecuteOnMainThread(Action action)
+        {
+            synchronizationContext.Send(a =>
+            {
+                action();
+            }, null);
         }
     }
 }

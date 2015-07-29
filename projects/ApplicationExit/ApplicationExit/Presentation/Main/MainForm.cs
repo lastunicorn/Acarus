@@ -56,5 +56,10 @@ namespace ApplicationExit.Presentation.Main
         {
             e.Cancel = !viewModel.FormIsClosing();
         }
+
+        private void buttonExit_Click(object sender, System.EventArgs e)
+        {
+
+        }
     }
 }

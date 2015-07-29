@@ -30,10 +30,10 @@ namespace ApplicationExit.Presentation.Main
         /// </summary>
         private void InitializeComponent()
         {
-            this.buttonSave = new CustomButton();
-            this.buttonChange = new CustomButton();
-            this.theDataView = new TheDataView();
-            this.buttonExit = new CustomButton();
+            this.buttonSave = new ApplicationExit.Presentation.Common.CustomButton();
+            this.buttonChange = new ApplicationExit.Presentation.Common.CustomButton();
+            this.theDataView = new ApplicationExit.Presentation.Main.TheDataView();
+            this.buttonExit = new ApplicationExit.Presentation.Common.CustomButton();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();

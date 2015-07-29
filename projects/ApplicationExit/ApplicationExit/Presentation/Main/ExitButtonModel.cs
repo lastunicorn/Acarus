@@ -15,6 +15,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.Threading.Tasks;
 using ApplicationExit.Business;
 using ApplicationExit.Presentation.Common;
 
@@ -37,6 +38,18 @@ namespace ApplicationExit.Presentation.Main
         }
 
         protected override void Execute()
+        {
+            ExitImmediately();
+            //ExitWithDelay(1000);
+        }
+
+        private void ExitWithDelay(int millisecondsDelay)
+        {
+            Task.Delay(millisecondsDelay)
+                .ContinueWith(t => myApplication.Exit());
+        }
+
+        private void ExitImmediately()
         {
             myApplication.Exit();
         }

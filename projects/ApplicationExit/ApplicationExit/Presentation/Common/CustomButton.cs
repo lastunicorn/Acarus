@@ -33,7 +33,7 @@ namespace ApplicationExit.Presentation.Common
                 viewModel = value;
 
                 if (viewModel != null)
-                    DataBindings.Add("Enabled", viewModel, "Enabled");
+                    this.CreateBinding(x => x.Enabled, viewModel, x => x.Enabled, false, DataSourceUpdateMode.Never);
             }
         }
 
