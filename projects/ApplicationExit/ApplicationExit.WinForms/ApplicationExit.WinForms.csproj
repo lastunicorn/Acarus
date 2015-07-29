@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ApplicationExit.WinForms</RootNamespace>
-    <AssemblyName>ApplicationExit</AssemblyName>
+    <AssemblyName>ApplicationExit.WinForms</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile>
@@ -78,7 +78,8 @@
     <EmbeddedResource Include="Main\TheDataView.resx">
       <DependentUpon>TheDataView.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="ApplicationExit.WinForms.cd" />
+    <None Include="Diagrams\ViewModelHierarchy.cd" />
+    <None Include="Diagrams\RelationToBusiness.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

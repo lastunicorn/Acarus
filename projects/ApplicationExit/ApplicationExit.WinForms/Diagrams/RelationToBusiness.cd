@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ApplicationExit.WinForms.Main.ExitButtonModel">
+    <Position X="3.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAQAAAIAAAAAAAAAAAAAAAAAAAAAAMA=</HashCode>
+      <FileName>Main\ExitButtonModel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="myApplication" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ApplicationExit.WinForms.Main.SaveButtonModel">
+    <Position X="3.25" Y="8.5" Width="2" />
+    <AssociationLine Name="theData" Type="ApplicationExit.TheData" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="5.25" Y="10" />
+        <Point X="7.479" Y="10" Type="JumpStart" />
+        <Point X="7.645" Y="10" Type="JumpEnd" />
+        <Point X="8.167" Y="10" Type="JumpStart" />
+        <Point X="8.333" Y="10" Type="JumpEnd" />
+        <Point X="9.188" Y="10" />
+        <Point X="9.188" Y="3.276" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAQAAAAAABAAAAAAAAAAAAAAAAAAAQA=</HashCode>
+      <FileName>Main\SaveButtonModel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="theData" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ApplicationExit.WinForms.Main.ChangeButtonModel">
+    <Position X="3.25" Y="11" Width="1.75" />
+    <AssociationLine Name="theData" Type="ApplicationExit.TheData" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="5" Y="12.171" />
+        <Point X="8.167" Y="12.171" Type="JumpStart" />
+        <Point X="8.333" Y="12.171" Type="JumpEnd" />
+        <Point X="10.188" Y="12.171" />
+        <Point X="10.188" Y="3.276" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAQAAAAAAAAAAAAAAAAAAAAAAAAAAQA=</HashCode>
+      <FileName>Main\ChangeButtonModel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="theData" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ApplicationExit.WinForms.Main.TheDataViewModel">
+    <Position X="3.25" Y="13.5" Width="2" />
+    <AssociationLine Name="theData" Type="ApplicationExit.TheData" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="5.25" Y="15.1" />
+        <Point X="11.125" Y="15.1" />
+        <Point X="11.125" Y="3.276" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAASA=</HashCode>
+      <FileName>Main\TheDataViewModel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="theData" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ApplicationExit.WinForms.Main.MainViewModel">
+    <Position X="6.25" Y="5.75" Width="2.5" />
+    <AssociationLine Name="TheDataModel" Type="ApplicationExit.WinForms.Main.TheDataViewModel" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="8.25" Y="8.011" />
+        <Point X="8.25" Y="14.308" />
+        <Point X="5.25" Y="14.308" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="SaveButtonModel" Type="ApplicationExit.WinForms.Main.SaveButtonModel" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="6.891" Y="8.011" />
+        <Point X="6.891" Y="9.218" />
+        <Point X="5.25" Y="9.218" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="ChangeButtonModel" Type="ApplicationExit.WinForms.Main.ChangeButtonModel" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="7.562" Y="8.011" />
+        <Point X="7.562" Y="11.403" />
+        <Point X="5" Y="11.403" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAgABAAAAAAAAAAAAAIIAhAAAAAAgIAAAAAAAAAAAAE=</HashCode>
+      <FileName>Main\MainViewModel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="myApplication" />
+      <Property Name="TheDataModel" />
+      <Property Name="ExitButtonModel" />
+      <Property Name="SaveButtonModel" />
+      <Property Name="ChangeButtonModel" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ApplicationExit.TheData">
+    <Position X="9" Y="0.5" Width="2.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="ApplicationExit.MyApplication">
+    <Position X="5" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="ApplicationExit.WinForms.UserInterface">
+    <Position X="0.5" Y="5.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABCEAAAAAAAAABAAAAAAAAAIAAAAAEAAAI=</HashCode>
+      <FileName>UserInterface.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="ApplicationExit.IUserInterface">
+    <Position X="0.5" Y="0.5" Width="2" />
+    <TypeIdentifier />
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
