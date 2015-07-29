@@ -15,36 +15,51 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System.Windows;
+using System.Windows.Threading;
 
 namespace WpfApplicationExit.Business
 {
     public class UserInterface
     {
+        private Dispatcher dispatcher;
+
         public Window MainWindow { get; set; }
 
         public void Run()
         {
+            dispatcher = Dispatcher.CurrentDispatcher;
+
             MainWindow.Show();
         }
 
         public void Exit()
         {
-            Application.Current.Shutdown();
+            dispatcher.Invoke(() => Application.Current.Shutdown());
         }
 
         public void DisplayInfo(string text)
         {
-            MessageBox.Show(MainWindow, text, "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+            dispatcher.Invoke(() =>
+            {
+                MessageBox.Show(MainWindow, text, "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+            });
         }
 
         public bool? DisplayYesNoQuestion(string question, string title)
         {
-            MessageBoxResult dialogResult = MessageBox.Show(MainWindow, question, title, MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
+            bool? result = null;
 
-            if (dialogResult == MessageBoxResult.Cancel)
-                return null;
+            dispatcher.Invoke(() =>
+            {
+                MessageBoxResult dialogResult = MessageBox.Show(MainWindow, question, title, MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
 
-            return dialogResult == MessageBoxResult.Yes;
+                if (dialogResult == MessageBoxResult.Cancel)
+                    result = null;
+
+                result = dialogResult == MessageBoxResult.Yes;
+            });
+
+            return result;
         }
     }
 }

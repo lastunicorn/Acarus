@@ -45,7 +45,7 @@ namespace ApplicationExit.Business
 
         public void Exit()
         {
-            Application.Exit();
+            ExecuteOnMainThread(() => Application.Exit());
         }
 
         public void DisplayInfo(string text)

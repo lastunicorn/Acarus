@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using WpfApplicationExit.Business;
 
@@ -23,7 +24,8 @@ namespace WpfApplicationExit.Presentation
 
         public void Execute(object parameter)
         {
-            myApplication.Exit();
+            Task.Delay(1000)
+                .ContinueWith(t => myApplication.Exit());
         }
 
         protected virtual void OnCanExecuteChanged()
