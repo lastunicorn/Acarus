@@ -59,7 +59,6 @@ namespace ApplicationExit.Presentation.Main
 
         private void buttonExit_Click(object sender, System.EventArgs e)
         {
-
         }
     }
 }

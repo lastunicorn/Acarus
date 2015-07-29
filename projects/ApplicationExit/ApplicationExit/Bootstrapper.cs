@@ -24,7 +24,7 @@ namespace ApplicationExit
         public void Initialize()
         {
             UserInterface userInterface = new UserInterface();
-            
+
             MyApplication myApplication = new MyApplication(userInterface);
             TheData theData = new TheData(userInterface, myApplication);
 

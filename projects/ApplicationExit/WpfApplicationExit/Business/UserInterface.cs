@@ -39,10 +39,7 @@ namespace WpfApplicationExit.Business
 
         public void DisplayInfo(string text)
         {
-            dispatcher.Invoke(() =>
-            {
-                MessageBox.Show(MainWindow, text, "Info", MessageBoxButton.OK, MessageBoxImage.Information);
-            });
+            dispatcher.Invoke(() => { MessageBox.Show(MainWindow, text, "Info", MessageBoxButton.OK, MessageBoxImage.Information); });
         }
 
         public bool? DisplayYesNoQuestion(string question, string title)

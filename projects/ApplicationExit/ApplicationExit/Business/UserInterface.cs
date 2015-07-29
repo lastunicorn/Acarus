@@ -50,10 +50,7 @@ namespace ApplicationExit.Business
 
         public void DisplayInfo(string text)
         {
-            ExecuteOnMainThread(() =>
-            {
-                MessageBox.Show(MainForm, text, "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            });
+            ExecuteOnMainThread(() => { MessageBox.Show(MainForm, text, "Info", MessageBoxButtons.OK, MessageBoxIcon.Information); });
         }
 
         public bool? DisplayYesNoQuestion(string question, string title)
@@ -75,10 +72,7 @@ namespace ApplicationExit.Business
 
         private void ExecuteOnMainThread(Action action)
         {
-            synchronizationContext.Send(a =>
-            {
-                action();
-            }, null);
+            synchronizationContext.Send(a => { action(); }, null);
         }
     }
 }
