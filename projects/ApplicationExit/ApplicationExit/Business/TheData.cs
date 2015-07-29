@@ -29,7 +29,7 @@ namespace ApplicationExit.Business
     /// </summary>
     internal class TheData
     {
-        private readonly UserInterface userInterface;
+        private readonly IUserInterface userInterface;
         private readonly MyApplication myApplication;
 
         private bool isModified;
@@ -44,7 +44,7 @@ namespace ApplicationExit.Business
             }
         }
 
-        public TheData(UserInterface userInterface, MyApplication myApplication)
+        public TheData(IUserInterface userInterface, MyApplication myApplication)
         {
             if (userInterface == null) throw new ArgumentNullException("userInterface");
             if (myApplication == null) throw new ArgumentNullException("myApplication");

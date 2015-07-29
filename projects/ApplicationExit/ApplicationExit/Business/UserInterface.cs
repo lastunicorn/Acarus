@@ -21,7 +21,7 @@ using ApplicationExit.Presentation.Main;
 
 namespace ApplicationExit.Business
 {
-    internal class UserInterface
+    internal class UserInterface : IUserInterface
     {
         private readonly SynchronizationContext synchronizationContext;
 

@@ -28,7 +28,7 @@ namespace WpfApplicationExit.Business
     /// </summary>
     public class TheData
     {
-        private readonly UserInterface userInterface;
+        private readonly IUserInterface userInterface;
         private readonly MyApplication myApplication;
 
         private bool isModified;
@@ -43,7 +43,7 @@ namespace WpfApplicationExit.Business
             }
         }
 
-        public TheData(UserInterface userInterface, MyApplication myApplication)
+        public TheData(IUserInterface userInterface, MyApplication myApplication)
         {
             if (userInterface == null) throw new ArgumentNullException("userInterface");
             if (myApplication == null) throw new ArgumentNullException("myApplication");

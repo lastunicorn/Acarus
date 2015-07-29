@@ -19,7 +19,7 @@ using System.Windows.Threading;
 
 namespace WpfApplicationExit.Business
 {
-    public class UserInterface
+    public class UserInterface : IUserInterface
     {
         private Dispatcher dispatcher;
 

@@ -77,6 +77,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Business\IUserInterface.cs" />
     <Compile Include="Business\MyApplication.cs" />
     <Compile Include="Business\TheData.cs" />
     <Compile Include="Business\UserInterface.cs" />

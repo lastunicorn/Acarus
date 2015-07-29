@@ -24,7 +24,18 @@ namespace WpfApplicationExit.Presentation
 
         public void Execute(object parameter)
         {
-            Task.Delay(1000)
+            ExitImmediately();
+            //ExitWithDelay(1000);
+        }
+
+        private void ExitImmediately()
+        {
+            myApplication.Exit();
+        }
+
+        private void ExitWithDelay(int millisecondsDelay)
+        {
+            Task.Delay(millisecondsDelay)
                 .ContinueWith(t => myApplication.Exit());
         }
 

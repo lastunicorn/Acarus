@@ -24,13 +24,13 @@ namespace ApplicationExit.Business
     /// </summary>
     internal class MyApplication
     {
-        private readonly UserInterface userInterface;
+        private readonly IUserInterface userInterface;
 
         public event EventHandler<CancelEventArgs> Exiting;
         public event EventHandler BeforeExiting;
         public event EventHandler ExitCanceled;
 
-        public MyApplication(UserInterface userInterface)
+        public MyApplication(IUserInterface userInterface)
         {
             if (userInterface == null) throw new ArgumentNullException("userInterface");
 

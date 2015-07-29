@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Business\IUserInterface.cs" />
     <Compile Include="Presentation\Common\BindingExtensions.cs" />
     <Compile Include="Presentation\Main\ChangeButtonModel.cs" />
     <Compile Include="Presentation\Main\SaveButtonModel.cs" />
