@@ -14,26 +14,30 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using ApplicationExit.Wpf.Main;
+using System;
+using ApplicationExit.Properties;
+using ApplicationExit.WinForms.Common;
 
-namespace ApplicationExit.Wpf
+namespace ApplicationExit.WinForms.Main
 {
-    internal class Bootstrapper
+    internal class ChangeButtonModel : ButtonViewModelBase
     {
-        public void Initialize()
+        private readonly TheData theData;
+
+        public ChangeButtonModel(TheData theData)
         {
-            UserInterface userInterface = new UserInterface();
+            if (theData == null) throw new ArgumentNullException("theData");
+            this.theData = theData;
+        }
 
-            MyApplication myApplication = new MyApplication(userInterface);
-            TheData theData = new TheData(userInterface, myApplication);
+        public override string Description
+        {
+            get { return LocalizedResources.ChangeButton_Description; }
+        }
 
-            MainWindow mainForm = new MainWindow
-            {
-                ViewModel = new MainViewModel(myApplication, theData)
-            };
-
-            userInterface.MainWindow = mainForm;
-            userInterface.Run();
+        protected override void Execute()
+        {
+            theData.ChangeData();
         }
     }
 }

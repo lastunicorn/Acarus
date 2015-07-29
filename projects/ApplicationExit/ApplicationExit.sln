@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApplicationExit.WinForms", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApplicationExit.Wpf", "ApplicationExit.Wpf\ApplicationExit.Wpf.csproj", "{BFF39A88-B31C-4548-8767-FEE0C414DDCF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApplicationExit.Business", "ApplicationExit.Business\ApplicationExit.Business.csproj", "{6AE3266B-0C65-4ABA-873A-F1382643A67A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{BFF39A88-B31C-4548-8767-FEE0C414DDCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BFF39A88-B31C-4548-8767-FEE0C414DDCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BFF39A88-B31C-4548-8767-FEE0C414DDCF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6AE3266B-0C65-4ABA-873A-F1382643A67A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AE3266B-0C65-4ABA-873A-F1382643A67A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AE3266B-0C65-4ABA-873A-F1382643A67A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AE3266B-0C65-4ABA-873A-F1382643A67A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

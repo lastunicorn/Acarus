@@ -64,7 +64,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Presentation\MainWindow.xaml">
+    <Page Include="Main\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -73,36 +73,33 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Bootstrapper.cs" />
-    <Compile Include="Business\IUserInterface.cs" />
-    <Compile Include="Business\MyApplication.cs" />
-    <Compile Include="Business\TheData.cs" />
-    <Compile Include="Business\UserInterface.cs" />
+    <Compile Include="UserInterface.cs" />
     <Compile Include="LocalizedResources.Designer.cs">
       <DependentUpon>LocalizedResources.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Presentation\Common\ViewModelBase.cs" />
-    <Compile Include="Presentation\ExitCommand.cs">
+    <Compile Include="Common\ViewModelBase.cs" />
+    <Compile Include="Main\ExitCommand.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Presentation\MainViewModel.cs" />
-    <Compile Include="Presentation\MainWindow.xaml.cs">
+    <Compile Include="Main\MainViewModel.cs" />
+    <Compile Include="Main\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Presentation\TheDataView.xaml">
+    <Page Include="Main\TheDataView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Presentation\ChangeCommand.cs" />
-    <Compile Include="Presentation\SaveCommand.cs" />
-    <Compile Include="Presentation\TheDataView.xaml.cs">
+    <Compile Include="Main\ChangeCommand.cs" />
+    <Compile Include="Main\SaveCommand.cs" />
+    <Compile Include="Main\TheDataView.xaml.cs">
       <DependentUpon>TheDataView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Presentation\TheDataViewModel.cs" />
+    <Compile Include="Main\TheDataViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -150,6 +147,12 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ApplicationExit.Business\ApplicationExit.Business.csproj">
+      <Project>{6ae3266b-0c65-4aba-873a-f1382643a67a}</Project>
+      <Name>ApplicationExit.Business</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

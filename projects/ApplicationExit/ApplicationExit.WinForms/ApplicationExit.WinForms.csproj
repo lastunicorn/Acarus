@@ -43,63 +43,41 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bootstrapper.cs" />
-    <Compile Include="Business\IUserInterface.cs" />
-    <Compile Include="Presentation\Common\BindingExtensions.cs" />
-    <Compile Include="Presentation\Main\ChangeButtonModel.cs" />
-    <Compile Include="Presentation\Main\SaveButtonModel.cs" />
-    <Compile Include="Presentation\Main\TheDataView.cs">
+    <Compile Include="Common\BindingExtensions.cs" />
+    <Compile Include="Main\ChangeButtonModel.cs" />
+    <Compile Include="Main\SaveButtonModel.cs" />
+    <Compile Include="Main\TheDataView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Presentation\Main\TheDataView.Designer.cs">
+    <Compile Include="Main\TheDataView.Designer.cs">
       <DependentUpon>TheDataView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Presentation\Main\TheDataViewModel.cs" />
-    <Compile Include="Presentation\Common\ViewModelBase.cs" />
-    <Compile Include="Presentation\Main\ExitButtonModel.cs" />
-    <Compile Include="Presentation\Common\CustomButton.cs">
+    <Compile Include="Main\TheDataViewModel.cs" />
+    <Compile Include="Common\ViewModelBase.cs" />
+    <Compile Include="Main\ExitButtonModel.cs" />
+    <Compile Include="Common\CustomButton.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Presentation\Common\CustomButton.Designer.cs">
+    <Compile Include="Common\CustomButton.Designer.cs">
       <DependentUpon>CustomButton.cs</DependentUpon>
     </Compile>
-    <Compile Include="Presentation\Common\ButtonViewModelBase.cs" />
-    <Compile Include="Presentation\Main\MainForm.cs">
+    <Compile Include="Common\ButtonViewModelBase.cs" />
+    <Compile Include="Main\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Presentation\Main\MainForm.Designer.cs">
+    <Compile Include="Main\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Presentation\LocalizedResources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>LocalizedResources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Presentation\Main\MainViewModel.cs" />
-    <Compile Include="Business\MyApplication.cs" />
+    <Compile Include="Main\MainViewModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Business\TheData.cs" />
-    <Compile Include="Business\UserInterface.cs" />
-    <EmbeddedResource Include="Presentation\Main\MainForm.resx">
+    <Compile Include="UserInterface.cs" />
+    <EmbeddedResource Include="Main\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Presentation\LocalizedResources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>LocalizedResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Presentation\Main\TheDataView.resx">
+    <EmbeddedResource Include="Main\TheDataView.resx">
       <DependentUpon>TheDataView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="ApplicationExit.WinForms.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -114,7 +92,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\ApplicationExit.Business\ApplicationExit.Business.csproj">
+      <Project>{6ae3266b-0c65-4aba-873a-f1382643a67a}</Project>
+      <Name>ApplicationExit.Business</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

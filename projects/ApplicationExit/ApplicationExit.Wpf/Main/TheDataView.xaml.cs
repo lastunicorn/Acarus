@@ -1,4 +1,4 @@
-// Acarus
+﻿// Acarus
 // Copyright (C) 2015 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -14,26 +14,16 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using ApplicationExit.Wpf.Main;
-
-namespace ApplicationExit.Wpf
+namespace ApplicationExit.Wpf.Main
 {
-    internal class Bootstrapper
+    /// <summary>
+    /// Interaction logic for TheDataView.xaml
+    /// </summary>
+    public partial class TheDataView
     {
-        public void Initialize()
+        public TheDataView()
         {
-            UserInterface userInterface = new UserInterface();
-
-            MyApplication myApplication = new MyApplication(userInterface);
-            TheData theData = new TheData(userInterface, myApplication);
-
-            MainWindow mainForm = new MainWindow
-            {
-                ViewModel = new MainViewModel(myApplication, theData)
-            };
-
-            userInterface.MainWindow = mainForm;
-            userInterface.Run();
+            InitializeComponent();
         }
     }
 }
