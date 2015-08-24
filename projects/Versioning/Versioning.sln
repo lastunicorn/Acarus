@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoolApp", "CoolApp\CoolApp.csproj", "{151425B2-0B3F-4A57-B811-F7292369C8A9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Versioning", "Versioning\Versioning.csproj", "{522E5C0C-B756-4265-9D44-47CBEAE865AC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Versioning.WinForms.Mvp", "Versioning.WinForms.Mvp\Versioning.WinForms.Mvp.csproj", "{99CE495A-39A2-4A65-A175-1B9DA53ECE18}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,6 +69,27 @@ Global
 		{522E5C0C-B756-4265-9D44-47CBEAE865AC}.WpfRelease|Any CPU.ActiveCfg = Release|Any CPU
 		{522E5C0C-B756-4265-9D44-47CBEAE865AC}.WpfRelease|Any CPU.Build.0 = Release|Any CPU
 		{522E5C0C-B756-4265-9D44-47CBEAE865AC}.WpfRelease|x86.ActiveCfg = Release|Any CPU
+		{99CE495A-39A2-4A65-A175-1B9DA53ECE18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99CE495A-39A2-4A65-A175-1B9DA53ECE18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99CE495A-39A2-4A65-A175-1B9DA53ECE18}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{99CE495A-39A2-4A65-A175-1B9DA53ECE18}.MonoGtkDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99CE495A-39A2-4A65-A175-1B9DA53ECE18}.MonoGtkDebug|Any CPU.Build.0 = Debug|Any CPU
+		{99CE495A-39A2-4A65-A175-1B9DA53ECE18}.MonoGtkDebug|x86.ActiveCfg = Debug|Any CPU
+		{99CE495A-39A2-4A65-A175-1B9DA53ECE18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99CE495A-39A2-4A65-A175-1B9DA53ECE18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99CE495A-39A2-4A65-A175-1B9DA53ECE18}.Release|x86.ActiveCfg = Release|Any CPU
+		{99CE495A-39A2-4A65-A175-1B9DA53ECE18}.WinFormsDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99CE495A-39A2-4A65-A175-1B9DA53ECE18}.WinFormsDebug|Any CPU.Build.0 = Debug|Any CPU
+		{99CE495A-39A2-4A65-A175-1B9DA53ECE18}.WinFormsDebug|x86.ActiveCfg = Debug|Any CPU
+		{99CE495A-39A2-4A65-A175-1B9DA53ECE18}.WinFormsRelease|Any CPU.ActiveCfg = Release|Any CPU
+		{99CE495A-39A2-4A65-A175-1B9DA53ECE18}.WinFormsRelease|Any CPU.Build.0 = Release|Any CPU
+		{99CE495A-39A2-4A65-A175-1B9DA53ECE18}.WinFormsRelease|x86.ActiveCfg = Release|Any CPU
+		{99CE495A-39A2-4A65-A175-1B9DA53ECE18}.WpfDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99CE495A-39A2-4A65-A175-1B9DA53ECE18}.WpfDebug|Any CPU.Build.0 = Debug|Any CPU
+		{99CE495A-39A2-4A65-A175-1B9DA53ECE18}.WpfDebug|x86.ActiveCfg = Debug|Any CPU
+		{99CE495A-39A2-4A65-A175-1B9DA53ECE18}.WpfRelease|Any CPU.ActiveCfg = Release|Any CPU
+		{99CE495A-39A2-4A65-A175-1B9DA53ECE18}.WpfRelease|Any CPU.Build.0 = Release|Any CPU
+		{99CE495A-39A2-4A65-A175-1B9DA53ECE18}.WpfRelease|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

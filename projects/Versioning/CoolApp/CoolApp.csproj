@@ -41,70 +41,26 @@
   <ItemGroup>
     <Compile Include="ApplicationService.cs" />
     <Compile Include="AssemblyUtil.cs" />
-    <Compile Include="CoolException.cs" />
-    <Compile Include="Config\CoolConfiguration.cs" />
-    <Compile Include="Config\CoolConfigurationException.cs" />
-    <Compile Include="Config\CoolConfigurationSection.cs" />
-    <Compile Include="Config\ConfigFile\UpdateConfigurationElement.cs" />
-    <Compile Include="Config\ConfigurationManager.cs" />
-    <Compile Include="Config\ICoolConfiguration.cs" />
-    <Compile Include="Config\IConfigurationManager.cs" />
     <Compile Include="Properties\AssemblyUtilResources.Designer.cs">
       <DependentUpon>AssemblyUtilResources.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Properties\ServicesResources.Designer.cs">
+      <DependentUpon>ServicesResources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="Services\IApplicationService.cs" />
-    <Compile Include="Versioning\FileDownloadState.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormBase.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="IMessagesService.cs" />
-    <Compile Include="Versioning\IVersionCheckerView.cs" />
     <Compile Include="MessagesService.cs" />
-    <Compile Include="Mvp\IPresenter.cs" />
-    <Compile Include="Mvp\IPresenter1.cs" />
-    <Compile Include="Mvp\IView.cs" />
-    <Compile Include="Mvp\IView1.cs" />
-    <Compile Include="Mvp\PresenterBase.cs" />
-    <Compile Include="Mvp\ViewAlreadySetException.cs" />
-    <Compile Include="Mvp\Window\IWindowController.cs" />
-    <Compile Include="Mvp\Window\IWindowPresenter.cs" />
-    <Compile Include="Mvp\Window\IWindowPresenter1.cs" />
-    <Compile Include="Mvp\Window\IWindowView.cs" />
-    <Compile Include="Mvp\Window\IWindowView1.cs" />
-    <Compile Include="Mvp\Window\WindowPresenterBase.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="ProgressBarType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\ServicesResources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ServicesResources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\VersionCheckerResources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>VersionCheckerResources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="SetBoolValueDelegate.cs" />
-    <Compile Include="SetStringValueDelegate.cs" />
-    <Compile Include="Versioning\VersionCheckerForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Versioning\VersionCheckerForm.Designer.cs">
-      <DependentUpon>VersionCheckerForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Versioning\VersionCheckerFormBase.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Versioning\VersionCheckerPresenter.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -129,17 +85,6 @@
       <LastGenOutput>ServicesResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\ServicesResources.ro.resx" />
-    <EmbeddedResource Include="Properties\VersionCheckerResources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>VersionCheckerResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\VersionCheckerResources.ro.resx" />
-    <EmbeddedResource Include="Versioning\VersionCheckerForm.resx">
-      <DependentUpon>VersionCheckerForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Versioning\VersionCheckerForm.ro.resx">
-      <DependentUpon>VersionCheckerForm.cs</DependentUpon>
-    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -154,6 +99,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Versioning.WinForms.Mvp\Versioning.WinForms.Mvp.csproj">
+      <Project>{99ce495a-39a2-4a65-a175-1b9da53ece18}</Project>
+      <Name>Versioning.WinForms.Mvp</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Versioning\Versioning.csproj">
       <Project>{522e5c0c-b756-4265-9d44-47cbeae865ac}</Project>
       <Name>Versioning</Name>

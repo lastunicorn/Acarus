@@ -16,9 +16,9 @@
 
 using System;
 using System.Windows.Forms;
-using DustInTheWind.CoolApp.Config;
-using DustInTheWind.CoolApp.Versioning;
 using DustInTheWind.Versioning;
+using DustInTheWind.Versioning.WinForms.Mvp.Config;
+using DustInTheWind.Versioning.WinForms.Mvp.Versioning;
 
 namespace DustInTheWind.CoolApp
 {

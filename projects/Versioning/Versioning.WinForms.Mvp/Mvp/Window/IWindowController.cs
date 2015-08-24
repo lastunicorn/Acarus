@@ -16,29 +16,26 @@
 
 using System;
 
-namespace DustInTheWind.CoolApp.Services
+namespace DustInTheWind.Versioning.WinForms.Mvp.Mvp.Window
 {
     /// <summary>
-    /// Provides different information about the Azzul application.
+    /// Specifies the methods that can be used from the rest of the application to interact with the window.
     /// </summary>
-    public interface IApplicationService
+    public interface IWindowController
     {
         /// <summary>
-        /// Returns the version of the application.
+        /// Event raised after the view is closed.
         /// </summary>
-        /// <returns>A <see cref="Version"/> object containing the current version of Azzul.</returns>
-        Version GetCurrentVersion();
+        event EventHandler ViewClosed;
 
         /// <summary>
-        /// Returns the name of the application.
+        /// Displays the view.
         /// </summary>
-        /// <returns>The name of the application.</returns>
-        string GetApplicationName();
+        void ShowView();
 
         /// <summary>
-        /// Returns the path where the application's executable file is located.
+        /// Puts the focus on the view.
         /// </summary>
-        /// <returns>The path where the application's executable file is located.</returns>
-        string GetApplicationLocation();
+        void Focus();
     }
 }

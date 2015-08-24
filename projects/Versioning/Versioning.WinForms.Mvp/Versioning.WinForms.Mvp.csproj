@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{99CE495A-39A2-4A65-A175-1B9DA53ECE18}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DustInTheWind.Versioning.WinForms.Mvp</RootNamespace>
+    <AssemblyName>Versioning.WinForms.Mvp</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Config\ConfigFile\UpdateConfigurationElement.cs" />
+    <Compile Include="Config\ConfigurationManager.cs" />
+    <Compile Include="Config\CoolConfiguration.cs" />
+    <Compile Include="Config\CoolConfigurationException.cs" />
+    <Compile Include="Config\CoolConfigurationSection.cs" />
+    <Compile Include="Config\IConfigurationManager.cs" />
+    <Compile Include="Config\ICoolConfiguration.cs" />
+    <Compile Include="CoolException.cs" />
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IMessagesService.cs" />
+    <Compile Include="Mvp\IPresenter.cs" />
+    <Compile Include="Mvp\IPresenter1.cs" />
+    <Compile Include="Mvp\IView.cs" />
+    <Compile Include="Mvp\IView1.cs" />
+    <Compile Include="Mvp\PresenterBase.cs" />
+    <Compile Include="Mvp\ViewAlreadySetException.cs" />
+    <Compile Include="Mvp\Window\IWindowController.cs" />
+    <Compile Include="Mvp\Window\IWindowPresenter.cs" />
+    <Compile Include="Mvp\Window\IWindowPresenter1.cs" />
+    <Compile Include="Mvp\Window\IWindowView.cs" />
+    <Compile Include="Mvp\Window\IWindowView1.cs" />
+    <Compile Include="Mvp\Window\WindowPresenterBase.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="ProgressBarType.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <DependentUpon>Resources.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Properties\VersionCheckerResources.Designer.cs">
+      <DependentUpon>VersionCheckerResources.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="SetBoolValueDelegate.cs" />
+    <Compile Include="SetStringValueDelegate.cs" />
+    <Compile Include="Versioning\FileDownloadState.cs" />
+    <Compile Include="Versioning\IVersionCheckerView.cs" />
+    <Compile Include="Versioning\VersionCheckerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Versioning\VersionCheckerForm.Designer.cs">
+      <DependentUpon>VersionCheckerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Versioning\VersionCheckerFormBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Versioning\VersionCheckerPresenter.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.ro.resx" />
+    <EmbeddedResource Include="Properties\VersionCheckerResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>VersionCheckerResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\VersionCheckerResources.ro.resx" />
+    <EmbeddedResource Include="Versioning\VersionCheckerForm.resx">
+      <DependentUpon>VersionCheckerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Versioning\VersionCheckerForm.ro.resx">
+      <DependentUpon>VersionCheckerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Versioning\Versioning.csproj">
+      <Project>{522e5c0c-b756-4265-9d44-47cbeae865ac}</Project>
+      <Name>Versioning</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

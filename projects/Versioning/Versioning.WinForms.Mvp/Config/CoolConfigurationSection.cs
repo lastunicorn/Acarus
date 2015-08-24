@@ -14,31 +14,29 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
+using System.Configuration;
+using DustInTheWind.Versioning.WinForms.Mvp.Config.ConfigFile;
 
-namespace DustInTheWind.CoolApp.Services
+namespace DustInTheWind.Versioning.WinForms.Mvp.Config
 {
     /// <summary>
-    /// Provides different information about the Azzul application.
+    /// Represents the azzul section within a configuration file.
     /// </summary>
-    public interface IApplicationService
+    public class CoolConfigurationSection : ConfigurationSection
     {
         /// <summary>
-        /// Returns the version of the application.
+        /// The default name of the azzul section.
         /// </summary>
-        /// <returns>A <see cref="Version"/> object containing the current version of Azzul.</returns>
-        Version GetCurrentVersion();
+        public const string DefaultSectionName = "cool";
 
         /// <summary>
-        /// Returns the name of the application.
+        /// Gets or sets the "update" configuration element.
         /// </summary>
-        /// <returns>The name of the application.</returns>
-        string GetApplicationName();
-
-        /// <summary>
-        /// Returns the path where the application's executable file is located.
-        /// </summary>
-        /// <returns>The path where the application's executable file is located.</returns>
-        string GetApplicationLocation();
+        [ConfigurationProperty("update")]
+        public UpdateConfigurationElement Update
+        {
+            get { return (UpdateConfigurationElement) this["update"]; }
+            set { this["update"] = value; }
+        }
     }
 }

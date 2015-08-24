@@ -19,6 +19,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
 using DustInTheWind.CoolApp.Properties;
+using DustInTheWind.Versioning.WinForms.Mvp;
 
 namespace DustInTheWind.CoolApp
 {

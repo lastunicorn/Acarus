@@ -16,29 +16,31 @@
 
 using System;
 
-namespace DustInTheWind.CoolApp.Services
+namespace DustInTheWind.Versioning.WinForms.Mvp.Config
 {
     /// <summary>
-    /// Provides different information about the Azzul application.
+    /// Provides configuration values to be used in Azzul application.
     /// </summary>
-    public interface IApplicationService
+    public interface IConfigurationManager
     {
         /// <summary>
-        /// Returns the version of the application.
+        /// Gets the azzul configuration section from the configuration file.
         /// </summary>
-        /// <returns>A <see cref="Version"/> object containing the current version of Azzul.</returns>
-        Version GetCurrentVersion();
+        CoolConfigurationSection CoolConfig { get; }
 
         /// <summary>
-        /// Returns the name of the application.
+        /// Event raised when some of the configuration values are changed.
         /// </summary>
-        /// <returns>The name of the application.</returns>
-        string GetApplicationName();
+        event EventHandler ConfigurationChanged;
 
         /// <summary>
-        /// Returns the path where the application's executable file is located.
+        /// Saves the changed configuration values into the config file.
         /// </summary>
-        /// <returns>The path where the application's executable file is located.</returns>
-        string GetApplicationLocation();
+        void Save();
+
+        /// <summary>
+        /// Raises the <see cref="ConfigurationChanged"/> event.
+        /// </summary>
+        void AnnounceConfigurationChanged();
     }
 }

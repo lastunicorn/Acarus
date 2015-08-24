@@ -14,31 +14,21 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-
-namespace DustInTheWind.CoolApp.Services
+namespace DustInTheWind.Versioning.WinForms.Mvp
 {
     /// <summary>
-    /// Provides different information about the Azzul application.
+    /// Specifies if the progress will display the percentage or it will display a continuously loading bar.
     /// </summary>
-    public interface IApplicationService
+    public enum ProgressBarType
     {
         /// <summary>
-        /// Returns the version of the application.
+        /// Indicates a progress bar that displays a percentage value.
         /// </summary>
-        /// <returns>A <see cref="Version"/> object containing the current version of Azzul.</returns>
-        Version GetCurrentVersion();
+        Percent,
 
         /// <summary>
-        /// Returns the name of the application.
+        /// Indicates a continuously loading progress bar.
         /// </summary>
-        /// <returns>The name of the application.</returns>
-        string GetApplicationName();
-
-        /// <summary>
-        /// Returns the path where the application's executable file is located.
-        /// </summary>
-        /// <returns>The path where the application's executable file is located.</returns>
-        string GetApplicationLocation();
+        Loading
     }
 }
