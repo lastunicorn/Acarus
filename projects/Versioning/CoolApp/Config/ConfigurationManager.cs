@@ -1,5 +1,5 @@
-﻿// Azzul
-// Copyright (C) 2009-2011 Dust in the Wind
+﻿// Acarus
+// Copyright (C) 2015 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,15 +23,15 @@ namespace DustInTheWind.CoolApp.Config
     /// </summary>
     public class ConfigurationManager : IConfigurationManager
     {
-        private readonly IAzzulConfiguration azzulConfiguration;
+        private readonly ICoolConfiguration coolConfiguration;
 
         /// <summary>
         /// Gets the azzul configuration section from the configuration file.
         /// </summary>
-        public AzzulConfigurationSection AzzulConfig
+        public CoolConfigurationSection CoolConfig
         {
-            set { azzulConfiguration.AzzulConfig = value; }
-            get { return azzulConfiguration.AzzulConfig; }
+            set { coolConfiguration.CoolConfig = value; }
+            get { return coolConfiguration.CoolConfig; }
         }
 
         #region RecentCatalogAdded
@@ -75,13 +75,13 @@ namespace DustInTheWind.CoolApp.Config
         /// <summary>
         /// Initializes a new instance of the <see cref="ConfigurationManager"/> class.
         /// </summary>
-        /// <param name="azzulConfiguration"></param>
-        public ConfigurationManager(IAzzulConfiguration azzulConfiguration)
+        /// <param name="coolConfiguration"></param>
+        public ConfigurationManager(ICoolConfiguration coolConfiguration)
         {
-            if (azzulConfiguration == null)
-                throw new ArgumentNullException("azzulConfiguration");
+            if (coolConfiguration == null)
+                throw new ArgumentNullException("coolConfiguration");
 
-            this.azzulConfiguration = azzulConfiguration;
+            this.coolConfiguration = coolConfiguration;
         }
 
         /// <summary>
@@ -89,7 +89,7 @@ namespace DustInTheWind.CoolApp.Config
         /// </summary>
         public void Save()
         {
-            azzulConfiguration.Save();
+            coolConfiguration.Save();
         }
 
         /// <summary>

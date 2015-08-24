@@ -1,5 +1,5 @@
-﻿// Azzul
-// Copyright (C) 2009-2011 Dust in the Wind
+﻿// Acarus
+// Copyright (C) 2015 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -34,7 +34,7 @@ namespace DustInTheWind.CoolApp.Versioning
         /// <summary>
         /// The default url used if the configuration does not specify another one.
         /// </summary>
-        private const string AzzulUrl = "http://azzul.alez.ro";
+        private const string CoolAppUrl = "http://azzul.alez.ro";
 
         /// <summary>
         /// Provides configuration values to be used in Azzul application.
@@ -44,7 +44,7 @@ namespace DustInTheWind.CoolApp.Versioning
         /// <summary>
         /// A service that checks if a newer version of Azzul exists.
         /// </summary>
-        private readonly VersionChecker azzulVersionChecker;
+        private readonly VersionChecker versionChecker;
 
         /// <summary>
         /// The information about the newest version.
@@ -62,17 +62,17 @@ namespace DustInTheWind.CoolApp.Versioning
         /// </summary>
         /// <param name="messagesService">A service that displays messages to the user.</param>
         /// <param name="configurationManager">Provides configuration values to be used in Azzul application.</param>
-        /// <param name="azzulVersionChecker">A service that checks if a newer version of Azzul exists.</param>
+        /// <param name="versionChecker">A service that checks if a newer version of Azzul exists.</param>
         /// <exception cref="ArgumentNullException">Exception thrown if one of the arguments is null.</exception>
         public VersionCheckerPresenter(IMessagesService messagesService, IConfigurationManager configurationManager,
-            VersionChecker azzulVersionChecker)
+            VersionChecker versionChecker)
             : base(messagesService)
         {
             if (configurationManager == null) throw new ArgumentNullException("configurationManager");
-            if (azzulVersionChecker == null) throw new ArgumentNullException("azzulVersionChecker");
+            if (versionChecker == null) throw new ArgumentNullException("versionChecker");
 
             this.configurationManager = configurationManager;
-            this.azzulVersionChecker = azzulVersionChecker;
+            this.versionChecker = versionChecker;
         }
 
         #region Version Checker
@@ -164,8 +164,8 @@ namespace DustInTheWind.CoolApp.Versioning
 
             string applicationName = versionCheckingResult.RetrievedAppVersionInfo.Name;
             string informationalVersion = versionCheckingResult.RetrievedAppVersionInfo.InformationalVersion;
-            long kiloBytesReceived = e.BytesReceived / 1024;
-            long totalKiloBytesToReceive = e.TotalBytesToReceive / 1024;
+            long kiloBytesReceived = e.BytesReceived/1024;
+            long totalKiloBytesToReceive = e.TotalBytesToReceive/1024;
 
             view.InformationText = string.Format(VersionCheckerResources.VersionCheckerWindow_Downloading, applicationName, informationalVersion, kiloBytesReceived, totalKiloBytesToReceive);
         }
@@ -236,7 +236,7 @@ namespace DustInTheWind.CoolApp.Versioning
             {
                 ClearView();
 
-                azzulVersionChecker.CheckCompleted += HandleCheckCompleted;
+                versionChecker.CheckCompleted += HandleCheckCompleted;
 
                 fileDownloader = CreateFileDownloader();
 
@@ -248,12 +248,12 @@ namespace DustInTheWind.CoolApp.Versioning
                 else
                 {
                     view.CheckAtStartupEnabled = true;
-                    view.CheckAtStartupValue = configurationManager.AzzulConfig.Update.CheckAtStartup;
+                    view.CheckAtStartupValue = configurationManager.CoolConfig.Update.CheckAtStartup;
                 }
 
                 // Check if already exists a version information.
 
-                versionCheckingResult = azzulVersionChecker.LastCheckingResult;
+                versionCheckingResult = versionChecker.LastCheckingResult;
 
                 if (versionCheckingResult == null)
                     BeginCheck();
@@ -363,7 +363,7 @@ namespace DustInTheWind.CoolApp.Versioning
         {
             try
             {
-                configurationManager.AzzulConfig.Update.CheckAtStartup = view.CheckAtStartupValue;
+                configurationManager.CoolConfig.Update.CheckAtStartup = view.CheckAtStartupValue;
                 configurationManager.Save();
             }
             catch (Exception ex)
@@ -388,7 +388,6 @@ namespace DustInTheWind.CoolApp.Versioning
         }
 
         #endregion
-
 
         #region Private Methods
 
@@ -424,7 +423,7 @@ namespace DustInTheWind.CoolApp.Versioning
             }
             else
             {
-                view.InformationText = string.Format(VersionCheckerResources.VersionCheckerWindow_VersionDescriptionNoDownload, versionInformation.Description, AzzulUrl);
+                view.InformationText = string.Format(VersionCheckerResources.VersionCheckerWindow_VersionDescriptionNoDownload, versionInformation.Description, CoolAppUrl);
             }
         }
 
@@ -435,9 +434,9 @@ namespace DustInTheWind.CoolApp.Versioning
         {
             try
             {
-                string location = azzulVersionChecker.AppInfoProvider == null
+                string location = versionChecker.AppInfoProvider == null
                     ? null
-                    : azzulVersionChecker.AppInfoProvider.Location;
+                    : versionChecker.AppInfoProvider.Location;
 
                 view.InformationText = string.Format(VersionCheckerResources.VersionCheckerWindow_Checking, location);
                 view.ProgressBarVisible = true;
@@ -447,7 +446,7 @@ namespace DustInTheWind.CoolApp.Versioning
                 view.CheckAgainButtonEnabled = false;
                 versionCheckingResult = null;
 
-                azzulVersionChecker.CheckAsync();
+                versionChecker.CheckAsync();
             }
             catch (Exception ex)
             {

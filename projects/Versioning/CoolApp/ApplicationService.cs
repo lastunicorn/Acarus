@@ -1,5 +1,5 @@
-﻿// Azzul
-// Copyright (C) 2009-2011 Dust in the Wind
+﻿// Acarus
+// Copyright (C) 2015 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,28 +22,28 @@ using DustInTheWind.CoolApp.Services;
 namespace DustInTheWind.CoolApp
 {
     /// <summary>
-    /// Provides different information about the Azzul application.
+    /// Provides different information about the application.
     /// </summary>
     public class ApplicationService : IApplicationService
     {
         /// <summary>
-        /// Returns the version of the Azzul.
+        /// Returns the version of the application.
         /// </summary>
-        /// <returns>A <see cref="Version"/> object containing the current version of Azzul.</returns>
+        /// <returns>A <see cref="Version"/> object containing the current version of the application.</returns>
         public Version GetCurrentVersion()
         {
             Assembly assembly = Assembly.GetEntryAssembly();
-            return AssemblyUtil.GetAssemblyVersion(assembly);
+            return assembly.GetAssemblyVersion();
         }
 
         /// <summary>
-        /// Returns the name of the Azzul application.
+        /// Returns the name of the application.
         /// </summary>
-        /// <returns>The name of the Azzul application.</returns>
+        /// <returns>The name of the application.</returns>
         public string GetApplicationName()
         {
             Assembly assembly = Assembly.GetEntryAssembly();
-            return AssemblyUtil.GetAssemblyTitle(assembly);
+            return assembly.GetAssemblyTitle();
         }
 
         /// <summary>

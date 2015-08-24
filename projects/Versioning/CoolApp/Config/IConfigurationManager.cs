@@ -1,5 +1,5 @@
-﻿// Azzul
-// Copyright (C) 2009-2011 Dust in the Wind
+﻿// Acarus
+// Copyright (C) 2015 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@ namespace DustInTheWind.CoolApp.Config
         /// <summary>
         /// Gets the azzul configuration section from the configuration file.
         /// </summary>
-        AzzulConfigurationSection AzzulConfig { get; }
+        CoolConfigurationSection CoolConfig { get; }
 
         /// <summary>
         /// Event raised when some of the configuration values are changed.

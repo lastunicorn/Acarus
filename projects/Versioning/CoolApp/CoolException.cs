@@ -1,5 +1,5 @@
-﻿// Azzul
-// Copyright (C) 2009-2011 Dust in the Wind
+﻿// Acarus
+// Copyright (C) 2015 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,58 +18,58 @@ using System;
 using System.Runtime.Serialization;
 using DustInTheWind.CoolApp.Properties;
 
-namespace DustInTheWind.CoolApp.Config
+namespace DustInTheWind.CoolApp
 {
     /// <summary>
-    /// Exception raised by the configuration mechanism of Azzul.
+    /// General exception raised by the application.
     /// </summary>
     [Serializable]
-    public class AzzulConfigurationException : AzzulException
+    public class CoolException : ApplicationException
     {
-        private static readonly string DefaultMessage = Resources.InternalError_ConfigurationManager_UnknownError;
+        private static readonly string DefaultMessage = Resources.InternalError_UnknownError;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AzzulConfigurationException"/> class.
+        /// Initializes a new instance of the <see cref="CoolException"/> class.
         /// </summary>
-        public AzzulConfigurationException()
+        public CoolException()
             : base(DefaultMessage)
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AzzulConfigurationException"/> class with a specified error message.
+        /// Initializes a new instance of the <see cref="CoolException"/> class with a specified error message.
         /// </summary>
         /// <param name="message">A message that describes the error.</param>
-        public AzzulConfigurationException(string message)
+        public CoolException(string message)
             : base(message)
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AzzulConfigurationException"/> class with a reference to the inner exception that is the cause of this exception.
+        /// Initializes a new instance of the <see cref="CoolException"/> class with a reference to the inner exception that is the cause of this exception.
         /// </summary>
         /// <param name="innerException">The exception that is the cause of the current exception.</param>
-        public AzzulConfigurationException(Exception innerException)
+        public CoolException(Exception innerException)
             : base(DefaultMessage, innerException)
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AzzulConfigurationException"/> class with a specified error message and a reference to the inner exception that is the cause of this exception.
+        /// Initializes a new instance of the <see cref="CoolException"/> class with a specified error message and a reference to the inner exception that is the cause of this exception.
         /// </summary>
         /// <param name="message">The error message that explains the reason for the exception.</param>
         /// <param name="innerException">The exception that is the cause of the current exception.</param>
-        public AzzulConfigurationException(string message, Exception innerException)
+        public CoolException(string message, Exception innerException)
             : base(message, innerException)
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AzzulConfigurationException"/> class with serialized data.
+        /// Initializes a new instance of the <see cref="CoolException"/> class with serialized data.
         /// </summary>
         /// <param name="info">The object that holds the serialized object data.</param>
         /// <param name="context">The contextual information about the source or destination.</param>
-        public AzzulConfigurationException(SerializationInfo info, StreamingContext context)
+        public CoolException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
         }

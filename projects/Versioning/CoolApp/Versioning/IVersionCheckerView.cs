@@ -1,5 +1,5 @@
-﻿// Azzul
-// Copyright (C) 2009-2011 Dust in the Wind
+﻿// Acarus
+// Copyright (C) 2015 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -15,9 +15,8 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using DustInTheWind.CoolApp.Mvp.Window;
-using DustInTheWind.CoolApp.Versioning;
 
-namespace DustInTheWind.CoolApp
+namespace DustInTheWind.CoolApp.Versioning
 {
     /// <summary>
     /// Declares the members that should be implemented by a GUI object used by <see cref="DiskCreatorPresenter"/> as a view to interact with the user.

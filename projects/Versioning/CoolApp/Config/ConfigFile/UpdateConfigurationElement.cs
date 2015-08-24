@@ -1,5 +1,5 @@
-﻿// Azzul
-// Copyright (C) 2009-2011 Dust in the Wind
+﻿// Acarus
+// Copyright (C) 2015 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -30,7 +30,7 @@ namespace DustInTheWind.CoolApp.Config.ConfigFile
         [ConfigurationProperty("url", DefaultValue = "", IsRequired = false)]
         public string Url
         {
-            get { return (string)this["url"]; }
+            get { return (string) this["url"]; }
             set { this["url"] = value; }
         }
 
@@ -41,7 +41,7 @@ namespace DustInTheWind.CoolApp.Config.ConfigFile
         [ConfigurationProperty("checkAtStartup", DefaultValue = true, IsRequired = false)]
         public bool CheckAtStartup
         {
-            get { return (bool)this["checkAtStartup"]; }
+            get { return (bool) this["checkAtStartup"]; }
             set { this["checkAtStartup"] = value; }
         }
     }

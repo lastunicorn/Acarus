@@ -1,5 +1,5 @@
-﻿// Azzul
-// Copyright (C) 2009-2011 Dust in the Wind
+﻿// Acarus
+// Copyright (C) 2015 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -24,7 +24,7 @@ namespace DustInTheWind.CoolApp.Mvp
     /// Exception raised by a presenter when the view is set the second time.
     /// </summary>
     [Serializable]
-    public class ViewAlreadySetException : AzzulException
+    public class ViewAlreadySetException : CoolException
     {
         private static readonly string DefaultMessage = Resources.InternalError_MvpViewWasAlreadySet;
 

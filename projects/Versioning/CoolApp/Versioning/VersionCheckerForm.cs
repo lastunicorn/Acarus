@@ -1,5 +1,5 @@
-// Azzul
-// Copyright (C) 2009-2011 Dust in the Wind
+// Acarus
+// Copyright (C) 2015 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -116,10 +116,7 @@ namespace DustInTheWind.CoolApp.Versioning
             {
                 if (InvokeRequired)
                 {
-                    Invoke(new SetBoolValueDelegate(delegate(bool v)
-                    {
-                        ProgressBarVisible = v;
-                    }), new object[] { value });
+                    Invoke(new SetBoolValueDelegate(delegate(bool v) { ProgressBarVisible = v; }), new object[] {value});
                 }
                 else
                 {
@@ -167,7 +164,7 @@ namespace DustInTheWind.CoolApp.Versioning
             {
                 if (InvokeRequired)
                 {
-                    Invoke(new SetBoolValueDelegate(v => DownloadButtonVisible = v), new object[] { value });
+                    Invoke(new SetBoolValueDelegate(v => DownloadButtonVisible = v), new object[] {value});
                 }
                 else
                 {
@@ -185,7 +182,7 @@ namespace DustInTheWind.CoolApp.Versioning
             {
                 if (InvokeRequired)
                 {
-                    Invoke(new SetBoolValueDelegate(v => OpenDownloadedFileButtonVisible = v), new object[] { value });
+                    Invoke(new SetBoolValueDelegate(v => OpenDownloadedFileButtonVisible = v), new object[] {value});
                 }
                 else
                 {
@@ -203,7 +200,7 @@ namespace DustInTheWind.CoolApp.Versioning
             {
                 if (InvokeRequired)
                 {
-                    Invoke(new SetBoolValueDelegate(v => CheckAgainButtonEnabled = v), new object[] { value });
+                    Invoke(new SetBoolValueDelegate(v => CheckAgainButtonEnabled = v), new object[] {value});
                 }
                 else
                 {
@@ -221,7 +218,7 @@ namespace DustInTheWind.CoolApp.Versioning
             {
                 if (InvokeRequired)
                 {
-                    Invoke(new SetStringValueDelegate(v => StatusText = v), new object[] { value });
+                    Invoke(new SetStringValueDelegate(v => StatusText = v), new object[] {value});
                 }
                 else
                 {
@@ -239,7 +236,7 @@ namespace DustInTheWind.CoolApp.Versioning
             {
                 if (InvokeRequired)
                 {
-                    Invoke(new SetStringValueDelegate(v => InformationText = v), new object[] { value });
+                    Invoke(new SetStringValueDelegate(v => InformationText = v), new object[] {value});
                 }
                 else
                 {
@@ -292,7 +289,7 @@ namespace DustInTheWind.CoolApp.Versioning
         public bool AskOverwriteFile(string message)
         {
             if (InvokeRequired)
-                return (bool)Invoke(new AskOverwriteFileDelegate(AskOverwriteFile), new object[] { message });
+                return (bool) Invoke(new AskOverwriteFileDelegate(AskOverwriteFile), new object[] {message});
 
             return MessageBox.Show(this, message, VersionCheckerResources.VersionCheckerWindow_OverwriteQuestion_Title, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes;
         }

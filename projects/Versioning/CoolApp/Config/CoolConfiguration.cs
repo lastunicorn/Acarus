@@ -1,5 +1,5 @@
-﻿// Azzul
-// Copyright (C) 2009-2011 Dust in the Wind
+﻿// Acarus
+// Copyright (C) 2015 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,7 +23,7 @@ namespace DustInTheWind.CoolApp.Config
     /// <summary>
     /// Loads and stores the configuration values.
     /// </summary>
-    public class AzzulConfiguration : IAzzulConfiguration
+    public class CoolConfiguration : ICoolConfiguration
     {
         /// <summary>
         /// A <see cref="Configuration"/> objects that represents the configuration file managed by the current instance.
@@ -33,7 +33,7 @@ namespace DustInTheWind.CoolApp.Config
         /// <summary>
         /// Gets the azzul configuration section from the configuration file.
         /// </summary>
-        public AzzulConfigurationSection AzzulConfig { get; set; }
+        public CoolConfigurationSection CoolConfig { get; set; }
 
         #region ConfigurationSaved
 
@@ -60,42 +60,42 @@ namespace DustInTheWind.CoolApp.Config
         public void Initialize()
         {
             config = System.Configuration.ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            AzzulConfig = GetOrCreateAzzulSection();
+            CoolConfig = GetOrCreateCoolSection();
         }
 
         /// <summary>
         /// Returns the azzul configuration section from the specified <see cref="Configuration"/> object.
         /// If no azzul section can be found, an empty one is created.
         /// </summary>
-        /// <returns>A <see cref="AzzulConfigurationSection"/> instance representing the azzul configuration section.</returns>
-        /// <exception cref="AzzulConfigurationException"></exception>
-        private AzzulConfigurationSection GetOrCreateAzzulSection()
+        /// <returns>A <see cref="CoolConfigurationSection"/> instance representing the azzul configuration section.</returns>
+        /// <exception cref="CoolConfigurationException"></exception>
+        private CoolConfigurationSection GetOrCreateCoolSection()
         {
-            return GetAzzulConfigurationSection() ?? CreateAndAddAzzulConfigurationSection();
+            return GetCoolConfigurationSection() ?? CreateAndAddAzzulConfigurationSection();
         }
 
-        private AzzulConfigurationSection GetAzzulConfigurationSection()
+        private CoolConfigurationSection GetCoolConfigurationSection()
         {
             try
             {
-                return config.GetSection(AzzulConfigurationSection.DefaultSectionName) as AzzulConfigurationSection;
+                return config.GetSection(CoolConfigurationSection.DefaultSectionName) as CoolConfigurationSection;
             }
             catch (Exception ex)
             {
                 string message = string.Format(Resources.Error_ConfigurationManager_ErrorReadingAzzulSection, ex.Message);
-                throw new AzzulConfigurationException(message, ex);
+                throw new CoolConfigurationException(message, ex);
             }
         }
 
-        private AzzulConfigurationSection CreateAndAddAzzulConfigurationSection()
+        private CoolConfigurationSection CreateAndAddAzzulConfigurationSection()
         {
-            AzzulConfigurationSection azzulConfigurationSection = new AzzulConfigurationSection();
-            azzulConfigurationSection.SectionInformation.AllowExeDefinition = ConfigurationAllowExeDefinition.MachineToLocalUser;
-            azzulConfigurationSection.SectionInformation.ForceSave = true;
+            CoolConfigurationSection coolConfigurationSection = new CoolConfigurationSection();
+            coolConfigurationSection.SectionInformation.AllowExeDefinition = ConfigurationAllowExeDefinition.MachineToLocalUser;
+            coolConfigurationSection.SectionInformation.ForceSave = true;
 
-            config.Sections.Add(AzzulConfigurationSection.DefaultSectionName, azzulConfigurationSection);
+            config.Sections.Add(CoolConfigurationSection.DefaultSectionName, coolConfigurationSection);
 
-            return azzulConfigurationSection;
+            return coolConfigurationSection;
         }
 
         /// <summary>

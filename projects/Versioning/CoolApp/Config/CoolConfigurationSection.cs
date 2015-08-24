@@ -1,5 +1,5 @@
-﻿// Azzul
-// Copyright (C) 2009-2011 Dust in the Wind
+﻿// Acarus
+// Copyright (C) 2015 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,12 +22,12 @@ namespace DustInTheWind.CoolApp.Config
     /// <summary>
     /// Represents the azzul section within a configuration file.
     /// </summary>
-    public class AzzulConfigurationSection : ConfigurationSection
+    public class CoolConfigurationSection : ConfigurationSection
     {
         /// <summary>
         /// The default name of the azzul section.
         /// </summary>
-        public const string DefaultSectionName = "azzul";
+        public const string DefaultSectionName = "cool";
 
         /// <summary>
         /// Gets or sets the "update" configuration element.
@@ -35,7 +35,7 @@ namespace DustInTheWind.CoolApp.Config
         [ConfigurationProperty("update")]
         public UpdateConfigurationElement Update
         {
-            get { return (UpdateConfigurationElement)this["update"]; }
+            get { return (UpdateConfigurationElement) this["update"]; }
             set { this["update"] = value; }
         }
     }

@@ -1,5 +1,5 @@
-﻿// Azzul
-// Copyright (C) 2009-2011 Dust in the Wind
+﻿// Acarus
+// Copyright (C) 2015 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -38,7 +38,7 @@ namespace DustInTheWind.Versioning
         {
             try
             {
-                HttpWebRequest myRequest = (HttpWebRequest)WebRequest.Create(Url);
+                HttpWebRequest myRequest = (HttpWebRequest) WebRequest.Create(Url);
                 myRequest.Method = "GET";
 
                 using (WebResponse myResponse = myRequest.GetResponse())

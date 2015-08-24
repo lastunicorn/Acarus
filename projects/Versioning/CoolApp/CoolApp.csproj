@@ -41,13 +41,13 @@
   <ItemGroup>
     <Compile Include="ApplicationService.cs" />
     <Compile Include="AssemblyUtil.cs" />
-    <Compile Include="AzzulException.cs" />
-    <Compile Include="Config\AzzulConfiguration.cs" />
-    <Compile Include="Config\AzzulConfigurationException.cs" />
-    <Compile Include="Config\AzzulConfigurationSection.cs" />
+    <Compile Include="CoolException.cs" />
+    <Compile Include="Config\CoolConfiguration.cs" />
+    <Compile Include="Config\CoolConfigurationException.cs" />
+    <Compile Include="Config\CoolConfigurationSection.cs" />
     <Compile Include="Config\ConfigFile\UpdateConfigurationElement.cs" />
     <Compile Include="Config\ConfigurationManager.cs" />
-    <Compile Include="Config\IAzzulConfiguration.cs" />
+    <Compile Include="Config\ICoolConfiguration.cs" />
     <Compile Include="Config\IConfigurationManager.cs" />
     <Compile Include="Properties\AssemblyUtilResources.Designer.cs">
       <DependentUpon>AssemblyUtilResources.resx</DependentUpon>

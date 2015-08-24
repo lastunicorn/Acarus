@@ -1,5 +1,5 @@
-﻿// Azzul
-// Copyright (C) 2009-2011 Dust in the Wind
+﻿// Acarus
+// Copyright (C) 2015 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -32,26 +32,26 @@ namespace DustInTheWind.CoolApp
         /// <param name="assembly">The assembly for which to return the informational version.</param>
         /// <returns>The informational version of the assembly.</returns>
         /// <exception cref="ArgumentNullException">The assembly parameter is null.</exception>
-        /// <exception cref="AzzulException">Could not retrieve the requested information.</exception>
+        /// <exception cref="CoolException">Could not retrieve the requested information.</exception>
         public static string GetAssemblyInformationalVersion(this Assembly assembly)
         {
             if (assembly == null) throw new ArgumentNullException("assembly");
 
             try
             {
-                object[] attributes = assembly.GetCustomAttributes(typeof(AssemblyInformationalVersionAttribute), false);
+                object[] attributes = assembly.GetCustomAttributes(typeof (AssemblyInformationalVersionAttribute), false);
 
                 if (attributes.Length == 0)
                     return string.Empty;
 
-                AssemblyInformationalVersionAttribute attribute = (AssemblyInformationalVersionAttribute)attributes[0];
+                AssemblyInformationalVersionAttribute attribute = (AssemblyInformationalVersionAttribute) attributes[0];
                 return attribute.InformationalVersion;
             }
             catch (Exception ex)
             {
                 string fullAssemblyName = assembly.GetName().FullName;
                 string errorMessage = string.Format(AssemblyUtilResources.AssemblyUtil_InformationalVersion_Error, fullAssemblyName);
-                throw new AzzulException(errorMessage, ex);
+                throw new CoolException(errorMessage, ex);
             }
         }
 
@@ -61,24 +61,24 @@ namespace DustInTheWind.CoolApp
         /// <param name="assembly">The assembly for which to return the title.</param>
         /// <returns>The title of the assembly.</returns>
         /// <exception cref="ArgumentNullException">The assembly parameter is null.</exception>
-        /// <exception cref="AzzulException">Could not retrieve the requested information.</exception>
+        /// <exception cref="CoolException">Could not retrieve the requested information.</exception>
         public static string GetAssemblyTitle(this Assembly assembly)
         {
             if (assembly == null) throw new ArgumentNullException("assembly");
 
             try
             {
-                object[] attributes = assembly.GetCustomAttributes(typeof(AssemblyTitleAttribute), false);
+                object[] attributes = assembly.GetCustomAttributes(typeof (AssemblyTitleAttribute), false);
 
                 return attributes.Length > 0
-                    ? ((AssemblyTitleAttribute)attributes[0]).Title
+                    ? ((AssemblyTitleAttribute) attributes[0]).Title
                     : Path.GetFileNameWithoutExtension(assembly.CodeBase);
             }
             catch (Exception ex)
             {
                 string fullAssemblyName = assembly.GetName().FullName;
                 string errorMessage = string.Format(AssemblyUtilResources.AssemblyUtil_AssemblyTitle_Error, fullAssemblyName);
-                throw new AzzulException(errorMessage, ex);
+                throw new CoolException(errorMessage, ex);
             }
         }
 
@@ -101,26 +101,26 @@ namespace DustInTheWind.CoolApp
         /// <param name="assembly">The assembly for which to return the description.</param>
         /// <returns>The description of the assembly.</returns>
         /// <exception cref="ArgumentNullException">The assembly parameter is null.</exception>
-        /// <exception cref="AzzulException">Could not retrieve the requested information.</exception>
+        /// <exception cref="CoolException">Could not retrieve the requested information.</exception>
         public static string GetAssemblyDescription(this Assembly assembly)
         {
             if (assembly == null) throw new ArgumentNullException("assembly");
 
             try
             {
-                object[] attributes = assembly.GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false);
+                object[] attributes = assembly.GetCustomAttributes(typeof (AssemblyDescriptionAttribute), false);
 
                 if (attributes.Length == 0)
                     return string.Empty;
 
-                AssemblyDescriptionAttribute attribute = (AssemblyDescriptionAttribute)attributes[0];
+                AssemblyDescriptionAttribute attribute = (AssemblyDescriptionAttribute) attributes[0];
                 return attribute.Description;
             }
             catch (Exception ex)
             {
                 string fullAssemblyName = assembly.GetName().FullName;
                 string errorMessage = string.Format(AssemblyUtilResources.AssemblyUtil_AssemblyDescription_Error, fullAssemblyName);
-                throw new AzzulException(errorMessage, ex);
+                throw new CoolException(errorMessage, ex);
             }
         }
 
@@ -130,26 +130,26 @@ namespace DustInTheWind.CoolApp
         /// <param name="assembly">The assembly for which to return the product name.</param>
         /// <returns>The product name of the assembly.</returns>
         /// <exception cref="ArgumentNullException">The assembly parameter is null.</exception>
-        /// <exception cref="AzzulException">Could not retrieve the requested information.</exception>
+        /// <exception cref="CoolException">Could not retrieve the requested information.</exception>
         public static string GetProductName(this Assembly assembly)
         {
             if (assembly == null) throw new ArgumentNullException("assembly");
 
             try
             {
-                object[] attributes = assembly.GetCustomAttributes(typeof(AssemblyProductAttribute), false);
+                object[] attributes = assembly.GetCustomAttributes(typeof (AssemblyProductAttribute), false);
 
                 if (attributes.Length == 0)
                     return string.Empty;
 
-                AssemblyProductAttribute attribute = (AssemblyProductAttribute)attributes[0];
+                AssemblyProductAttribute attribute = (AssemblyProductAttribute) attributes[0];
                 return attribute.Product;
             }
             catch (Exception ex)
             {
                 string fullAssemblyName = assembly.GetName().FullName;
                 string errorMessage = string.Format(AssemblyUtilResources.AssemblyUtil_ProductName_Error, fullAssemblyName);
-                throw new AzzulException(errorMessage, ex);
+                throw new CoolException(errorMessage, ex);
             }
         }
 
@@ -159,26 +159,26 @@ namespace DustInTheWind.CoolApp
         /// <param name="assembly">The assembly for which to return the copyright information.</param>
         /// <returns>The copyright information of the assembly.</returns>
         /// <exception cref="ArgumentNullException">The assembly parameter is null.</exception>
-        /// <exception cref="AzzulException">Could not retrieve the requested information.</exception>
+        /// <exception cref="CoolException">Could not retrieve the requested information.</exception>
         public static string GetCopyrightInformation(this Assembly assembly)
         {
             if (assembly == null) throw new ArgumentNullException("assembly");
 
             try
             {
-                object[] attributes = assembly.GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false);
+                object[] attributes = assembly.GetCustomAttributes(typeof (AssemblyCopyrightAttribute), false);
 
                 if (attributes.Length == 0)
                     return string.Empty;
 
-                AssemblyCopyrightAttribute attribute = (AssemblyCopyrightAttribute)attributes[0];
+                AssemblyCopyrightAttribute attribute = (AssemblyCopyrightAttribute) attributes[0];
                 return attribute.Copyright;
             }
             catch (Exception ex)
             {
                 string fullAssemblyName = assembly.GetName().FullName;
                 string errorMessage = string.Format(AssemblyUtilResources.AssemblyUtil_CopyrightInformation_Error, fullAssemblyName);
-                throw new AzzulException(errorMessage, ex);
+                throw new CoolException(errorMessage, ex);
             }
         }
 
@@ -188,26 +188,26 @@ namespace DustInTheWind.CoolApp
         /// <param name="assembly">The assembly for which to return the company name.</param>
         /// <returns>The company name of the assembly.</returns>
         /// <exception cref="ArgumentNullException">The assembly parameter is null.</exception>
-        /// <exception cref="AzzulException">Could not retrieve the requested information.</exception>
+        /// <exception cref="CoolException">Could not retrieve the requested information.</exception>
         public static string GetCompanyName(this Assembly assembly)
         {
             if (assembly == null) throw new ArgumentNullException("assembly");
 
             try
             {
-                object[] attributes = assembly.GetCustomAttributes(typeof(AssemblyCompanyAttribute), false);
+                object[] attributes = assembly.GetCustomAttributes(typeof (AssemblyCompanyAttribute), false);
 
                 if (attributes.Length == 0)
                     return string.Empty;
 
-                AssemblyCompanyAttribute attribute = (AssemblyCompanyAttribute)attributes[0];
+                AssemblyCompanyAttribute attribute = (AssemblyCompanyAttribute) attributes[0];
                 return attribute.Company;
             }
             catch (Exception ex)
             {
                 string fullAssemblyName = assembly.GetName().FullName;
                 string errorMessage = string.Format(AssemblyUtilResources.AssemblyUtil_CompanyName_Error, fullAssemblyName);
-                throw new AzzulException(errorMessage, ex);
+                throw new CoolException(errorMessage, ex);
             }
         }
     }

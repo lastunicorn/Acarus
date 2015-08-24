@@ -1,5 +1,5 @@
-﻿// Azzul
-// Copyright (C) 2009-2011 Dust in the Wind
+﻿// Acarus
+// Copyright (C) 2015 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@ namespace DustInTheWind.CoolApp.Mvp
         /// Gets or sets the view that represents the GUI.
         /// Once the view is set it cannot be changed.
         /// </summary>
-        /// <exception cref="AzzulException">Thrown if the view is already set.</exception>
+        /// <exception cref="CoolException">Thrown if the view is already set.</exception>
         IView View { get; set; }
     }
 }
