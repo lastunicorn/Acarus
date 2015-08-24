@@ -23,6 +23,8 @@ namespace DustInTheWind.Versioning
     /// </summary>
     public interface IAppVersionInfoProvider
     {
+        string Location { get; }
+
         /// <summary>
         /// When implemented in a derived class, returns a <see cref="AppVersionInfo"/> object containing information
         /// about the newest version of the application.

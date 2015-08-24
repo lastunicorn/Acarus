@@ -44,7 +44,7 @@ namespace DustInTheWind.CoolApp.Versioning
         /// <summary>
         /// A service that checks if a newer version of Azzul exists.
         /// </summary>
-        private readonly IAzzulVersionChecker azzulVersionChecker;
+        private readonly VersionChecker azzulVersionChecker;
 
         /// <summary>
         /// The information about the newest version.
@@ -65,7 +65,7 @@ namespace DustInTheWind.CoolApp.Versioning
         /// <param name="azzulVersionChecker">A service that checks if a newer version of Azzul exists.</param>
         /// <exception cref="ArgumentNullException">Exception thrown if one of the arguments is null.</exception>
         public VersionCheckerPresenter(IMessagesService messagesService, IConfigurationManager configurationManager,
-            IAzzulVersionChecker azzulVersionChecker)
+            VersionChecker azzulVersionChecker)
             : base(messagesService)
         {
             if (configurationManager == null) throw new ArgumentNullException("configurationManager");
@@ -435,7 +435,11 @@ namespace DustInTheWind.CoolApp.Versioning
         {
             try
             {
-                view.InformationText = string.Format(VersionCheckerResources.VersionCheckerWindow_Checking, azzulVersionChecker.Url);
+                string location = azzulVersionChecker.AppInfoProvider == null
+                    ? null
+                    : azzulVersionChecker.AppInfoProvider.Location;
+
+                view.InformationText = string.Format(VersionCheckerResources.VersionCheckerWindow_Checking, location);
                 view.ProgressBarVisible = true;
                 view.ProgressBarType = ProgressBarType.Loading;
                 view.DownloadButtonVisible = false;

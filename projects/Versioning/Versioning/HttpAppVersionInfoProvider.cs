@@ -29,6 +29,11 @@ namespace DustInTheWind.Versioning
 
         public string AppName { get; set; }
 
+        public string Location
+        {
+            get { return Url; }
+        }
+
         public AppVersionInfo GetVersionInformation()
         {
             try
