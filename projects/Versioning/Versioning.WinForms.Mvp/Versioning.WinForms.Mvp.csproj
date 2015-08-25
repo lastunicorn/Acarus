@@ -55,17 +55,11 @@
     <Compile Include="Config\CoolConfigurationSection.cs" />
     <Compile Include="Config\IConfigurationManager.cs" />
     <Compile Include="Config\ICoolConfiguration.cs" />
-    <Compile Include="CoolException.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="Common\CoolException.cs" />
+    <Compile Include="Common\FormBase.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FormBase.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="IMessagesService.cs" />
+    <Compile Include="Common\IMessagesService.cs" />
     <Compile Include="Mvp\IPresenter.cs" />
     <Compile Include="Mvp\IPresenter1.cs" />
     <Compile Include="Mvp\IView.cs" />
@@ -78,8 +72,7 @@
     <Compile Include="Mvp\Window\IWindowView.cs" />
     <Compile Include="Mvp\Window\IWindowView1.cs" />
     <Compile Include="Mvp\Window\WindowPresenterBase.cs" />
-    <Compile Include="Program.cs" />
-    <Compile Include="ProgressBarType.cs" />
+    <Compile Include="Common\ProgressBarType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <DependentUpon>Resources.resx</DependentUpon>
@@ -91,8 +84,8 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="SetBoolValueDelegate.cs" />
-    <Compile Include="SetStringValueDelegate.cs" />
+    <Compile Include="Common\SetBoolValueDelegate.cs" />
+    <Compile Include="Common\SetStringValueDelegate.cs" />
     <Compile Include="Versioning\FileDownloadState.cs" />
     <Compile Include="Versioning\IVersionCheckerView.cs" />
     <Compile Include="Versioning\VersionCheckerForm.cs">

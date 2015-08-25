@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{151425B2-0B3F-4A57-B811-F7292369C8A9}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <ProjectGuid>{4598B528-C729-4782-966A-28AC0977539F}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DustInTheWind.CoolApp</RootNamespace>
-    <AssemblyName>CoolApp</AssemblyName>
+    <RootNamespace>DustInTheWind.Versioning.WinForms.Mvp</RootNamespace>
+    <AssemblyName>Versioning.WinForms.Mvp</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,6 +31,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -39,52 +42,54 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationService.cs" />
-    <Compile Include="AssemblyUtil.cs" />
-    <Compile Include="Properties\AssemblyUtilResources.Designer.cs">
-      <DependentUpon>AssemblyUtilResources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
+    <Compile Include="BindingExtensions.cs" />
+    <Compile Include="Config\ConfigFile\UpdateConfigurationElement.cs" />
+    <Compile Include="Config\ConfigurationManager.cs" />
+    <Compile Include="Config\CoolConfiguration.cs" />
+    <Compile Include="Config\CoolConfigurationException.cs" />
+    <Compile Include="Config\CoolConfigurationSection.cs" />
+    <Compile Include="Config\IConfigurationManager.cs" />
+    <Compile Include="Config\ICoolConfiguration.cs" />
+    <Compile Include="CoolException.cs" />
+    <Compile Include="IUserInterface.cs" />
+    <Compile Include="Versioning\IVersionCheckerView.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <DependentUpon>Resources.resx</DependentUpon>
       <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="Properties\ServicesResources.Designer.cs">
-      <DependentUpon>ServicesResources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Include="Services\IApplicationService.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="Properties\VersionCheckerResources.Designer.cs">
+      <DependentUpon>VersionCheckerResources.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Versioning\FileDownloadState.cs" />
+    <Compile Include="Versioning\VersionCheckerForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Versioning\VersionCheckerForm.Designer.cs">
+      <DependentUpon>VersionCheckerForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MessagesService.cs" />
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\AssemblyUtilResources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>AssemblyUtilResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\AssemblyUtilResources.ro.resx" />
+    <Compile Include="Versioning\VersionCheckerPresenter.cs" />
+    <Compile Include="ViewModelBase.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <EmbeddedResource Include="Properties\Resources.ro.resx" />
-    <EmbeddedResource Include="Properties\ServicesResources.resx">
+    <EmbeddedResource Include="Properties\VersionCheckerResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>ServicesResources.Designer.cs</LastGenOutput>
+      <LastGenOutput>VersionCheckerResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\ServicesResources.ro.resx" />
+    <EmbeddedResource Include="Properties\VersionCheckerResources.ro.resx" />
+    <EmbeddedResource Include="Versioning\VersionCheckerForm.resx">
+      <DependentUpon>VersionCheckerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Versioning\VersionCheckerForm.ro.resx">
+      <DependentUpon>VersionCheckerForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -99,15 +104,12 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Versioning.WinForms.Mvp\Versioning.WinForms.Mvp.csproj">
-      <Project>{99ce495a-39a2-4a65-a175-1b9da53ece18}</Project>
-      <Name>Versioning.WinForms.Mvp</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Versioning\Versioning.csproj">
       <Project>{522e5c0c-b756-4265-9d44-47cbeae865ac}</Project>
       <Name>Versioning</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

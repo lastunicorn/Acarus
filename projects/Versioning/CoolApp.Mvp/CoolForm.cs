@@ -22,14 +22,14 @@ using DustInTheWind.Versioning.WinForms.Mvp.Versioning;
 
 namespace DustInTheWind.CoolApp
 {
-    public partial class Form1 : Form
+    public partial class CoolForm : Form
     {
         /// <summary>
         /// The default version file url. It is used only if the configuration object does not provide an url. 
         /// </summary>
         public const string DefaultCheckUrl = "http://azzul.alez.ro/appinfo.xml";
 
-        public Form1()
+        public CoolForm()
         {
             InitializeComponent();
         }
