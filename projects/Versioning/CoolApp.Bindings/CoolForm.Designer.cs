@@ -1,6 +1,6 @@
 ﻿namespace DustInTheWind.CoolApp
 {
-    partial class Form1
+    partial class CoolForm
     {
         /// <summary>
         /// Required designer variable.
@@ -50,15 +50,15 @@
             this.textBoxAzzulVersion.TabIndex = 1;
             this.textBoxAzzulVersion.Text = "1.0.0.0";
             // 
-            // Form1
+            // CoolForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 262);
             this.Controls.Add(this.textBoxAzzulVersion);
             this.Controls.Add(this.button1);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "CoolForm";
+            this.Text = "Cool Application";
             this.ResumeLayout(false);
             this.PerformLayout();
 

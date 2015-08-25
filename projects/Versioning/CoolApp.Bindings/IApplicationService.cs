@@ -16,7 +16,7 @@
 
 using System;
 
-namespace DustInTheWind.CoolApp.Services
+namespace DustInTheWind.CoolApp
 {
     /// <summary>
     /// Provides different information about the Azzul application.

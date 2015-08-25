@@ -18,7 +18,7 @@ using System;
 using System.Runtime.Serialization;
 using DustInTheWind.Versioning.WinForms.Mvp.Properties;
 
-namespace DustInTheWind.Versioning.WinForms.Mvp
+namespace DustInTheWind.Versioning.WinForms.Mvp.Common
 {
     /// <summary>
     /// General exception raised by the application.

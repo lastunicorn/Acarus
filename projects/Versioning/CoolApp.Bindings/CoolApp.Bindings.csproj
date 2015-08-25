@@ -51,18 +51,18 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Include="Services\IApplicationService.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="IApplicationService.cs" />
+    <Compile Include="CoolForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="CoolForm.Designer.cs">
+      <DependentUpon>CoolForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UserInterface.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="CoolForm.resx">
+      <DependentUpon>CoolForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\AssemblyUtilResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

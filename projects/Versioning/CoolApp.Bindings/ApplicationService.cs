@@ -17,7 +17,6 @@
 using System;
 using System.IO;
 using System.Reflection;
-using DustInTheWind.CoolApp.Services;
 
 namespace DustInTheWind.CoolApp
 {

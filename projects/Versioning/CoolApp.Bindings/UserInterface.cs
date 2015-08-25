@@ -21,6 +21,7 @@ using System.Threading;
 using System.Windows.Forms;
 using DustInTheWind.CoolApp.Properties;
 using DustInTheWind.Versioning.WinForms.Mvp;
+using DustInTheWind.Versioning.WinForms.Mvp.Common;
 
 namespace DustInTheWind.CoolApp
 {
@@ -103,7 +104,7 @@ namespace DustInTheWind.CoolApp
             {
                 if (parentForm.InvokeRequired)
                 {
-                    object[] parameters = new object[] { parentForm, message, title, buttons, icon };
+                    object[] parameters = { parentForm, message, title, buttons, icon };
                     parentForm.Invoke(new Action<Form, string, string, MessageBoxButtons, MessageBoxIcon>(ShowMessageBox), parameters);
                 }
                 else
@@ -136,6 +137,7 @@ namespace DustInTheWind.CoolApp
         /// Presents the user a warning and asks a question in a message box and returns a yes/no answer.
         /// </summary>
         /// <param name="text">The warning and question to be asked.</param>
+        /// <param name="title"></param>
         /// <returns><c>true</c> if the user answered yes; <c>false</c> otherwise.</returns>
         public bool YesNoWarning(string text, string title = null)
         {

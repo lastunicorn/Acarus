@@ -175,7 +175,7 @@ namespace DustInTheWind.Versioning.WinForms.Mvp.Versioning
             this.MinimizeBox = false;
             this.Name = "VersionCheckerForm";
             this.ShowInTaskbar = false;
-            this.Shown += new System.EventHandler(this.NewVersionForm_Shown);
+            this.Shown += new System.EventHandler(this.VersionCheckerForm_Shown);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);

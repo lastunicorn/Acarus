@@ -16,6 +16,7 @@
 
 using System;
 using System.Windows.Forms;
+using DustInTheWind.Versioning.WinForms.Mvp.Common;
 
 namespace DustInTheWind.Versioning.WinForms.Mvp.Versioning
 {
@@ -24,22 +25,22 @@ namespace DustInTheWind.Versioning.WinForms.Mvp.Versioning
     /// </summary>
     public partial class VersionCheckerForm : Form, IVersionCheckerView
     {
-        private VersionCheckerPresenter presenter;
+        private VersionCheckerViewModel viewModel;
 
         /// <summary>
-        /// Gets or sets the Presenter that contains the logic of the <see cref="Form"/>.
+        /// Gets or sets the view model that contains the logic of the <see cref="Form"/>.
         /// </summary>
-        public VersionCheckerPresenter Presenter
+        public VersionCheckerViewModel ViewModel
         {
-            get { return presenter; }
+            get { return viewModel; }
             set
             {
-                if (presenter != null)
+                if (viewModel != null)
                     DetachDataSource();
 
-                presenter = value;
+                viewModel = value;
 
-                if (presenter != null)
+                if (viewModel != null)
                     AttachDataSource();
             }
         }
@@ -57,16 +58,16 @@ namespace DustInTheWind.Versioning.WinForms.Mvp.Versioning
 
         private void AttachDataSource()
         {
-            progressBar1.CreateBinding(x => x.Value, Presenter, x => x.ProgressBarValue, false, DataSourceUpdateMode.Never);
-            progressBar1.CreateBinding(x => x.Visible, Presenter, x => x.ProgressBarVisible, false, DataSourceUpdateMode.Never);
-            progressBar1.CreateBinding(x => x.Style, Presenter, x => x.ProgressBarStyle, false, DataSourceUpdateMode.Never);
-            buttonDownload.CreateBinding(x => x.Visible, Presenter, x => x.DownloadButtonVisible, false, DataSourceUpdateMode.Never);
-            buttonOpenDownloadedFile.CreateBinding(x => x.Visible, Presenter, x => x.OpenDownloadedFileButtonVisible, false, DataSourceUpdateMode.Never);
-            buttonCheckAgain.CreateBinding(x => x.Enabled, Presenter, x => x.CheckAgainButtonEnabled, false, DataSourceUpdateMode.Never);
-            labelStatusText.CreateBinding(x => x.Text, Presenter, x => x.StatusText, false, DataSourceUpdateMode.Never);
-            labelInfo.CreateBinding(x => x.Text, Presenter, x => x.InformationText, false, DataSourceUpdateMode.Never);
-            checkBoxCheckAtStartup.CreateBinding(x => x.Enabled, Presenter, x => x.CheckAtStartupEnabled, false, DataSourceUpdateMode.Never);
-            checkBoxCheckAtStartup.CreateBinding(x => x.Checked, Presenter, x => x.CheckAtStartupValue, false, DataSourceUpdateMode.OnPropertyChanged);
+            progressBar1.CreateBinding(x => x.Value, ViewModel, x => x.ProgressBarValue, false, DataSourceUpdateMode.Never);
+            progressBar1.CreateBinding(x => x.Visible, ViewModel, x => x.ProgressBarVisible, false, DataSourceUpdateMode.Never);
+            progressBar1.CreateBinding(x => x.Style, ViewModel, x => x.ProgressBarStyle, false, DataSourceUpdateMode.Never);
+            buttonDownload.CreateBinding(x => x.Visible, ViewModel, x => x.DownloadButtonVisible, false, DataSourceUpdateMode.Never);
+            buttonOpenDownloadedFile.CreateBinding(x => x.Visible, ViewModel, x => x.OpenDownloadedFileButtonVisible, false, DataSourceUpdateMode.Never);
+            buttonCheckAgain.CreateBinding(x => x.Enabled, ViewModel, x => x.CheckAgainButtonEnabled, false, DataSourceUpdateMode.Never);
+            labelStatusText.CreateBinding(x => x.Text, ViewModel, x => x.StatusText, false, DataSourceUpdateMode.Never);
+            labelInfo.CreateBinding(x => x.Text, ViewModel, x => x.InformationText, false, DataSourceUpdateMode.Never);
+            checkBoxCheckAtStartup.CreateBinding(x => x.Enabled, ViewModel, x => x.CheckAtStartupEnabled, false, DataSourceUpdateMode.Never);
+            checkBoxCheckAtStartup.CreateBinding(x => x.Checked, ViewModel, x => x.CheckAtStartupValue, false, DataSourceUpdateMode.OnPropertyChanged);
         }
 
         /// <summary>
@@ -82,14 +83,7 @@ namespace DustInTheWind.Versioning.WinForms.Mvp.Versioning
         /// </summary>
         public void CloseView()
         {
-            if (InvokeRequired)
-            {
-                Invoke(new MethodInvoker(CloseView));
-            }
-            else
-            {
-                Close();
-            }
+            Close();
         }
 
         /// <summary>
@@ -97,9 +91,9 @@ namespace DustInTheWind.Versioning.WinForms.Mvp.Versioning
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void NewVersionForm_Shown(object sender, EventArgs e)
+        private void VersionCheckerForm_Shown(object sender, EventArgs e)
         {
-            Presenter.ViewShown();
+            ViewModel.ViewShown();
         }
 
         /// <summary>
@@ -109,7 +103,7 @@ namespace DustInTheWind.Versioning.WinForms.Mvp.Versioning
         /// <param name="e"></param>
         private void buttonClose_Click(object sender, EventArgs e)
         {
-            Presenter.CloseButtonClicked();
+            ViewModel.CloseButtonClicked();
         }
 
         /// <summary>
@@ -119,7 +113,7 @@ namespace DustInTheWind.Versioning.WinForms.Mvp.Versioning
         /// <param name="e"></param>
         private void buttonCheckAgain_Click(object sender, EventArgs e)
         {
-            Presenter.CheckAgainButtonClicked();
+            ViewModel.CheckAgainButtonClicked();
         }
 
         /// <summary>
@@ -129,7 +123,7 @@ namespace DustInTheWind.Versioning.WinForms.Mvp.Versioning
         /// <param name="e"></param>
         private void buttonDownload_Click(object sender, EventArgs e)
         {
-            Presenter.DownloadButtonClicked();
+            ViewModel.DownloadButtonClicked();
         }
 
         /// <summary>
@@ -142,7 +136,7 @@ namespace DustInTheWind.Versioning.WinForms.Mvp.Versioning
             foreach (Binding binding in checkBoxCheckAtStartup.DataBindings)
                 binding.WriteValue();
 
-            Presenter.CheckAtStartupCheckedChanged();
+            ViewModel.CheckAtStartupCheckedChanged();
         }
 
         /// <summary>
@@ -152,7 +146,7 @@ namespace DustInTheWind.Versioning.WinForms.Mvp.Versioning
         /// <param name="e"></param>
         private void buttonOpenDownloadedFile_Click(object sender, EventArgs e)
         {
-            Presenter.OpenDownloadedFileButtonClicked();
+            ViewModel.OpenDownloadedFileButtonClicked();
         }
     }
 }

@@ -24,7 +24,7 @@ using DustInTheWind.Versioning.WinForms.Mvp.Versioning;
 
 namespace DustInTheWind.CoolApp
 {
-    public partial class Form1 : Form
+    public partial class CoolForm : Form
     {
         private UserInterface userInterface;
 
@@ -33,7 +33,7 @@ namespace DustInTheWind.CoolApp
         /// </summary>
         public const string DefaultCheckUrl = "http://azzul.alez.ro/appinfo.xml";
 
-        public Form1()
+        public CoolForm()
         {
             InitializeComponent();
 
@@ -51,10 +51,10 @@ namespace DustInTheWind.CoolApp
 
             VersionChecker azzulVersionChecker = CreateVersionChecker(coolConfiguration);
 
-            VersionCheckerPresenter presenter = new VersionCheckerPresenter(userInterface, configurationManager, azzulVersionChecker);
+            VersionCheckerViewModel viewModel = new VersionCheckerViewModel(userInterface, configurationManager, azzulVersionChecker);
 
-            presenter.View = form;
-            form.Presenter = presenter;
+            viewModel.View = form;
+            form.ViewModel = viewModel;
 
             form.Show();
         }

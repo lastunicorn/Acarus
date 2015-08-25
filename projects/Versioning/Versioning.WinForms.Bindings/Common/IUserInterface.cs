@@ -16,7 +16,7 @@
 
 using System;
 
-namespace DustInTheWind.Versioning.WinForms.Mvp
+namespace DustInTheWind.Versioning.WinForms.Mvp.Common
 {
     /// <summary>
     /// Displays messages to the user.

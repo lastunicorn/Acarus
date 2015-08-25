@@ -42,7 +42,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BindingExtensions.cs" />
+    <Compile Include="Common\BindingExtensions.cs" />
     <Compile Include="Config\ConfigFile\UpdateConfigurationElement.cs" />
     <Compile Include="Config\ConfigurationManager.cs" />
     <Compile Include="Config\CoolConfiguration.cs" />
@@ -50,8 +50,8 @@
     <Compile Include="Config\CoolConfigurationSection.cs" />
     <Compile Include="Config\IConfigurationManager.cs" />
     <Compile Include="Config\ICoolConfiguration.cs" />
-    <Compile Include="CoolException.cs" />
-    <Compile Include="IUserInterface.cs" />
+    <Compile Include="Common\CoolException.cs" />
+    <Compile Include="Common\IUserInterface.cs" />
     <Compile Include="Versioning\IVersionCheckerView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -71,8 +71,8 @@
     <Compile Include="Versioning\VersionCheckerForm.Designer.cs">
       <DependentUpon>VersionCheckerForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Versioning\VersionCheckerPresenter.cs" />
-    <Compile Include="ViewModelBase.cs" />
+    <Compile Include="Versioning\VersionCheckerViewModel.cs" />
+    <Compile Include="Common\ViewModelBase.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

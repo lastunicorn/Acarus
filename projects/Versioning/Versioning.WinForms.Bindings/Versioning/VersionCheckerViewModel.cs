@@ -20,16 +20,28 @@ using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Windows.Forms;
+using DustInTheWind.Versioning.WinForms.Mvp.Common;
 using DustInTheWind.Versioning.WinForms.Mvp.Config;
 using DustInTheWind.Versioning.WinForms.Mvp.Properties;
 
 namespace DustInTheWind.Versioning.WinForms.Mvp.Versioning
 {
     /// <summary>
-    /// Presenter class that contains the logic of the Version Checker Window.
+    /// ViewModel class that contains the logic of the Version Checker Window.
     /// </summary>
-    public class VersionCheckerPresenter : ViewModelBase
+    public class VersionCheckerViewModel : ViewModelBase
     {
+        private int progressBarValue;
+        private bool progressBarVisible;
+        private bool downloadButtonVisible;
+        private bool openDownloadedFileButtonVisible;
+        private bool checkAgainButtonEnabled;
+        private string statusText;
+        private string informationText;
+        private bool checkAtStartupEnabled;
+        private bool checkAtStartupValue;
+        private ProgressBarStyle progressBarStyle;
+
         /// <summary>
         /// Gets or sets the view that represents the GUI.
         /// Once the view is set it cannot be changed.
@@ -169,13 +181,13 @@ namespace DustInTheWind.Versioning.WinForms.Mvp.Versioning
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="VersionCheckerPresenter"/> class.
+        /// Initializes a new instance of the <see cref="VersionCheckerViewModel"/> class.
         /// </summary>
         /// <param name="userInterface">A service that displays messages to the user.</param>
         /// <param name="configurationManager">Provides configuration values to be used in the application.</param>
         /// <param name="versionChecker">A service that checks if a newer version of the application exists.</param>
         /// <exception cref="ArgumentNullException">Exception thrown if one of the arguments is null.</exception>
-        public VersionCheckerPresenter(IUserInterface userInterface, IConfigurationManager configurationManager, VersionChecker versionChecker)
+        public VersionCheckerViewModel(IUserInterface userInterface, IConfigurationManager configurationManager, VersionChecker versionChecker)
         {
             if (userInterface == null) throw new ArgumentNullException("userInterface");
             if (configurationManager == null) throw new ArgumentNullException("configurationManager");
@@ -267,17 +279,6 @@ namespace DustInTheWind.Versioning.WinForms.Mvp.Versioning
         /// Object used to synchronize the access to the file downloader.
         /// </summary>
         private readonly object downloaderLock = new object();
-
-        private int progressBarValue;
-        private bool progressBarVisible;
-        private bool downloadButtonVisible;
-        private bool openDownloadedFileButtonVisible;
-        private bool checkAgainButtonEnabled;
-        private string statusText;
-        private string informationText;
-        private bool checkAtStartupEnabled;
-        private bool checkAtStartupValue;
-        private ProgressBarStyle progressBarStyle;
 
         /// <summary>
         /// Creates a new version checker object.
