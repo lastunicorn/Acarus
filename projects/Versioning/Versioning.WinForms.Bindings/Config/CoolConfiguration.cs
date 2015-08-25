@@ -28,19 +28,23 @@ namespace DustInTheWind.Versioning.WinForms.Mvp.Config
         /// <summary>
         /// A <see cref="Configuration"/> objects that represents the configuration file managed by the current instance.
         /// </summary>
-        private Configuration config;
+        private readonly Configuration config;
 
         /// <summary>
         /// Gets the azzul configuration section from the configuration file.
         /// </summary>
         public CoolConfigurationSection CoolConfig { get; set; }
 
-        #region ConfigurationSaved
-
         /// <summary>
         /// Event raised after the configuration values are written into the file.
         /// </summary>
         public event EventHandler ConfigurationSaved;
+        
+        public CoolConfiguration()
+        {
+            config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            CoolConfig = GetOrCreateCoolSection();
+        }
 
         /// <summary>
         /// Raises the <see cref="ConfigurationSaved"/> event.
@@ -48,19 +52,10 @@ namespace DustInTheWind.Versioning.WinForms.Mvp.Config
         /// <param name="e">An <see cref="EventArgs"/> that contains the event data.</param>
         protected virtual void OnConfigurationSaved(EventArgs e)
         {
-            if (ConfigurationSaved != null)
-                ConfigurationSaved(this, e);
-        }
+            EventHandler handler = ConfigurationSaved;
 
-        #endregion
-
-        /// <summary>
-        /// Reads the configuration file from the disk and initializes the current instance.
-        /// </summary>
-        public void Initialize()
-        {
-            config = System.Configuration.ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            CoolConfig = GetOrCreateCoolSection();
+            if (handler != null)
+                handler(this, e);
         }
 
         /// <summary>
@@ -90,9 +85,6 @@ namespace DustInTheWind.Versioning.WinForms.Mvp.Config
         private CoolConfigurationSection CreateAndAddCoolConfigurationSection()
         {
             CoolConfigurationSection coolConfigurationSection = new CoolConfigurationSection();
-            coolConfigurationSection.SectionInformation.AllowExeDefinition = ConfigurationAllowExeDefinition.MachineToLocalUser;
-            coolConfigurationSection.SectionInformation.ForceSave = true;
-
             config.Sections.Add(CoolConfigurationSection.DefaultSectionName, coolConfigurationSection);
 
             return coolConfigurationSection;

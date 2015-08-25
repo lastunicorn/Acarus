@@ -40,9 +40,12 @@ namespace DustInTheWind.Versioning
         public int ComparationResult { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the retrieved version is newer then the reference one.
+        /// Gets a value indicating whether the retrieved version is newer then the reference one.
         /// </summary>
-        public bool IsNewerVersion { get; set; }
+        public bool IsNewerVersion
+        {
+            get { return ComparationResult > 0; }
+        }
 
         /// <summary>
         /// Determines whether the specified <see cref="System.Object"/> is equal to the current instance.

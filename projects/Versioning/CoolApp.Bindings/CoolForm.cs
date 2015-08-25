@@ -46,12 +46,9 @@ namespace DustInTheWind.CoolApp
             form.Owner = this;
 
             ICoolConfiguration coolConfiguration = new CoolConfiguration();
-            coolConfiguration.Initialize();
-            IConfigurationManager configurationManager = new ConfigurationManager(coolConfiguration);
-
             VersionChecker azzulVersionChecker = CreateVersionChecker(coolConfiguration);
 
-            VersionCheckerViewModel viewModel = new VersionCheckerViewModel(userInterface, configurationManager, azzulVersionChecker);
+            VersionCheckerViewModel viewModel = new VersionCheckerViewModel(userInterface, coolConfiguration, azzulVersionChecker);
 
             viewModel.View = form;
             form.ViewModel = viewModel;

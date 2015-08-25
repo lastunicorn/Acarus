@@ -34,11 +34,6 @@ namespace DustInTheWind.Versioning.WinForms.Mvp.Config
         event EventHandler ConfigurationSaved;
 
         /// <summary>
-        /// Reads the configuration file from the disk and initializes the current instance.
-        /// </summary>
-        void Initialize();
-
-        /// <summary>
         /// Saves the changed configuration values into the persistent location.
         /// </summary>
         void Save();

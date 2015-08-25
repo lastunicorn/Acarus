@@ -15,9 +15,8 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.ComponentModel;
-using System.Runtime.Remoting.Messaging;
 using System.Threading;
+using System.Threading.Tasks;
 using DustInTheWind.Versioning.Properties;
 
 namespace DustInTheWind.Versioning
@@ -110,7 +109,8 @@ namespace DustInTheWind.Versioning
         {
             try
             {
-                return CheckInternal();
+                CheckInternal();
+                return LastCheckingResult;
             }
             catch (VersionCheckingException)
             {
@@ -122,27 +122,25 @@ namespace DustInTheWind.Versioning
             }
         }
 
-        private VersionCheckingResult CheckInternal()
+        private void CheckInternal()
         {
-            AppVersionInfo newestVersion = AppInfoProvider.GetVersionInformation();
+            LastCheckingResult = null;
 
+            AppVersionInfo newestVersion = AppInfoProvider.GetVersionInformation();
 
             int comparationResult = newestVersion.Version.CompareTo(CurrentVersion);
 
-            return new VersionCheckingResult
+            LastCheckingResult = new VersionCheckingResult
             {
                 CurrentVersion = CurrentVersion,
                 RetrievedAppVersionInfo = newestVersion,
-                ComparationResult = comparationResult,
-                IsNewerVersion = comparationResult > 0
+                ComparationResult = comparationResult
             };
         }
 
         #endregion
 
         #region Asynchronous Check
-
-        private delegate VersionCheckingResult CheckDelegate();
 
         /// <summary>
         /// Asynchronously compares the version obtained from the version provider with the current one.
@@ -154,10 +152,30 @@ namespace DustInTheWind.Versioning
             if (!ChangeStateToBusy())
                 return false;
 
-            CheckDelegate deleg = CheckInternal;
-            AsyncOperation async = AsyncOperationManager.CreateOperation(null);
+            Task.Factory.StartNew(() =>
+            {
+                try
+                {
+                    CheckInternal();
 
-            deleg.BeginInvoke(CheckCompletedCallback, async);
+                    // If the asynchronous check finishes to quickly, simulate it takes a little longer.
+                    DelayAsyncCheck();
+
+                    OnCheckCompleted(new CheckCompletedEventArgs(LastCheckingResult));
+                }
+                catch (VersionCheckingException ex)
+                {
+                    OnCheckCompleted(new CheckCompletedEventArgs(ex));
+                }
+                catch (Exception ex)
+                {
+                    OnCheckCompleted(new CheckCompletedEventArgs(new VersionCheckingException(ex)));
+                }
+                finally
+                {
+                    ChangeStateBackToReady();
+                }
+            });
 
             return true;
         }
@@ -176,55 +194,10 @@ namespace DustInTheWind.Versioning
             return true;
         }
 
-        /// <summary>
-        /// Call-back method called when the asynchronous version comparation is completed.
-        /// </summary>
-        /// <param name="ar">Object containing information about the asynchronous operation.</param>
-        private void CheckCompletedCallback(IAsyncResult ar)
-        {
-            AsyncOperation async = ar.AsyncState as AsyncOperation;
-
-            if (async == null)
-                return;
-
-            try
-            {
-                // If the asynchronous check finishes to quickly, simulate it takes a little longer.
-                DelayAsyncCheck();
-
-                // Finish the asynchronous operation.
-
-                AsyncResult delegAr = ar as AsyncResult;
-                if (delegAr == null)
-                    return;
-
-                CheckDelegate deleg = delegAr.AsyncDelegate as CheckDelegate;
-                if (deleg == null)
-                    return;
-
-                LastCheckingResult = deleg.EndInvoke(ar);
-
-                async.PostOperationCompleted(ReportCheckCompleted, new CheckCompletedEventArgs(LastCheckingResult));
-            }
-            catch (VersionCheckingException ex)
-            {
-                async.PostOperationCompleted(ReportCheckCompleted, new CheckCompletedEventArgs(ex));
-            }
-            catch (Exception ex)
-            {
-                async.PostOperationCompleted(ReportCheckCompleted, new CheckCompletedEventArgs(new VersionCheckingException(ex)));
-            }
-            finally
-            {
-                ChangeStateBackToReady();
-            }
-        }
-
         private void ChangeStateBackToReady()
         {
             lock (checkSyncObject)
             {
-                //checkStartTime = null;
                 IsBusy = false;
             }
         }
@@ -251,14 +224,6 @@ namespace DustInTheWind.Versioning
 
             if (waitTime != TimeSpan.Zero)
                 Thread.Sleep(waitTime);
-        }
-
-        private void ReportCheckCompleted(object arg)
-        {
-            CheckCompletedEventArgs e = arg as CheckCompletedEventArgs;
-
-            if (e != null)
-                OnCheckCompleted(e);
         }
 
         #endregion
