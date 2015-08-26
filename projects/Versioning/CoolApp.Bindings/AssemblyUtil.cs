@@ -18,7 +18,6 @@ using System;
 using System.IO;
 using System.Reflection;
 using DustInTheWind.CoolApp.Properties;
-using DustInTheWind.Versioning.WinForms.Mvp.Common;
 
 namespace DustInTheWind.CoolApp
 {

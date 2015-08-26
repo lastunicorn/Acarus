@@ -20,7 +20,7 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using DustInTheWind.CoolApp.Properties;
-using DustInTheWind.Versioning.WinForms.Mvp.Common;
+using DustInTheWind.Versioning;
 
 namespace DustInTheWind.CoolApp
 {

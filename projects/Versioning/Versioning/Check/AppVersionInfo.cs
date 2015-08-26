@@ -16,7 +16,7 @@
 
 using System;
 
-namespace DustInTheWind.Versioning
+namespace DustInTheWind.Versioning.Check
 {
     /// <summary>
     /// Contains information about an application version like the version number, a short description, etc.

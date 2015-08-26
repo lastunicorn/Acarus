@@ -16,7 +16,7 @@
 
 using System;
 
-namespace DustInTheWind.Versioning
+namespace DustInTheWind.Versioning.Check
 {
     /// <summary>
     /// Declares the methods for a class that provides version information about the application.

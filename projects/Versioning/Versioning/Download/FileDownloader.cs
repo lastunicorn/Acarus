@@ -18,22 +18,29 @@ using System;
 using System.ComponentModel;
 using System.IO;
 using System.Net;
-using DustInTheWind.Versioning.WinForms.Mvp.Common;
-using DustInTheWind.Versioning.WinForms.Mvp.Properties;
+using DustInTheWind.Versioning.Properties;
 
-namespace DustInTheWind.Versioning.WinForms.Mvp.Versioning
+namespace DustInTheWind.Versioning.Download
 {
-    internal class FileDownloader
+    public class FileDownloader : IDisposable
     {
         private readonly IUserInterface userInterface;
         private readonly WebClient webClient;
-        private Uri downloadUri;
-        private string destinationFilePath;
+
+        public FileDownloadResult LastDownloadResult { get; private set; }
+        
+        private Uri sourceUri;
+
+        private bool isDisposed;
 
         /// <summary>
         /// Object used to synchronize the access to the file downloader.
         /// </summary>
         private readonly object downloaderLock = new object();
+
+        public string DestinationFilePath { get; private set; }
+
+        public event EventHandler DownloadFileStarting;
 
         public event DownloadProgressChangedEventHandler DownloadProgressChanged
         {
@@ -41,7 +48,6 @@ namespace DustInTheWind.Versioning.WinForms.Mvp.Versioning
             remove { webClient.DownloadProgressChanged -= value; }
         }
 
-        public event EventHandler DownloadFileStarting;
         public event EventHandler<DownloadFileCompletedEventArgs> DownloadFileCompleted;
 
         public FileDownloader(IUserInterface userInterface)
@@ -54,20 +60,15 @@ namespace DustInTheWind.Versioning.WinForms.Mvp.Versioning
             webClient.DownloadFileCompleted += HandleDownloadFileCompleted;
         }
 
-        public string DownloadedFilePath
-        {
-            get { return destinationFilePath; }
-        }
-
         private void HandleDownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
         {
             if (e.Cancelled)
             {
-                if (File.Exists(destinationFilePath))
+                if (File.Exists(DestinationFilePath))
                 {
                     try
                     {
-                        File.Delete(destinationFilePath);
+                        File.Delete(DestinationFilePath);
                     }
                     catch
                     {
@@ -85,16 +86,11 @@ namespace DustInTheWind.Versioning.WinForms.Mvp.Versioning
             }
         }
 
-        protected virtual void OnDownloadFileCompleted(DownloadFileCompletedEventArgs e)
-        {
-            EventHandler<DownloadFileCompletedEventArgs> handler = DownloadFileCompleted;
-
-            if (handler != null)
-                handler(this, e);
-        }
-
         public void Download(string downloadUrl)
         {
+            if (isDisposed)
+                throw new ObjectDisposedException(GetType().FullName);
+
             lock (downloaderLock)
             {
                 if (webClient.IsBusy)
@@ -102,6 +98,8 @@ namespace DustInTheWind.Versioning.WinForms.Mvp.Versioning
                     userInterface.DisplayInfo(VersionCheckerResources.VersionCheckerWindow_Error_AlreadyDownloading);
                     return;
                 }
+
+                LastDownloadResult = null;
 
                 Uri uri = new Uri(downloadUrl);
                 string urlFilePath = uri.AbsolutePath;
@@ -148,8 +146,8 @@ namespace DustInTheWind.Versioning.WinForms.Mvp.Versioning
             {
                 OnDownloadFileStarting();
 
-                this.downloadUri = downloadUri;
-                this.destinationFilePath = destinationFilePath;
+                sourceUri = downloadUri;
+                DestinationFilePath = destinationFilePath;
 
                 webClient.DownloadFileAsync(downloadUri, destinationFilePath);
             }
@@ -175,6 +173,24 @@ namespace DustInTheWind.Versioning.WinForms.Mvp.Versioning
 
             if (handler != null)
                 handler(this, EventArgs.Empty);
+        }
+
+        protected virtual void OnDownloadFileCompleted(DownloadFileCompletedEventArgs e)
+        {
+            EventHandler<DownloadFileCompletedEventArgs> handler = DownloadFileCompleted;
+
+            if (handler != null)
+                handler(this, e);
+        }
+
+        public void Dispose()
+        {
+            if (isDisposed)
+                return;
+
+            webClient.Dispose();
+
+            isDisposed = true;
         }
     }
 }

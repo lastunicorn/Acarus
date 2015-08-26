@@ -7,8 +7,8 @@
     <ProjectGuid>{4598B528-C729-4782-966A-28AC0977539F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DustInTheWind.Versioning.WinForms.Mvp</RootNamespace>
-    <AssemblyName>Versioning.WinForms.Mvp</AssemblyName>
+    <RootNamespace>DustInTheWind.Versioning.WinForms</RootNamespace>
+    <AssemblyName>Versioning.WinForms</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -44,9 +44,6 @@
   <ItemGroup>
     <Compile Include="Common\BindingExtensions.cs" />
     <Compile Include="Versioning\IOptions.cs" />
-    <Compile Include="Common\IUserInterface.cs" />
-    <Compile Include="Versioning\DownloadFileCompletedEventArgs.cs" />
-    <Compile Include="Versioning\FileDownloader.cs" />
     <Compile Include="Versioning\IVersionCheckerView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\VersionCheckerResources.Designer.cs">

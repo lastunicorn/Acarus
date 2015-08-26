@@ -18,10 +18,12 @@ using System;
 using System.Diagnostics;
 using System.Net;
 using System.Windows.Forms;
-using DustInTheWind.Versioning.WinForms.Mvp.Common;
-using DustInTheWind.Versioning.WinForms.Mvp.Properties;
+using DustInTheWind.Versioning.Check;
+using DustInTheWind.Versioning.Download;
+using DustInTheWind.Versioning.WinForms.Common;
+using DustInTheWind.Versioning.WinForms.Properties;
 
-namespace DustInTheWind.Versioning.WinForms.Mvp.Versioning
+namespace DustInTheWind.Versioning.WinForms.Versioning
 {
     /// <summary>
     /// ViewModel class that contains the logic of the Version Checker window.
@@ -203,12 +205,26 @@ namespace DustInTheWind.Versioning.WinForms.Mvp.Versioning
 
         private void HandleOptionsCheckAtStartupChanged(object sender, EventArgs eventArgs)
         {
-            CheckAtStartupValue = options.CheckAtStartup;
+            try
+            {
+                CheckAtStartupValue = options.CheckAtStartup;
+            }
+            catch (Exception ex)
+            {
+                userInterface.DisplayError(ex);
+            }
         }
 
         private void HandleVersionCheckStarting(object sender, EventArgs eventArgs)
         {
-            ChangeStateToBeginVersionCheck();
+            try
+            {
+                ChangeStateToBeginVersionCheck();
+            }
+            catch (Exception ex)
+            {
+                userInterface.DisplayError(ex);
+            }
         }
 
         private void HandleCheckCompleted(object sender, CheckCompletedEventArgs e)
@@ -240,7 +256,17 @@ namespace DustInTheWind.Versioning.WinForms.Mvp.Versioning
 
         private void HandleDownloadFileStarting(object sender, EventArgs e)
         {
-            userInterface.Dispatch(ChangeStateToBeginDownload);
+            userInterface.Dispatch(() =>
+            {
+                try
+                {
+                    ChangeStateToBeginDownload();
+                }
+                catch (Exception ex)
+                {
+                    userInterface.DisplayError(ex);
+                }
+            });
         }
 
         private void HandleDownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
@@ -262,16 +288,23 @@ namespace DustInTheWind.Versioning.WinForms.Mvp.Versioning
         {
             userInterface.Dispatch(() =>
             {
-                if (e.Cancelled)
+                try
                 {
-                    ChangeStateToDownloadCanceled();
-                }
-                else
-                {
-                    if (e.Error != null)
-                        ChangeStateToDownloadError(e.Error);
+                    if (e.Cancelled)
+                    {
+                        ChangeStateToDownloadCanceled();
+                    }
                     else
-                        ChangeStateToDownloadSuccess();
+                    {
+                        if (e.Error != null)
+                            ChangeStateToDownloadError(e.Error);
+                        else
+                            ChangeStateToDownloadSuccess();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    userInterface.DisplayError(ex);
                 }
             });
         }
@@ -362,7 +395,7 @@ namespace DustInTheWind.Versioning.WinForms.Mvp.Versioning
         {
             try
             {
-                Process.Start(fileDownloader.DownloadedFilePath);
+                Process.Start(fileDownloader.DestinationFilePath);
             }
             catch (Exception ex)
             {
@@ -453,7 +486,7 @@ namespace DustInTheWind.Versioning.WinForms.Mvp.Versioning
         {
             ProgressBarVisible = false;
 
-            InformationText = string.Format(VersionCheckerResources.VersionCheckerWindow_DownloadSuccess, fileDownloader.DownloadedFilePath);
+            InformationText = string.Format(VersionCheckerResources.VersionCheckerWindow_DownloadSuccess, fileDownloader.DestinationFilePath);
 
             OpenDownloadedFileButtonVisible = true;
             DownloadButtonVisible = false;

@@ -16,7 +16,7 @@
 
 using System;
 
-namespace DustInTheWind.Versioning
+namespace DustInTheWind.Versioning.Check
 {
     /// <summary>
     /// Contains the results of a version checking operation.

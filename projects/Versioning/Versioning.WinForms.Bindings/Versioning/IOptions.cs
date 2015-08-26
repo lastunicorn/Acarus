@@ -16,7 +16,7 @@
 
 using System;
 
-namespace DustInTheWind.Versioning.WinForms.Mvp.Versioning
+namespace DustInTheWind.Versioning.WinForms.Versioning
 {
     public interface IOptions
     {

@@ -19,7 +19,7 @@ using System.IO;
 using System.Xml.XPath;
 using DustInTheWind.Versioning.Properties;
 
-namespace DustInTheWind.Versioning
+namespace DustInTheWind.Versioning.Check
 {
     internal class AppInfoFileParser
     {

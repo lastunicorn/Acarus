@@ -19,7 +19,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using DustInTheWind.Versioning.Properties;
 
-namespace DustInTheWind.Versioning
+namespace DustInTheWind.Versioning.Check
 {
     /// <summary>
     /// Checks a reference version (considered the current version) against the version obtained from a <see cref="IAppVersionInfoProvider"/> object.

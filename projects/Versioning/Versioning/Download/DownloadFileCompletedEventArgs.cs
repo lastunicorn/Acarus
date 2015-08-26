@@ -16,9 +16,9 @@
 
 using System;
 
-namespace DustInTheWind.Versioning.WinForms.Mvp.Versioning
+namespace DustInTheWind.Versioning.Download
 {
-    internal class DownloadFileCompletedEventArgs : EventArgs
+    public class DownloadFileCompletedEventArgs : EventArgs
     {
         public bool Cancelled { get; private set; }
         public Exception Error { get; private set; }

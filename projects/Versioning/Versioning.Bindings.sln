@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Versioning", "Versioning\Versioning.csproj", "{522E5C0C-B756-4265-9D44-47CBEAE865AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Versioning.WinForms.Bindings", "Versioning.WinForms.Bindings\Versioning.WinForms.Bindings.csproj", "{4598B528-C729-4782-966A-28AC0977539F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Versioning.WinForms", "Versioning.WinForms.Bindings\Versioning.WinForms.csproj", "{4598B528-C729-4782-966A-28AC0977539F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoolApp.Bindings", "CoolApp.Bindings\CoolApp.Bindings.csproj", "{2F28DD0E-93D6-4DD8-B018-EE4098EE8CA9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoolApp", "CoolApp.Bindings\CoolApp.csproj", "{2F28DD0E-93D6-4DD8-B018-EE4098EE8CA9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

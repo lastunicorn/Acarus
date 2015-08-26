@@ -16,9 +16,9 @@
 
 using System;
 using System.Windows.Forms;
-using DustInTheWind.Versioning.WinForms.Mvp.Common;
+using DustInTheWind.Versioning.WinForms.Common;
 
-namespace DustInTheWind.Versioning.WinForms.Mvp.Versioning
+namespace DustInTheWind.Versioning.WinForms.Versioning
 {
     /// <summary>
     /// This form checks if there is a new version of the application on the web.

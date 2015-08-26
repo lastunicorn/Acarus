@@ -17,7 +17,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace DustInTheWind.Versioning.WinForms.Mvp.Common
+namespace DustInTheWind.Versioning.WinForms.Common
 {
     public abstract class ViewModelBase : INotifyPropertyChanged
     {

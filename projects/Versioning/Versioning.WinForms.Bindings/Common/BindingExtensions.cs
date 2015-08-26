@@ -18,7 +18,7 @@ using System;
 using System.Linq.Expressions;
 using System.Windows.Forms;
 
-namespace DustInTheWind.Versioning.WinForms.Mvp.Common
+namespace DustInTheWind.Versioning.WinForms.Common
 {
     internal static class BindingExtensions
     {

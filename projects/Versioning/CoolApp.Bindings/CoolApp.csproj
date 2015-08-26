@@ -106,9 +106,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Versioning.WinForms.Bindings\Versioning.WinForms.Bindings.csproj">
+    <ProjectReference Include="..\Versioning.WinForms.Bindings\Versioning.WinForms.csproj">
       <Project>{4598b528-c729-4782-966a-28ac0977539f}</Project>
-      <Name>Versioning.WinForms.Bindings</Name>
+      <Name>Versioning.WinForms</Name>
     </ProjectReference>
     <ProjectReference Include="..\Versioning\Versioning.csproj">
       <Project>{522e5c0c-b756-4265-9d44-47cbeae865ac}</Project>

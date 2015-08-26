@@ -18,7 +18,7 @@ using System;
 using System.Runtime.Serialization;
 using DustInTheWind.Versioning.Properties;
 
-namespace DustInTheWind.Versioning
+namespace DustInTheWind.Versioning.Check
 {
     /// <summary>
     /// General exception raised by the DustInTheWind util classes.

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DustInTheWind.Versioning.WinForms.Properties {
+namespace DustInTheWind.Versioning.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace DustInTheWind.Versioning.WinForms.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("DustInTheWind.Versioning.WinForms.Properties.VersionCheckerResources", typeof(VersionCheckerResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("DustInTheWind.Versioning.Properties.VersionCheckerResources", typeof(VersionCheckerResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

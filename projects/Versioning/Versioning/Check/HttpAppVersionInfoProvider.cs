@@ -18,7 +18,7 @@ using System;
 using System.IO;
 using System.Net;
 
-namespace DustInTheWind.Versioning
+namespace DustInTheWind.Versioning.Check
 {
     /// <summary>
     /// Creates <see cref="AppVersionInfo"/> objects with data retrieved from a file.
