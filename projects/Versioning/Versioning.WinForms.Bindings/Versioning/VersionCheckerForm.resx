@@ -151,7 +151,7 @@
     <value>Top, Bottom, Left, Right</value>
   </data>
   <data name="labelLineBottom.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 241</value>
+    <value>0, 245</value>
   </data>
   <data name="labelLineBottom.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 0</value>
@@ -177,9 +177,6 @@
   <data name="tableLayoutPanel1.ColumnCount" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="flowLayoutPanel1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Right</value>
-  </data>
   <data name="flowLayoutPanel1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -190,7 +187,7 @@
     <value>True</value>
   </data>
   <data name="buttonClose.Location" type="System.Drawing.Point, System.Drawing">
-    <value>242, 3</value>
+    <value>239, 3</value>
   </data>
   <data name="buttonClose.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
@@ -217,7 +214,7 @@
     <value>True</value>
   </data>
   <data name="buttonCheckAgain.Location" type="System.Drawing.Point, System.Drawing">
-    <value>136, 3</value>
+    <value>133, 3</value>
   </data>
   <data name="buttonCheckAgain.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 23</value>
@@ -244,7 +241,7 @@
     <value>True</value>
   </data>
   <data name="buttonOpenDownloadedFile.Location" type="System.Drawing.Point, System.Drawing">
-    <value>36, 3</value>
+    <value>33, 3</value>
   </data>
   <data name="buttonOpenDownloadedFile.Size" type="System.Drawing.Size, System.Drawing">
     <value>94, 23</value>
@@ -271,7 +268,7 @@
     <value>True</value>
   </data>
   <data name="buttonDownload.Location" type="System.Drawing.Point, System.Drawing">
-    <value>-64, 3</value>
+    <value>-67, 3</value>
   </data>
   <data name="buttonDownload.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>10, 0, 10, 0</value>
@@ -297,17 +294,20 @@
   <data name="&gt;&gt;buttonDownload.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <data name="flowLayoutPanel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
   <data name="flowLayoutPanel1.FlowDirection" type="System.Windows.Forms.FlowDirection, System.Windows.Forms">
     <value>RightToLeft</value>
   </data>
   <data name="flowLayoutPanel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 253</value>
+    <value>8, 255</value>
   </data>
   <data name="flowLayoutPanel1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 10, 3</value>
+    <value>8, 8, 8, 8</value>
   </data>
   <data name="flowLayoutPanel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>320, 29</value>
+    <value>317, 29</value>
   </data>
   <data name="flowLayoutPanel1.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -367,7 +367,7 @@
     <value>2</value>
   </data>
   <data name="tableLayoutPanel2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>313, 166</value>
+    <value>313, 170</value>
   </data>
   <data name="tableLayoutPanel2.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -397,7 +397,7 @@
     <value>10, 10, 10, 10</value>
   </data>
   <data name="panelContent.Size" type="System.Drawing.Size, System.Drawing">
-    <value>313, 166</value>
+    <value>313, 170</value>
   </data>
   <data name="panelContent.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -414,8 +414,68 @@
   <data name="&gt;&gt;panelContent.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="labelStatusText.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="labelLineTop.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="labelLineTop.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 30</value>
+  </data>
+  <data name="labelLineTop.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="labelLineTop.Size" type="System.Drawing.Size, System.Drawing">
+    <value>333, 2</value>
+  </data>
+  <data name="labelLineTop.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;labelLineTop.Name" xml:space="preserve">
+    <value>labelLineTop</value>
+  </data>
+  <data name="&gt;&gt;labelLineTop.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelLineTop.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;labelLineTop.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="checkBoxCheckAtStartup.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxCheckAtStartup.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="checkBoxCheckAtStartup.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 225</value>
+  </data>
+  <data name="checkBoxCheckAtStartup.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>10, 3, 10, 3</value>
+  </data>
+  <data name="checkBoxCheckAtStartup.Size" type="System.Drawing.Size, System.Drawing">
+    <value>313, 17</value>
+  </data>
+  <data name="checkBoxCheckAtStartup.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="checkBoxCheckAtStartup.Text" xml:space="preserve">
+    <value>Check for new version at application start up</value>
+  </data>
+  <data name="&gt;&gt;checkBoxCheckAtStartup.Name" xml:space="preserve">
+    <value>checkBoxCheckAtStartup</value>
+  </data>
+  <data name="&gt;&gt;checkBoxCheckAtStartup.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxCheckAtStartup.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;checkBoxCheckAtStartup.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="labelStatusText.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
   </data>
   <data name="labelStatusText.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 8.25pt, style=Bold</value>
@@ -451,63 +511,6 @@
     <value>tableLayoutPanel1</value>
   </data>
   <data name="&gt;&gt;labelStatusText.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="labelLineTop.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="labelLineTop.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 30</value>
-  </data>
-  <data name="labelLineTop.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 0</value>
-  </data>
-  <data name="labelLineTop.Size" type="System.Drawing.Size, System.Drawing">
-    <value>333, 2</value>
-  </data>
-  <data name="labelLineTop.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;labelLineTop.Name" xml:space="preserve">
-    <value>labelLineTop</value>
-  </data>
-  <data name="&gt;&gt;labelLineTop.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelLineTop.Parent" xml:space="preserve">
-    <value>tableLayoutPanel1</value>
-  </data>
-  <data name="&gt;&gt;labelLineTop.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="checkBoxCheckAtStartup.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxCheckAtStartup.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 221</value>
-  </data>
-  <data name="checkBoxCheckAtStartup.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>10, 3, 3, 3</value>
-  </data>
-  <data name="checkBoxCheckAtStartup.Size" type="System.Drawing.Size, System.Drawing">
-    <value>236, 17</value>
-  </data>
-  <data name="checkBoxCheckAtStartup.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="checkBoxCheckAtStartup.Text" xml:space="preserve">
-    <value>Check for new version at application start up</value>
-  </data>
-  <data name="&gt;&gt;checkBoxCheckAtStartup.Name" xml:space="preserve">
-    <value>checkBoxCheckAtStartup</value>
-  </data>
-  <data name="&gt;&gt;checkBoxCheckAtStartup.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxCheckAtStartup.Parent" xml:space="preserve">
-    <value>tableLayoutPanel1</value>
-  </data>
-  <data name="&gt;&gt;checkBoxCheckAtStartup.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
   <data name="tableLayoutPanel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
@@ -538,11 +541,8 @@
     <value>0</value>
   </data>
   <data name="tableLayoutPanel1.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="flowLayoutPanel1" Row="5" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="labelLineBottom" Row="4" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="panelContent" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="labelStatusText" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="labelLineTop" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="checkBoxCheckAtStartup" Row="3" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100" /&gt;&lt;Rows Styles="Absolute,30,Absolute,2,Percent,100,AutoSize,0,Absolute,2,Absolute,49" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="flowLayoutPanel1" Row="5" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="labelLineBottom" Row="4" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="panelContent" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="labelLineTop" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="checkBoxCheckAtStartup" Row="3" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="labelStatusText" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100" /&gt;&lt;Rows Styles="Absolute,30,Absolute,2,Percent,100,AutoSize,0,Absolute,2,AutoSize,0" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
-  <metadata name="folderBrowserDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -552,96 +552,16 @@
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>333, 292</value>
   </data>
-  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        AAABAAIAEBAAAAAAGABoAwAAJgAAACAgAAAAABgAqAwAAI4DAAAoAAAAEAAAACAAAAABABgAAAAAAAAD
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAmZmZmZmZmZmZmZmZAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAmZmZmZmZ
-        KSkpKSkpKSkpKSkpmZmZmZmZAAAAAAAAAAAAAAAAAAAAAAAAAAAAmZmZmZmZKSkpKSkpKSkpKSkpKSkp
-        KSkpmZmZmZmZAAAAAAAAAAAAAAAAAAAAAAAAmZmZKSkpKSkpKSkpKSkpKSkpKSkpKSkp4ODgmZmZAAAA
-        AAAAAAAAAAAAAAAAmZmZKSkpKSkpKSkpKSkpKSkpKSkpKSkp4ODg4ODg4ODgmZmZAAAAAAAAAAAAAAAA
-        mZmZKSkpKSkpKSkpKSkp4ODg4ODgKSkp4ODg4ODg4ODgmZmZAAAAAAAAAAAAAAAAmZmZ4ODg4ODg4ODg
-        KSkp4ODg4ODgKSkpKSkpKSkpKSkpmZmZAAAAAAAAAAAAAAAAmZmZ4ODg4ODg4ODgKSkpKSkpKSkpKSkp
-        KSkpKSkpKSkpmZmZAAAAAAAAAAAAAAAAAAAAmZmZ4ODgKSkpKSkpKSkpKSkpKSkpKSkpKSkpmZmZAAAA
-        AAAAAAAAAAAAAAAAAAAAmZmZmZmZKSkpKSkpKSkpKSkpKSkpKSkpmZmZmZmZAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAmZmZmZmZKSkpKSkpKSkpKSkpmZmZmZmZAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        mZmZmZmZmZmZmZmZAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAA//8AAP//AAD8PwAA8A8AAOAHAADgBwAAwAMAAMADAADAAwAAwAMAAOAHAADgBwAA8A8AAPw/
-        AAD//wAA//8AACgAAAAgAAAAQAAAAAEAGAAAAAAAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACZmZmZmZmZ
-        mZmZmZmZmZkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAACZmZmZmZkpKSkpKSkpKSkpKSkpKSkpKSmZmZmZmZkAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACZmZmZmZkp
-        KSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSmZmZmZmZkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACZmZkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkp
-        KSkpKSng4OCZmZmZmZkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACZ
-        mZkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSng4ODg4ODg4OCZmZmZmZkAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACZmZkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkp
-        KSkpKSkpKSkpKSkpKSng4ODg4ODg4ODg4OCZmZmZmZkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAACZmZkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSng4ODg4ODg4ODg4ODg
-        4ODg4OCZmZkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACZmZkpKSkpKSkpKSkpKSkpKSkp
-        KSkpKSkpKSkpKSkpKSkpKSkpKSng4ODg4ODg4ODg4ODg4ODg4ODg4OCZmZmZmZkAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAACZmZkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSng4ODg
-        4ODg4ODg4ODg4ODg4ODg4ODg4OCZmZkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAApKSkpKSkp
-        KSkpKSkpKSkpKSkpKSkpKSkpKSkpKSng4ODg4OApKSng4ODg4ODg4ODg4ODg4ODg4ODg4ODg4OApKSmZ
-        mZkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACZmZkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSng4ODg
-        4ODg4ODg4OApKSng4ODg4ODg4ODg4OCZmZkpKSkpKSkpKSmZmZkAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AACZmZkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSng4ODg4OCZmZmZmZng4ODg4OApKSmZmZmZmZkpKSkp
-        KSkpKSkpKSkpKSmZmZkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACZmZkpKSkpKSkpKSkpKSkpKSmZmZmZ
-        mZkpKSng4ODg4OCZmZmZmZng4ODg4OApKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSmZmZkAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAACZmZkpKSkpKSkpKSmZmZng4ODg4ODg4ODg4OApKSng4ODg4ODg4ODg4OApKSkp
-        KSkpKSkpKSkpKSkpKSkpKSkpKSkpKSmZmZkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACZmZkpKSng4ODg
-        4ODg4ODg4ODg4ODg4ODg4ODg4OApKSng4ODg4OApKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACZmZng4ODg4ODg4ODg4ODg4ODg4ODg4ODg4OApKSkp
-        KSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSmZmZkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAACZmZmZmZng4ODg4ODg4ODg4ODg4ODg4ODg4OApKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkp
-        KSkpKSkpKSmZmZkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACZmZng4ODg4ODg4ODg4ODg
-        4ODg4OApKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSmZmZkAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAACZmZmZmZng4ODg4ODg4ODg4OApKSkpKSkpKSkpKSkpKSkpKSkpKSkp
-        KSkpKSkpKSkpKSkpKSkpKSmZmZkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACZ
-        mZmZmZng4ODg4ODg4OApKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSmZmZkAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACZmZmZmZng4OApKSkpKSkpKSkpKSkp
-        KSkpKSkpKSkpKSkpKSkpKSkpKSkpKSmZmZkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAACZmZmZmZkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSmZmZmZmZkA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACZ
-        mZmZmZkpKSkpKSkpKSkpKSkpKSkpKSmZmZmZmZkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACZmZmZmZmZmZmZmZmZmZkA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAD///////////////////////g////gB///gAH//wAA//4AAH/8AAA//AAAP/gAAB/4AAAf+AAAD/AA
-        AA/wAAAP8AAAD/AAAA/wAAAf+AAAH/gAAB/8AAA//AAAP/4AAH//AAD//4AB///gB////B//////////
-        /////////////w==
-</value>
-  </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterScreen</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Check for New Version</value>
   </data>
-  <data name="&gt;&gt;folderBrowserDialog1.Name" xml:space="preserve">
-    <value>folderBrowserDialog1</value>
-  </data>
-  <data name="&gt;&gt;folderBrowserDialog1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.FolderBrowserDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>VersionCheckerForm</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>DustInTheWind.Versioning.WinForms.Mvp.Versioning.VersionCheckerFormBase, Versioning.WinForms.Mvp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

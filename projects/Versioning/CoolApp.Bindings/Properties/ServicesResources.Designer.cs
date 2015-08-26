@@ -61,16 +61,7 @@ namespace DustInTheWind.CoolApp.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The gate should be an instance of &quot;FileGate&quot;..
-        /// </summary>
-        internal static string FileLocationProvider_Error_GateIsNotFileGate {
-            get {
-                return ResourceManager.GetString("FileLocationProvider_Error_GateIsNotFileGate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Azzul - Error.
+        ///   Looks up a localized string similar to CoolApp - Error.
         /// </summary>
         internal static string MessagesService_Error_Title {
             get {
@@ -79,7 +70,7 @@ namespace DustInTheWind.CoolApp.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Azzul - Information.
+        ///   Looks up a localized string similar to CoolApp - Information.
         /// </summary>
         internal static string MessagesService_Information_Title {
             get {
@@ -88,7 +79,7 @@ namespace DustInTheWind.CoolApp.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Question.
+        ///   Looks up a localized string similar to CoolApp - Question.
         /// </summary>
         internal static string MessagesService_Question_Title {
             get {
@@ -97,7 +88,7 @@ namespace DustInTheWind.CoolApp.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Azzul - Warning.
+        ///   Looks up a localized string similar to CoolApp - Warning.
         /// </summary>
         internal static string MessagesService_Warning_Title {
             get {

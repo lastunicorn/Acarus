@@ -40,7 +40,7 @@ namespace DustInTheWind.Versioning.WinForms.Mvp.Common
         /// Displays an error message to the user.
         /// </summary>
         /// <param name="message">The message text to be displayed.</param>
-        void DisplayErrorMessage(string message);
+        void DisplayError(string message);
 
         /// <summary>
         /// Displays a message to the user.
@@ -58,18 +58,25 @@ namespace DustInTheWind.Versioning.WinForms.Mvp.Common
         /// Asks the user a question in a message box and returns a yes/no answer.
         /// </summary>
         /// <param name="text">The question to be asked.</param>
-        /// <param name="title"></param>
+        /// <param name="title">The text to be displayed in the title bar of the popup window.</param>
         /// <returns><c>true</c> if the user answered yes; <c>false</c> otherwise.</returns>
-        bool YesNoQuestion(string text, string title);
+        bool YesNoQuestion(string text, string title = null);
 
         /// <summary>
         /// Presents the user a warning and asks a question in a message box and returns a yes/no answer.
         /// </summary>
         /// <param name="text">The warning and question to be asked.</param>
+        /// <param name="title">The text to be displayed in the title bar of the popup window.</param>
         /// <returns><c>true</c> if the user answered yes; <c>false</c> otherwise.</returns>
         bool YesNoWarning(string text, string title = null);
 
-        bool? YesNoCancelQuestion(string text, string title);
+        /// <summary>
+        /// Asks the user a question in a message box and returns the answer as a nullable boolean.
+        /// </summary>
+        /// <param name="text">The question to be asked.</param>
+        /// <param name="title">The text to be displayed in the title bar of the popup window.</param>
+        /// <returns><c>true</c> if the user answered yes; <c>false</c> if the user answered no; <c>null</c> otherwise.</returns>
+        bool? YesNoCancelQuestion(string text, string title = null);
 
         /// <summary>
         /// Requests a directory path from the user.

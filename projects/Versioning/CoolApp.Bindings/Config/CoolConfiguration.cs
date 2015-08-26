@@ -16,9 +16,9 @@
 
 using System;
 using System.Configuration;
-using DustInTheWind.Versioning.WinForms.Mvp.Properties;
+using DustInTheWind.CoolApp.Properties;
 
-namespace DustInTheWind.Versioning.WinForms.Mvp.Config
+namespace DustInTheWind.CoolApp.Config
 {
     /// <summary>
     /// Loads and stores the configuration values.

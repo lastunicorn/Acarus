@@ -16,7 +16,7 @@
 
 using System.Configuration;
 
-namespace DustInTheWind.Versioning.WinForms.Mvp.Config.ConfigFile
+namespace DustInTheWind.CoolApp.Config
 {
     /// <summary>
     /// Represents a configuration element containing values that specify how to perform the update.

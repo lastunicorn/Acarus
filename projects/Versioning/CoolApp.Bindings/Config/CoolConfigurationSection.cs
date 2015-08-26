@@ -14,14 +14,28 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
+using System.Configuration;
 
-namespace DustInTheWind.Versioning.WinForms.Mvp.Versioning
+namespace DustInTheWind.CoolApp.Config
 {
-    internal class FileDownloadState
+    /// <summary>
+    /// Represents the azzul section within a configuration file.
+    /// </summary>
+    public class CoolConfigurationSection : ConfigurationSection
     {
-        public Uri SourceUri { get; set; }
+        /// <summary>
+        /// The default name of the azzul section.
+        /// </summary>
+        public const string DefaultSectionName = "cool";
 
-        public string DestinationFilePath { get; set; }
+        /// <summary>
+        /// Gets or sets the "update" configuration element.
+        /// </summary>
+        [ConfigurationProperty("update")]
+        public UpdateConfigurationElement Update
+        {
+            get { return (UpdateConfigurationElement) this["update"]; }
+            set { this["update"] = value; }
+        }
     }
 }

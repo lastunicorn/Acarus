@@ -117,19 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="FileLocationProvider_Error_GateIsNotFileGate" xml:space="preserve">
-    <value>The gate should be an instance of "FileGate".</value>
-  </data>
   <data name="MessagesService_Error_Title" xml:space="preserve">
-    <value>Azzul - Error</value>
+    <value>CoolApp - Error</value>
   </data>
   <data name="MessagesService_Information_Title" xml:space="preserve">
-    <value>Azzul - Information</value>
+    <value>CoolApp - Information</value>
   </data>
   <data name="MessagesService_Question_Title" xml:space="preserve">
-    <value>Question</value>
+    <value>CoolApp - Question</value>
   </data>
   <data name="MessagesService_Warning_Title" xml:space="preserve">
-    <value>Azzul - Warning</value>
+    <value>CoolApp - Warning</value>
   </data>
 </root>

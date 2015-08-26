@@ -20,7 +20,6 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using DustInTheWind.CoolApp.Properties;
-using DustInTheWind.Versioning.WinForms.Mvp;
 using DustInTheWind.Versioning.WinForms.Mvp.Common;
 
 namespace DustInTheWind.CoolApp
@@ -45,7 +44,7 @@ namespace DustInTheWind.CoolApp
         /// <param name="ex">The <see cref="Exception"/> instance containing data about the error.</param>
         public virtual void DisplayError(Exception ex)
         {
-            DisplayErrorMessage(ex.Message);
+            DisplayError(ex.Message);
         }
 
         /// <summary>
@@ -56,14 +55,14 @@ namespace DustInTheWind.CoolApp
         public void DisplayError(Exception ex, string message)
         {
             string text = string.IsNullOrEmpty(message) ? ex.Message : message + "\n" + ex.Message;
-            DisplayErrorMessage(text);
+            DisplayError(text);
         }
 
         /// <summary>
         /// Displays an error message to the user.
         /// </summary>
         /// <param name="message">The message text to be displayed.</param>
-        public virtual void DisplayErrorMessage(string message)
+        public virtual void DisplayError(string message)
         {
             ShowMessageBox(MainWindow, message, ServicesResources.MessagesService_Error_Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
@@ -122,7 +121,7 @@ namespace DustInTheWind.CoolApp
         /// Asks the user a question in a message box and returns a yes/no answer.
         /// </summary>
         /// <param name="text">The question to be asked.</param>
-        /// <param name="title"></param>
+        /// <param name="title">The text to be displayed in the title bar of the popup window.</param>
         /// <returns><c>true</c> if the user answered yes; <c>false</c> otherwise.</returns>
         public bool YesNoQuestion(string text, string title = null)
         {
@@ -137,7 +136,7 @@ namespace DustInTheWind.CoolApp
         /// Presents the user a warning and asks a question in a message box and returns a yes/no answer.
         /// </summary>
         /// <param name="text">The warning and question to be asked.</param>
-        /// <param name="title"></param>
+        /// <param name="title">The text to be displayed in the title bar of the popup window.</param>
         /// <returns><c>true</c> if the user answered yes; <c>false</c> otherwise.</returns>
         public bool YesNoWarning(string text, string title = null)
         {
@@ -148,14 +147,20 @@ namespace DustInTheWind.CoolApp
             return dialogResult == DialogResult.Yes;
         }
 
-        public bool? YesNoCancelQuestion(string text, string title)
+        /// <summary>
+        /// Asks the user a question in a message box and returns the answer as a nullable boolean.
+        /// </summary>
+        /// <param name="text">The question to be asked.</param>
+        /// <param name="title">The text to be displayed in the title bar of the popup window.</param>
+        /// <returns><c>true</c> if the user answered yes; <c>false</c> if the user answered no; <c>null</c> otherwise.</returns>
+        public bool? YesNoCancelQuestion(string text, string title = null)
         {
             if (title == null)
                 title = ServicesResources.MessagesService_Question_Title;
 
             DialogResult dialogResult = MessageBox.Show(MainWindow, text, title, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
-            
-            switch (dialogResult)    
+
+            switch (dialogResult)
             {
                 default:
                     return null;
@@ -187,6 +192,10 @@ namespace DustInTheWind.CoolApp
                 : null;
         }
 
+        /// <summary>
+        /// Runs the specified action on the UI thread.
+        /// </summary>
+        /// <param name="action">The action to be run.</param>
         public void Dispatch(Action action)
         {
             synchronizationContext.Send(o => action(), null);

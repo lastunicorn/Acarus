@@ -128,25 +128,4 @@ Reason: {0}</value>
     <value>Unknown internal error.</value>
     <comment>The default error message for the base exception.</comment>
   </data>
-  <data name="InternalError_MvpViewWasAlreadySet" xml:space="preserve">
-    <value>View was already set.</value>
-  </data>
-  <data name="InternalError_OpenedCatalogsService_ListContainsNullCatalog" xml:space="preserve">
-    <value>One of the catalogs in the enumeration is null.</value>
-  </data>
-  <data name="Error_AnotherAsyncOperationIsRunning" xml:space="preserve">
-    <value>Another asynchronous operation is already started.</value>
-  </data>
-  <data name="Error_DriveNotReadyForRead" xml:space="preserve">
-    <value>The drive "{0}" is not ready to be read.</value>
-  </data>
-  <data name="InternalError_FinishAsyncOperation_InvalidDelegate" xml:space="preserve">
-    <value>Could not finish the asynchronous operation. The executed delegate could not be retrieved.</value>
-  </data>
-  <data name="InternalError_Configuration_NotCatalogConfigurationElement" xml:space="preserve">
-    <value>Only the elements of type CatalogConfigurationElement can be passed as arguments.</value>
-  </data>
-  <data name="Error_BothItemAndCatalogNeeded" xml:space="preserve">
-    <value>Both an Azzul item and a catalog are needed to set the current item.</value>
-  </data>
 </root>

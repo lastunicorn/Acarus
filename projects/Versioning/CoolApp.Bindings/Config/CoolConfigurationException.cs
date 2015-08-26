@@ -16,10 +16,9 @@
 
 using System;
 using System.Runtime.Serialization;
-using DustInTheWind.Versioning.WinForms.Mvp.Common;
-using DustInTheWind.Versioning.WinForms.Mvp.Properties;
+using DustInTheWind.CoolApp.Properties;
 
-namespace DustInTheWind.Versioning.WinForms.Mvp.Config
+namespace DustInTheWind.CoolApp.Config
 {
     /// <summary>
     /// Exception raised by the configuration mechanism of Azzul.

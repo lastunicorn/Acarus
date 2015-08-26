@@ -137,24 +137,9 @@ param 3 - total kB expected to be received.</comment>
     <value>Overwrite</value>
     <comment>The title of the dialog requesting the user to overwrite the existing downloaded file.</comment>
   </data>
-  <data name="VersionCheckerWindow_StatusText_Error" xml:space="preserve">
-    <value>Error</value>
-    <comment>Status text displayed in the header of the VersionChecker window if an error was encountered while checking for a newer version.</comment>
-  </data>
   <data name="VersionCheckerWindow_StatusText_NoNewVersion" xml:space="preserve">
     <value>No new version available</value>
     <comment>Status text displayed in the header of the VersionChecker window if no newer version is available.</comment>
-  </data>
-  <data name="VersionCheckerWindow_DownloadError" xml:space="preserve">
-    <value>Error downloading the new version.
-Error message: {0}</value>
-    <comment>Message displayed in the VersionChecking window if the download of the new version failed.
-param 0 - the error message</comment>
-  </data>
-  <data name="VersionCheckerWindow_DownloadSuccess_Short" xml:space="preserve">
-    <value>SUCCESS !!!
-The file was successfully downloaded. Enjoy! :)</value>
-    <comment>Message displayed in the VersionChecking window if the download of the new version was successful. This message is displayed in the case the downloader did NOT provided the path where the file was saved.</comment>
   </data>
   <data name="VersionCheckerWindow_DownloadSuccess" xml:space="preserve">
     <value>SUCCESS !!!

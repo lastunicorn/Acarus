@@ -56,10 +56,9 @@ namespace DustInTheWind.Versioning.WinForms.Mvp.Versioning
             this.panelContent = new System.Windows.Forms.Panel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.labelInfo = new System.Windows.Forms.Label();
-            this.labelStatusText = new System.Windows.Forms.Label();
             this.labelLineTop = new System.Windows.Forms.Label();
             this.checkBoxCheckAtStartup = new System.Windows.Forms.CheckBox();
-            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.labelStatusText = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.panelContent.SuspendLayout();
@@ -84,9 +83,9 @@ namespace DustInTheWind.Versioning.WinForms.Mvp.Versioning
             this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 0, 5);
             this.tableLayoutPanel1.Controls.Add(this.labelLineBottom, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.panelContent, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.labelStatusText, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.labelLineTop, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.checkBoxCheckAtStartup, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.labelStatusText, 0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             // 
             // flowLayoutPanel1
@@ -145,12 +144,6 @@ namespace DustInTheWind.Versioning.WinForms.Mvp.Versioning
             resources.ApplyResources(this.labelInfo, "labelInfo");
             this.labelInfo.Name = "labelInfo";
             // 
-            // labelStatusText
-            // 
-            resources.ApplyResources(this.labelStatusText, "labelStatusText");
-            this.labelStatusText.BackColor = System.Drawing.Color.White;
-            this.labelStatusText.Name = "labelStatusText";
-            // 
             // labelLineTop
             // 
             resources.ApplyResources(this.labelLineTop, "labelLineTop");
@@ -163,6 +156,12 @@ namespace DustInTheWind.Versioning.WinForms.Mvp.Versioning
             this.checkBoxCheckAtStartup.Name = "checkBoxCheckAtStartup";
             this.checkBoxCheckAtStartup.UseVisualStyleBackColor = true;
             this.checkBoxCheckAtStartup.CheckedChanged += new System.EventHandler(this.checkBoxCheckAtStartup_CheckedChanged);
+            // 
+            // labelStatusText
+            // 
+            this.labelStatusText.BackColor = System.Drawing.Color.White;
+            resources.ApplyResources(this.labelStatusText, "labelStatusText");
+            this.labelStatusText.Name = "labelStatusText";
             // 
             // VersionCheckerForm
             // 
@@ -201,7 +200,6 @@ namespace DustInTheWind.Versioning.WinForms.Mvp.Versioning
         private System.Windows.Forms.Button buttonCheckAgain;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Button buttonDownload;
-        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.CheckBox checkBoxCheckAtStartup;
         private System.Windows.Forms.Button buttonOpenDownloadedFile;
     }

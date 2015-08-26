@@ -15,19 +15,16 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.ComponentModel;
 using System.Diagnostics;
-using System.IO;
 using System.Net;
 using System.Windows.Forms;
 using DustInTheWind.Versioning.WinForms.Mvp.Common;
-using DustInTheWind.Versioning.WinForms.Mvp.Config;
 using DustInTheWind.Versioning.WinForms.Mvp.Properties;
 
 namespace DustInTheWind.Versioning.WinForms.Mvp.Versioning
 {
     /// <summary>
-    /// ViewModel class that contains the logic of the Version Checker Window.
+    /// ViewModel class that contains the logic of the Version Checker window.
     /// </summary>
     public class VersionCheckerViewModel : ViewModelBase
     {
@@ -44,20 +41,18 @@ namespace DustInTheWind.Versioning.WinForms.Mvp.Versioning
 
         /// <summary>
         /// Gets or sets the view that represents the GUI.
-        /// Once the view is set it cannot be changed.
         /// </summary>
-        /// <exception cref="CoolException">Thrown if the view is already set.</exception>
         public IVersionCheckerView View { get; set; }
 
         /// <summary>
         /// The default url used if the configuration does not specify another one.
         /// </summary>
-        private const string CoolAppUrl = "http://azzul.alez.ro";
+        public string AppWebPage { get; set; }
 
         /// <summary>
         /// Provides configuration values to be used in Azzul application.
         /// </summary>
-        private readonly ICoolConfiguration coolConfiguration;
+        private readonly IOptions options;
 
         /// <summary>
         /// A service that checks if a newer version of Azzul exists.
@@ -65,14 +60,9 @@ namespace DustInTheWind.Versioning.WinForms.Mvp.Versioning
         private readonly VersionChecker versionChecker;
 
         /// <summary>
-        /// The <see cref="WebClient"/> used to download files.
+        /// A helper class used to download files.
         /// </summary>
         private readonly FileDownloader fileDownloader;
-
-        /// <summary>
-        /// Object used to synchronize the access to the file downloader.
-        /// </summary>
-        private readonly object downloaderLock = new object();
 
         /// <summary>
         /// A service that displays messages to the user.
@@ -182,64 +172,63 @@ namespace DustInTheWind.Versioning.WinForms.Mvp.Versioning
         /// <summary>
         /// Initializes a new instance of the <see cref="VersionCheckerViewModel"/> class.
         /// </summary>
-        /// <param name="userInterface">A service that displays messages to the user.</param>
-        /// <param name="coolConfiguration">Provides configuration values to be used in the application.</param>
         /// <param name="versionChecker">A service that checks if a newer version of the application exists.</param>
+        /// <param name="userInterface">A service that displays messages to the user.</param>
+        /// <param name="options">Provides configuration values to be used in the application.</param>
         /// <exception cref="ArgumentNullException">Exception thrown if one of the arguments is null.</exception>
-        public VersionCheckerViewModel(IUserInterface userInterface, ICoolConfiguration coolConfiguration, VersionChecker versionChecker)
+        public VersionCheckerViewModel(VersionChecker versionChecker, IUserInterface userInterface, IOptions options)
         {
-            if (userInterface == null) throw new ArgumentNullException("userInterface");
-            if (coolConfiguration == null) throw new ArgumentNullException("coolConfiguration");
             if (versionChecker == null) throw new ArgumentNullException("versionChecker");
+            if (userInterface == null) throw new ArgumentNullException("userInterface");
+            if (options == null) throw new ArgumentNullException("options");
 
-            this.userInterface = userInterface;
-            this.coolConfiguration = coolConfiguration;
             this.versionChecker = versionChecker;
+            this.userInterface = userInterface;
+            this.options = options;
 
-            StatusText = string.Empty;
-            InformationText = string.Empty;
-            CheckAgainButtonEnabled = true;
+            ChangeStateToEmpty();
 
+            versionChecker.CheckStarting += HandleVersionCheckStarting;
             versionChecker.CheckCompleted += HandleCheckCompleted;
 
-            fileDownloader = new FileDownloader();
+            fileDownloader = new FileDownloader(userInterface);
+            fileDownloader.DownloadFileStarting += HandleDownloadFileStarting;
             fileDownloader.DownloadProgressChanged += HandleDownloadProgressChanged;
             fileDownloader.DownloadFileCompleted += HandleDownloadFileCompleted;
 
             CheckAtStartupEnabled = true;
-            CheckAtStartupValue = coolConfiguration.CoolConfig.Update.CheckAtStartup;
+            options.CheckAtStartupChanged += HandleOptionsCheckAtStartupChanged;
+            CheckAtStartupValue = options.CheckAtStartup;
         }
 
-        #region Version Checker
+        private void HandleOptionsCheckAtStartupChanged(object sender, EventArgs eventArgs)
+        {
+            CheckAtStartupValue = options.CheckAtStartup;
+        }
 
-        /// <summary>
-        /// Call-back function called when the version checker finishes an asynchronous check.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        private void HandleVersionCheckStarting(object sender, EventArgs eventArgs)
+        {
+            ChangeStateToBeginVersionCheck();
+        }
+
         private void HandleCheckCompleted(object sender, CheckCompletedEventArgs e)
         {
             userInterface.Dispatch(() =>
             {
                 try
                 {
-                    ProgressBarVisible = false;
-
-                    try
+                    if (e.Error != null)
                     {
-                        if (e.Error != null)
-                        {
-                            StatusText = VersionCheckerResources.VersionCheckerWindow_StatusText_Error;
-                            InformationText = e.Error.Message;
-
-                            return;
-                        }
-
-                        DisplayVersionCheckingResult();
+                        ChangeStateToVersionCheckError(e.Error);
                     }
-                    finally
+                    else
                     {
-                        CheckAgainButtonEnabled = true;
+                        VersionCheckingResult checkingResult = versionChecker.LastCheckingResult;
+
+                        if (checkingResult.IsNewerVersion)
+                            ChangeStateToShowNewVersion(checkingResult);
+                        else
+                            ChangeStateToShowNoVersion();
                     }
                 }
                 catch (Exception ex)
@@ -249,88 +238,61 @@ namespace DustInTheWind.Versioning.WinForms.Mvp.Versioning
             });
         }
 
-        private void DisplayVersionCheckingResult()
+        private void HandleDownloadFileStarting(object sender, EventArgs e)
         {
-            if (versionChecker.LastCheckingResult.IsNewerVersion)
-            {
-                DisplayVersionInformation(versionChecker.LastCheckingResult.RetrievedAppVersionInfo);
-            }
-            else
-            {
-                StatusText = VersionCheckerResources.VersionCheckerWindow_StatusText_NoNewVersion;
-                InformationText = VersionCheckerResources.VersionCheckerWindow_NoNewVersion;
-            }
+            userInterface.Dispatch(ChangeStateToBeginDownload);
         }
 
-        #endregion
-
-        #region File Downloader
-
-        /// <summary>
-        /// Call-back method called when the progress of the download is changed.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void HandleDownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
-            ProgressBarValue = e.ProgressPercentage;
+            userInterface.Dispatch(() =>
+            {
+                ProgressBarValue = e.ProgressPercentage;
 
-            string applicationName = versionChecker.LastCheckingResult.RetrievedAppVersionInfo.Name;
-            string informationalVersion = versionChecker.LastCheckingResult.RetrievedAppVersionInfo.InformationalVersion;
-            long kiloBytesReceived = e.BytesReceived / 1024;
-            long totalKiloBytesToReceive = e.TotalBytesToReceive / 1024;
+                string applicationName = versionChecker.LastCheckingResult.RetrievedAppVersionInfo.Name;
+                string informationalVersion = versionChecker.LastCheckingResult.RetrievedAppVersionInfo.InformationalVersion;
+                long kiloBytesReceived = e.BytesReceived / 1024;
+                long totalKiloBytesToReceive = e.TotalBytesToReceive / 1024;
 
-            InformationText = string.Format(VersionCheckerResources.VersionCheckerWindow_Downloading, applicationName, informationalVersion, kiloBytesReceived, totalKiloBytesToReceive);
+                InformationText = string.Format(VersionCheckerResources.VersionCheckerWindow_Downloading, applicationName, informationalVersion, kiloBytesReceived, totalKiloBytesToReceive);
+            });
         }
 
-        /// <summary>
-        /// Call-back method called when the download is completed.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void HandleDownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
+        private void HandleDownloadFileCompleted(object sender, DownloadFileCompletedEventArgs e)
         {
             userInterface.Dispatch(() =>
             {
                 if (e.Cancelled)
                 {
-                    InformationText = VersionCheckerResources.VersionCheckerWindow_DownloadCanceled;
+                    ChangeStateToDownloadCanceled();
                 }
                 else
                 {
                     if (e.Error != null)
-                    {
-                        ProgressBarVisible = false;
-                        InformationText = string.Format(VersionCheckerResources.VersionCheckerWindow_DownloadError, e.Error.Message);
-                    }
+                        ChangeStateToDownloadError(e.Error);
                     else
-                    {
-                        ProgressBarVisible = false;
-
-                        InformationText = string.Format(VersionCheckerResources.VersionCheckerWindow_DownloadSuccess, fileDownloader.DownloadedFilePath);
-                        OpenDownloadedFileButtonVisible = true;
-                    }
+                        ChangeStateToDownloadSuccess();
                 }
-
-                CheckAgainButtonEnabled = true;
             });
         }
 
-        #endregion
-
-        #region View's Actions
-
-        /// <summary>
-        /// TestMe called by the view when the view is first shown.
-        /// </summary>
         public void ViewShown()
         {
             try
             {
-                if (versionChecker.LastCheckingResult == null)
-                    BeginCheck();
+                VersionCheckingResult lastCheckingResult = versionChecker.LastCheckingResult;
+
+                if (lastCheckingResult == null)
+                {
+                    versionChecker.CheckAsync();
+                }
                 else
-                    DisplayVersionCheckingResult();
+                {
+                    if (lastCheckingResult.IsNewerVersion)
+                        ChangeStateToShowNewVersion(lastCheckingResult);
+                    else
+                        ChangeStateToShowNoVersion();
+                }
             }
             catch (Exception ex)
             {
@@ -338,18 +300,12 @@ namespace DustInTheWind.Versioning.WinForms.Mvp.Versioning
             }
         }
 
-        /// <summary>
-        /// TestMe called by the view when the "Close" button is clicked.
-        /// </summary>
         public void CloseButtonClicked()
         {
             try
             {
-                lock (downloaderLock)
-                {
-                    if (fileDownloader.IsBusy)
-                        fileDownloader.Cancel();
-                }
+                versionChecker.Stop();
+                fileDownloader.Stop();
 
                 View.CloseView();
             }
@@ -359,15 +315,11 @@ namespace DustInTheWind.Versioning.WinForms.Mvp.Versioning
             }
         }
 
-        /// <summary>
-        /// TestMe called by the view when the "Check Again" button is clicked.
-        /// </summary>
         public void CheckAgainButtonClicked()
         {
             try
             {
-                OpenDownloadedFileButtonVisible = false;
-                BeginCheck();
+                versionChecker.CheckAsync();
             }
             catch (Exception ex)
             {
@@ -375,51 +327,18 @@ namespace DustInTheWind.Versioning.WinForms.Mvp.Versioning
             }
         }
 
-        /// <summary>
-        /// TestMe called by the view when the "Download" button was clicked.
-        /// </summary>
         public void DownloadButtonClicked()
         {
             try
             {
-                lock (downloaderLock)
-                {
-                    if (fileDownloader.IsBusy)
-                    {
-                        userInterface.DisplayInfo(VersionCheckerResources.VersionCheckerWindow_Error_AlreadyDownloading);
-                        return;
-                    }
+                if (versionChecker.LastCheckingResult == null ||
+                    versionChecker.LastCheckingResult.RetrievedAppVersionInfo == null ||
+                    versionChecker.LastCheckingResult.RetrievedAppVersionInfo.DownloadUrl == null)
+                    return;
 
-                    string downloadUrl = versionChecker.LastCheckingResult.RetrievedAppVersionInfo.DownloadUrl;
-                    Uri uri = new Uri(downloadUrl);
-                    string urlFilePath = uri.AbsolutePath;
-                    string fileName = Path.GetFileName(urlFilePath);
+                string downloadUrl = versionChecker.LastCheckingResult.RetrievedAppVersionInfo.DownloadUrl;
 
-                    string directoryPath = userInterface.RequestDirectory(null, VersionCheckerResources.VersionCheckerWindow_Download_SelectDestinationDirectory);
-
-                    if (directoryPath == null)
-                        return;
-
-                    if (!Directory.Exists(directoryPath))
-                        Directory.CreateDirectory(directoryPath);
-
-                    string destinationFilePath = Path.Combine(directoryPath, fileName);
-                    if (File.Exists(destinationFilePath))
-                    {
-                        string questionText = string.Format(VersionCheckerResources.VersionCheckerWindow_OverwriteQuestion, destinationFilePath);
-                        string title = VersionCheckerResources.VersionCheckerWindow_OverwriteQuestion_Title;
-
-                        if (userInterface.YesNoQuestion(questionText, title))
-                        {
-                            File.Delete(destinationFilePath);
-                            BeginDownload(uri, destinationFilePath);
-                        }
-                    }
-                    else
-                    {
-                        BeginDownload(uri, destinationFilePath);
-                    }
-                }
+                fileDownloader.Download(downloadUrl);
             }
             catch (Exception ex)
             {
@@ -427,15 +346,11 @@ namespace DustInTheWind.Versioning.WinForms.Mvp.Versioning
             }
         }
 
-        /// <summary>
-        /// TestMe called by the view when the "Check at startup" checkbox was clicked.
-        /// </summary>
         public void CheckAtStartupCheckedChanged()
         {
             try
             {
-                coolConfiguration.CoolConfig.Update.CheckAtStartup = CheckAtStartupValue;
-                coolConfiguration.Save();
+                options.CheckAtStartup = CheckAtStartupValue;
             }
             catch (Exception ex)
             {
@@ -443,9 +358,6 @@ namespace DustInTheWind.Versioning.WinForms.Mvp.Versioning
             }
         }
 
-        /// <summary>
-        /// TestMe called by the view when the "Open Downloaded File" button is clicked.
-        /// </summary>
         public void OpenDownloadedFileButtonClicked()
         {
             try
@@ -458,89 +370,115 @@ namespace DustInTheWind.Versioning.WinForms.Mvp.Versioning
             }
         }
 
-        #endregion
-
-        #region Private Methods
-
-        /// <summary>
-        /// Displayes in the view specified <see cref="AppVersionInfo"/> object.
-        /// </summary>
-        /// <param name="versionInformation">The <see cref="AppVersionInfo"/> object that will be displayed in the view.</param>
-        private void DisplayVersionInformation(AppVersionInfo versionInformation)
+        private void ChangeStateToEmpty()
         {
             ProgressBarVisible = false;
 
+            StatusText = string.Empty;
+            InformationText = string.Empty;
+
+            DownloadButtonVisible = false;
+            CheckAgainButtonEnabled = true;
+        }
+
+        private void ChangeStateToBeginVersionCheck()
+        {
+            ProgressBarVisible = true;
+            ProgressBarStyle = ProgressBarStyle.Marquee;
+
+            string location = versionChecker.AppInfoProvider == null
+                ? null
+                : versionChecker.AppInfoProvider.Location;
+
+            InformationText = string.Format(VersionCheckerResources.VersionCheckerWindow_Checking, location);
+            StatusText = VersionCheckerResources.VersionCheckerWindow_StatusText_Checking;
+
+            OpenDownloadedFileButtonVisible = false;
+            DownloadButtonVisible = false;
+            CheckAgainButtonEnabled = false;
+        }
+
+        private void ChangeStateToShowNoVersion()
+        {
+            ProgressBarVisible = false;
+
+            StatusText = VersionCheckerResources.VersionCheckerWindow_StatusText_NoNewVersion;
+            InformationText = VersionCheckerResources.VersionCheckerWindow_NoNewVersion;
+
+            DownloadButtonVisible = false;
+            CheckAgainButtonEnabled = true;
+        }
+
+        private void ChangeStateToShowNewVersion(VersionCheckingResult versionCheckingResult)
+        {
+            ProgressBarVisible = false;
+
+            AppVersionInfo versionInformation = versionCheckingResult.RetrievedAppVersionInfo;
+
             StatusText = string.Format(VersionCheckerResources.VersionCheckerWindow_StatusText_NewVersionAvailable, versionInformation.InformationalVersion);
+            InformationText = versionInformation.DownloadUrl != null
+                ? string.Format(VersionCheckerResources.VersionCheckerWindow_VersionDescription, versionInformation.Description)
+                : string.Format(VersionCheckerResources.VersionCheckerWindow_VersionDescriptionNoDownload, versionInformation.Description, AppWebPage);
 
-            if (versionInformation.DownloadUrl != null)
-            {
-                InformationText = string.Format(VersionCheckerResources.VersionCheckerWindow_VersionDescription, versionInformation.Description);
-                DownloadButtonVisible = true;
-            }
-            else
-            {
-                InformationText = string.Format(VersionCheckerResources.VersionCheckerWindow_VersionDescriptionNoDownload, versionInformation.Description, CoolAppUrl);
-            }
+            DownloadButtonVisible = versionInformation.DownloadUrl != null;
+            CheckAgainButtonEnabled = true;
         }
 
-        /// <summary>
-        /// Starts a new asynchronous check for new version.
-        /// </summary>
-        private void BeginCheck()
+        private void ChangeStateToVersionCheckError(Exception exception)
         {
-            try
-            {
-                string location = versionChecker.AppInfoProvider == null
-                    ? null
-                    : versionChecker.AppInfoProvider.Location;
+            ProgressBarVisible = false;
 
-                InformationText = string.Format(VersionCheckerResources.VersionCheckerWindow_Checking, location);
-                ProgressBarVisible = true;
-                ProgressBarStyle = ProgressBarStyle.Marquee;
-                DownloadButtonVisible = false;
-                StatusText = VersionCheckerResources.VersionCheckerWindow_StatusText_Checking;
-                CheckAgainButtonEnabled = false;
+            StatusText = VersionCheckerResources.VersionCheckerWindow_StatusText_ErrorChecking;
+            InformationText = exception.Message;
 
-                versionChecker.CheckAsync();
-            }
-            catch (Exception ex)
-            {
-                ProgressBarVisible = false;
-                StatusText = VersionCheckerResources.VersionCheckerWindow_StatusText_ErrorChecking;
-                InformationText = ex.Message;
-                CheckAgainButtonEnabled = true;
-            }
+            DownloadButtonVisible = false;
+            CheckAgainButtonEnabled = true;
         }
 
-        /// <summary>
-        /// Starts a new asynchronous download.
-        /// </summary>
-        /// <param name="downloadUri">The url of the file that has to be downloaded.</param>
-        /// <param name="destinationFilePath">The full name and path of the file that will be saved locally.</param>
-        private void BeginDownload(Uri downloadUri, string destinationFilePath)
+        private void ChangeStateToBeginDownload()
         {
-            try
-            {
-                ProgressBarVisible = true;
-                ProgressBarStyle = ProgressBarStyle.Blocks;
-                ProgressBarValue = 0;
-                DownloadButtonVisible = false;
-                string appName = versionChecker.LastCheckingResult.RetrievedAppVersionInfo.Name;
-                string appVersion = versionChecker.LastCheckingResult.RetrievedAppVersionInfo.InformationalVersion;
-                InformationText = string.Format(VersionCheckerResources.VersionCheckerWindow_Downloading, appName, appVersion, 0, 0);
-                CheckAgainButtonEnabled = false;
+            ProgressBarVisible = true;
+            ProgressBarStyle = ProgressBarStyle.Blocks;
+            ProgressBarValue = 0;
 
-                fileDownloader.DownloadFileAsync(downloadUri, destinationFilePath);
-            }
-            catch (Exception ex)
-            {
-                ProgressBarVisible = false;
-                StatusText = VersionCheckerResources.VersionCheckerWindow_StatusText_DownloadError;
-                InformationText = ex.Message;
-                CheckAgainButtonEnabled = true;
-            }
+            string appName = versionChecker.LastCheckingResult.RetrievedAppVersionInfo.Name;
+            string appVersion = versionChecker.LastCheckingResult.RetrievedAppVersionInfo.InformationalVersion;
+            InformationText = string.Format(VersionCheckerResources.VersionCheckerWindow_Downloading, appName, appVersion, 0, 0);
+
+            DownloadButtonVisible = false;
+            CheckAgainButtonEnabled = false;
         }
 
-        #endregion
+        private void ChangeStateToDownloadSuccess()
+        {
+            ProgressBarVisible = false;
+
+            InformationText = string.Format(VersionCheckerResources.VersionCheckerWindow_DownloadSuccess, fileDownloader.DownloadedFilePath);
+
+            OpenDownloadedFileButtonVisible = true;
+            DownloadButtonVisible = false;
+            CheckAgainButtonEnabled = true;
+        }
+
+        private void ChangeStateToDownloadCanceled()
+        {
+            ProgressBarVisible = false;
+
+            InformationText = VersionCheckerResources.VersionCheckerWindow_DownloadCanceled;
+
+            DownloadButtonVisible = false;
+            CheckAgainButtonEnabled = true;
+        }
+
+        private void ChangeStateToDownloadError(Exception ex)
+        {
+            ProgressBarVisible = false;
+
+            StatusText = VersionCheckerResources.VersionCheckerWindow_StatusText_DownloadError;
+            InformationText = ex.Message;
+
+            DownloadButtonVisible = true;
+            CheckAgainButtonEnabled = true;
+        }
     }
 }

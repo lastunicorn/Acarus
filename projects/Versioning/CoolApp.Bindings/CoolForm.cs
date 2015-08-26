@@ -15,18 +15,18 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Security.Cryptography;
 using System.Windows.Forms;
+using DustInTheWind.CoolApp.Config;
 using DustInTheWind.Versioning;
-using DustInTheWind.Versioning.WinForms.Mvp;
-using DustInTheWind.Versioning.WinForms.Mvp.Config;
 using DustInTheWind.Versioning.WinForms.Mvp.Versioning;
 
 namespace DustInTheWind.CoolApp
 {
     public partial class CoolForm : Form
     {
-        private UserInterface userInterface;
+        private readonly UserInterface userInterface;
+        private readonly VersioningOptions versioningOptions;
+        private readonly VersionChecker azzulVersionChecker;
 
         /// <summary>
         /// The default version file url. It is used only if the configuration object does not provide an url. 
@@ -38,25 +38,37 @@ namespace DustInTheWind.CoolApp
             InitializeComponent();
 
             userInterface = new UserInterface();
+
+            ICoolConfiguration coolConfiguration = new CoolConfiguration();
+            azzulVersionChecker = CreateVersionCheckerForAzzul(coolConfiguration);
+
+            versioningOptions = new VersioningOptions(coolConfiguration);
+            versioningOptions.CheckAtStartupChanged += HandleVersioningOptionsCheckAtStartupChanged;
+
+            checkBoxCheckAtStartUp.Checked = versioningOptions.CheckAtStartup;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            VersionCheckerForm form = new VersionCheckerForm();
-            form.Owner = this;
+            VersionCheckerForm form = new VersionCheckerForm { Owner = this };
 
-            ICoolConfiguration coolConfiguration = new CoolConfiguration();
-            VersionChecker azzulVersionChecker = CreateVersionChecker(coolConfiguration);
+            VersionCheckerViewModel viewModel = new VersionCheckerViewModel(azzulVersionChecker, userInterface, versioningOptions)
+            {
+                AppWebPage = "http://azzul.alez.ro",
+                View = form
+            };
 
-            VersionCheckerViewModel viewModel = new VersionCheckerViewModel(userInterface, coolConfiguration, azzulVersionChecker);
-
-            viewModel.View = form;
             form.ViewModel = viewModel;
 
             form.Show();
         }
 
-        private VersionChecker CreateVersionChecker(ICoolConfiguration coolConfiguration)
+        private void HandleVersioningOptionsCheckAtStartupChanged(object sender, EventArgs eventArgs)
+        {
+            checkBoxCheckAtStartUp.Checked = versioningOptions.CheckAtStartup;
+        }
+
+        private VersionChecker CreateVersionCheckerForAzzul(ICoolConfiguration coolConfiguration)
         {
             return new VersionChecker
             {
@@ -74,6 +86,11 @@ namespace DustInTheWind.CoolApp
         {
             bool existsCustomUrl = coolConfiguration.CoolConfig != null && !string.IsNullOrEmpty(coolConfiguration.CoolConfig.Update.Url);
             return existsCustomUrl ? coolConfiguration.CoolConfig.Update.Url : DefaultCheckUrl;
+        }
+
+        private void checkBoxCheckAtStartUp_CheckedChanged(object sender, EventArgs e)
+        {
+            versioningOptions.CheckAtStartup = checkBoxCheckAtStartUp.Checked;
         }
     }
 }

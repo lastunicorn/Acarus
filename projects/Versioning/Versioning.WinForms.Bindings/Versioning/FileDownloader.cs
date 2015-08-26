@@ -18,14 +18,22 @@ using System;
 using System.ComponentModel;
 using System.IO;
 using System.Net;
+using DustInTheWind.Versioning.WinForms.Mvp.Common;
+using DustInTheWind.Versioning.WinForms.Mvp.Properties;
 
 namespace DustInTheWind.Versioning.WinForms.Mvp.Versioning
 {
     internal class FileDownloader
     {
+        private readonly IUserInterface userInterface;
         private readonly WebClient webClient;
         private Uri downloadUri;
         private string destinationFilePath;
+
+        /// <summary>
+        /// Object used to synchronize the access to the file downloader.
+        /// </summary>
+        private readonly object downloaderLock = new object();
 
         public event DownloadProgressChangedEventHandler DownloadProgressChanged
         {
@@ -33,17 +41,17 @@ namespace DustInTheWind.Versioning.WinForms.Mvp.Versioning
             remove { webClient.DownloadProgressChanged -= value; }
         }
 
-        public event AsyncCompletedEventHandler DownloadFileCompleted;
+        public event EventHandler DownloadFileStarting;
+        public event EventHandler<DownloadFileCompletedEventArgs> DownloadFileCompleted;
 
-        public FileDownloader()
+        public FileDownloader(IUserInterface userInterface)
         {
+            if (userInterface == null) throw new ArgumentNullException("userInterface");
+
+            this.userInterface = userInterface;
+
             webClient = new WebClient();
             webClient.DownloadFileCompleted += HandleDownloadFileCompleted;
-        }
-
-        public bool IsBusy
-        {
-            get { return webClient.IsBusy; }
         }
 
         public string DownloadedFilePath
@@ -51,24 +59,6 @@ namespace DustInTheWind.Versioning.WinForms.Mvp.Versioning
             get { return destinationFilePath; }
         }
 
-        public void Cancel()
-        {
-            webClient.CancelAsync();
-        }
-
-        public void DownloadFileAsync(Uri downloadUri, string destinationFilePath)
-        {
-            this.downloadUri = downloadUri;
-            this.destinationFilePath = destinationFilePath;
-
-            webClient.DownloadFileAsync(downloadUri, destinationFilePath);
-        }
-
-        /// <summary>
-        /// Call-back method called when the download is completed.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void HandleDownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
         {
             if (e.Cancelled)
@@ -81,19 +71,110 @@ namespace DustInTheWind.Versioning.WinForms.Mvp.Versioning
                     }
                     catch
                     {
+                        // ignored
                     }
                 }
-            }
 
-            OnDownloadFileCompleted(e);
+                DownloadFileCompletedEventArgs eva = new DownloadFileCompletedEventArgs(true);
+                OnDownloadFileCompleted(eva);
+            }
+            else
+            {
+                DownloadFileCompletedEventArgs eva = new DownloadFileCompletedEventArgs();
+                OnDownloadFileCompleted(eva);
+            }
         }
 
-        protected virtual void OnDownloadFileCompleted(AsyncCompletedEventArgs e)
+        protected virtual void OnDownloadFileCompleted(DownloadFileCompletedEventArgs e)
         {
-            AsyncCompletedEventHandler handler = DownloadFileCompleted;
+            EventHandler<DownloadFileCompletedEventArgs> handler = DownloadFileCompleted;
 
             if (handler != null)
                 handler(this, e);
+        }
+
+        public void Download(string downloadUrl)
+        {
+            lock (downloaderLock)
+            {
+                if (webClient.IsBusy)
+                {
+                    userInterface.DisplayInfo(VersionCheckerResources.VersionCheckerWindow_Error_AlreadyDownloading);
+                    return;
+                }
+
+                Uri uri = new Uri(downloadUrl);
+                string urlFilePath = uri.AbsolutePath;
+                string fileName = Path.GetFileName(urlFilePath);
+
+                string destinationDirectoryPath = userInterface.RequestDirectory(null, VersionCheckerResources.VersionCheckerWindow_Download_SelectDestinationDirectory);
+
+                if (destinationDirectoryPath == null)
+                    return;
+
+                if (!Directory.Exists(destinationDirectoryPath))
+                    Directory.CreateDirectory(destinationDirectoryPath);
+
+                string destinationFilePath = Path.Combine(destinationDirectoryPath, fileName);
+
+                if (File.Exists(destinationFilePath))
+                {
+                    bool shouldOverwrite = AskToOverwrite(destinationFilePath);
+
+                    if (shouldOverwrite)
+                    {
+                        File.Delete(destinationFilePath);
+                        BeginDownload(uri, destinationFilePath);
+                    }
+                }
+                else
+                {
+                    BeginDownload(uri, destinationFilePath);
+                }
+            }
+        }
+
+        private bool AskToOverwrite(string destinationFilePath)
+        {
+            string questionText = string.Format(VersionCheckerResources.VersionCheckerWindow_OverwriteQuestion, destinationFilePath);
+            string title = VersionCheckerResources.VersionCheckerWindow_OverwriteQuestion_Title;
+
+            return userInterface.YesNoQuestion(questionText, title);
+        }
+
+        private void BeginDownload(Uri downloadUri, string destinationFilePath)
+        {
+            try
+            {
+                OnDownloadFileStarting();
+
+                this.downloadUri = downloadUri;
+                this.destinationFilePath = destinationFilePath;
+
+                webClient.DownloadFileAsync(downloadUri, destinationFilePath);
+            }
+            catch (Exception ex)
+            {
+                DownloadFileCompletedEventArgs eva = new DownloadFileCompletedEventArgs(ex);
+                OnDownloadFileCompleted(eva);
+            }
+        }
+
+        public void Stop()
+        {
+            lock (downloaderLock)
+            {
+                if (webClient.IsBusy)
+                    webClient.CancelAsync();
+            }
+        }
+
+        protected virtual void OnDownloadFileStarting()
+        {
+            EventHandler handler = DownloadFileStarting;
+
+            if (handler != null)
+                handler(this, EventArgs.Empty);
         }
     }
 }

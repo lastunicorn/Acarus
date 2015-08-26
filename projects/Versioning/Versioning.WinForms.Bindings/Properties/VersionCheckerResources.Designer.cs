@@ -88,16 +88,6 @@ namespace DustInTheWind.Versioning.WinForms.Mvp.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error downloading the new version.
-        ///Error message: {0}.
-        /// </summary>
-        internal static string VersionCheckerWindow_DownloadError {
-            get {
-                return ResourceManager.GetString("VersionCheckerWindow_DownloadError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Downloading {0} {1}:    {2:#,# kB} / {3:#,# kB}.
         /// </summary>
         internal static string VersionCheckerWindow_Downloading {
@@ -116,16 +106,6 @@ namespace DustInTheWind.Versioning.WinForms.Mvp.Properties {
         internal static string VersionCheckerWindow_DownloadSuccess {
             get {
                 return ResourceManager.GetString("VersionCheckerWindow_DownloadSuccess", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to SUCCESS !!!
-        ///The file was successfully downloaded. Enjoy! :).
-        /// </summary>
-        internal static string VersionCheckerWindow_DownloadSuccess_Short {
-            get {
-                return ResourceManager.GetString("VersionCheckerWindow_DownloadSuccess_Short", resourceCulture);
             }
         }
         
@@ -180,15 +160,6 @@ namespace DustInTheWind.Versioning.WinForms.Mvp.Properties {
         internal static string VersionCheckerWindow_StatusText_DownloadError {
             get {
                 return ResourceManager.GetString("VersionCheckerWindow_StatusText_DownloadError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Error.
-        /// </summary>
-        internal static string VersionCheckerWindow_StatusText_Error {
-            get {
-                return ResourceManager.GetString("VersionCheckerWindow_StatusText_Error", resourceCulture);
             }
         }
         

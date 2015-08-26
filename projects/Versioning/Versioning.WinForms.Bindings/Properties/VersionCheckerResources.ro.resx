@@ -133,10 +133,6 @@ param 3 - total kB expected to be received.</comment>
     <value>Nu a fost găsită o versiune mai nouă pe net.</value>
     <comment>Text displayed in the body of the VersionChecker window if no newer version is available.</comment>
   </data>
-  <data name="VersionCheckerWindow_StatusText_Error" xml:space="preserve">
-    <value>Eroare</value>
-    <comment>Status text displayed in the header of the VersionChecker window if an error was encountered while checking for a newer version.</comment>
-  </data>
   <data name="VersionCheckerWindow_StatusText_NoNewVersion" xml:space="preserve">
     <value>Nu există o versiune mai nouă.</value>
     <comment>Status text displayed in the header of the VersionChecker window if no new version is available.</comment>

@@ -77,68 +77,12 @@ namespace DustInTheWind.Versioning
         /// </summary>
         public VersionCheckingResult LastCheckingResult { get; private set; }
 
-        #region Event CheckCompleted
+        public event EventHandler<EventArgs> CheckStarting;
 
         /// <summary>
         /// Event raised when the version checker finishes an asynchronous check.
         /// </summary>
         public event EventHandler<CheckCompletedEventArgs> CheckCompleted;
-
-        /// <summary>
-        /// Raises the <see cref="CheckCompleted"/> event.
-        /// </summary>
-        /// <param name="e">An <see cref="CheckCompletedEventArgs"/> object that contains the event data.</param>
-        protected virtual void OnCheckCompleted(CheckCompletedEventArgs e)
-        {
-            EventHandler<CheckCompletedEventArgs> handler = CheckCompleted;
-
-            if (handler != null)
-                handler(this, e);
-        }
-
-        #endregion
-
-        #region Synchronous Check
-
-        /// <summary>
-        /// Compares the version obtained from the version provider with the current one.
-        /// </summary>
-        /// <returns>Less then 0 if the version obtained from the provider is older; 0 if the versions are equal; greater then 0 if the version obtained from the provider is newer.</returns>
-        /// <exception cref="VersionCheckingException">Error getting the new version from the provider.</exception>
-        public VersionCheckingResult Check()
-        {
-            try
-            {
-                CheckInternal();
-                return LastCheckingResult;
-            }
-            catch (VersionCheckingException)
-            {
-                throw;
-            }
-            catch (Exception ex)
-            {
-                throw new VersionCheckingException(ex);
-            }
-        }
-
-        private void CheckInternal()
-        {
-            LastCheckingResult = null;
-
-            AppVersionInfo newestVersion = AppInfoProvider.GetVersionInformation();
-
-            int comparationResult = newestVersion.Version.CompareTo(CurrentVersion);
-
-            LastCheckingResult = new VersionCheckingResult
-            {
-                CurrentVersion = CurrentVersion,
-                RetrievedAppVersionInfo = newestVersion,
-                ComparationResult = comparationResult
-            };
-        }
-
-        #endregion
 
         #region Asynchronous Check
 
@@ -151,6 +95,8 @@ namespace DustInTheWind.Versioning
         {
             if (!ChangeStateToBusy())
                 return false;
+
+            OnCheckStarting();
 
             Task.Factory.StartNew(() =>
             {
@@ -178,6 +124,22 @@ namespace DustInTheWind.Versioning
             });
 
             return true;
+        }
+
+        private void CheckInternal()
+        {
+            LastCheckingResult = null;
+
+            AppVersionInfo newestVersion = AppInfoProvider.GetVersionInformation();
+
+            int comparationResult = newestVersion.Version.CompareTo(CurrentVersion);
+
+            LastCheckingResult = new VersionCheckingResult
+            {
+                CurrentVersion = CurrentVersion,
+                RetrievedAppVersionInfo = newestVersion,
+                ComparationResult = comparationResult
+            };
         }
 
         private bool ChangeStateToBusy()
@@ -227,5 +189,26 @@ namespace DustInTheWind.Versioning
         }
 
         #endregion
+
+        public void Stop()
+        {
+
+        }
+
+        protected virtual void OnCheckCompleted(CheckCompletedEventArgs e)
+        {
+            EventHandler<CheckCompletedEventArgs> handler = CheckCompleted;
+
+            if (handler != null)
+                handler(this, e);
+        }
+
+        protected virtual void OnCheckStarting()
+        {
+            EventHandler<EventArgs> handler = CheckStarting;
+
+            if (handler != null)
+                handler(this, EventArgs.Empty);
+        }
     }
 }

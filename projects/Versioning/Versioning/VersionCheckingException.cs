@@ -24,7 +24,7 @@ namespace DustInTheWind.Versioning
     /// General exception raised by the DustInTheWind util classes.
     /// </summary>
     [Serializable]
-    public class VersionCheckingException : Exception
+    public class VersionCheckingException : ApplicationException
     {
         private static readonly string DefaultMessage = VersioningResources.InternalError_UnknownError;
 
