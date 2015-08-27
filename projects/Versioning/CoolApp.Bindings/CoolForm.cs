@@ -17,8 +17,8 @@
 using System;
 using System.Windows.Forms;
 using DustInTheWind.CoolApp.Config;
-using DustInTheWind.Versioning;
 using DustInTheWind.Versioning.Check;
+using DustInTheWind.Versioning.Download;
 using DustInTheWind.Versioning.WinForms.Versioning;
 
 namespace DustInTheWind.CoolApp
@@ -28,6 +28,7 @@ namespace DustInTheWind.CoolApp
         private readonly UserInterface userInterface;
         private readonly VersioningOptions versioningOptions;
         private readonly VersionChecker azzulVersionChecker;
+        private readonly FileDownloader fileDownloader;
 
         /// <summary>
         /// The default version file url. It is used only if the configuration object does not provide an url. 
@@ -46,14 +47,21 @@ namespace DustInTheWind.CoolApp
             versioningOptions = new VersioningOptions(coolConfiguration);
             versioningOptions.CheckAtStartupChanged += HandleVersioningOptionsCheckAtStartupChanged;
 
+            fileDownloader = new FileDownloader(userInterface);
+
             checkBoxCheckAtStartUp.Checked = versioningOptions.CheckAtStartup;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            OpenVersionCheckerWindow();
+        }
+
+        private void OpenVersionCheckerWindow()
+        {
             VersionCheckerForm form = new VersionCheckerForm { Owner = this };
 
-            VersionCheckerViewModel viewModel = new VersionCheckerViewModel(azzulVersionChecker, userInterface, versioningOptions)
+            VersionCheckerViewModel viewModel = new VersionCheckerViewModel(azzulVersionChecker, fileDownloader, userInterface, versioningOptions)
             {
                 AppWebPage = "http://azzul.alez.ro",
                 View = form
@@ -75,7 +83,7 @@ namespace DustInTheWind.CoolApp
             {
                 MinCheckTime = TimeSpan.FromSeconds(1),
                 CurrentVersion = Version.Parse(textBoxAzzulVersion.Text),
-                AppInfoProvider = new HttpAppVersionInfoProvider
+                AppInfoProvider = new HttpAppInfoProvider
                 {
                     Url = GetRepositoryUrl(coolConfiguration),
                     AppName = "Azzul"

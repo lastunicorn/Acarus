@@ -23,7 +23,7 @@ namespace DustInTheWind.Versioning.Check
     /// <summary>
     /// Creates <see cref="AppVersionInfo"/> objects with data retrieved from a file.
     /// </summary>
-    public class HttpAppVersionInfoProvider : IAppVersionInfoProvider
+    public class HttpAppInfoProvider : IAppInfoProvider
     {
         public string Url { get; set; }
 

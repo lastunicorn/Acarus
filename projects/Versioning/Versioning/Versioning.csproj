@@ -40,7 +40,7 @@
   <ItemGroup>
     <Compile Include="Check\AppInfoFileParser.cs" />
     <Compile Include="Check\CheckCompletedEventArgs.cs" />
-    <Compile Include="Check\IAppVersionInfoProvider.cs" />
+    <Compile Include="Check\IAppInfoProvider.cs" />
     <Compile Include="Download\DownloadFileCompletedEventArgs.cs" />
     <Compile Include="Download\FileDownloader.cs" />
     <Compile Include="Download\FileDownloadResult.cs" />
@@ -56,7 +56,7 @@
     <Compile Include="Check\VersionCheckingResult.cs" />
     <Compile Include="Check\VersionDocumentRetrieveException.cs" />
     <Compile Include="Check\AppVersionInfo.cs" />
-    <Compile Include="Check\HttpAppVersionInfoProvider.cs" />
+    <Compile Include="Check\HttpAppInfoProvider.cs" />
     <Compile Include="Properties\VersionCheckerResources.Designer.cs">
       <DependentUpon>VersionCheckerResources.resx</DependentUpon>
       <AutoGen>True</AutoGen>

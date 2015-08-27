@@ -22,7 +22,7 @@ using DustInTheWind.Versioning.Properties;
 namespace DustInTheWind.Versioning.Check
 {
     /// <summary>
-    /// Checks a reference version (considered the current version) against the version obtained from a <see cref="IAppVersionInfoProvider"/> object.
+    /// Checks a reference version (considered the current version) against the version obtained from a <see cref="IAppInfoProvider"/> object.
     /// It has synchronous and asynchronous methods.
     /// </summary>
     public class VersionChecker
@@ -70,7 +70,7 @@ namespace DustInTheWind.Versioning.Check
 
         public Version CurrentVersion { get; set; }
 
-        public IAppVersionInfoProvider AppInfoProvider { get; set; }
+        public IAppInfoProvider AppInfoProvider { get; set; }
 
         /// <summary>
         /// Gets the result of the latest performed check.
@@ -83,8 +83,6 @@ namespace DustInTheWind.Versioning.Check
         /// Event raised when the version checker finishes an asynchronous check.
         /// </summary>
         public event EventHandler<CheckCompletedEventArgs> CheckCompleted;
-
-        #region Asynchronous Check
 
         /// <summary>
         /// Asynchronously compares the version obtained from the version provider with the current one.
@@ -188,11 +186,9 @@ namespace DustInTheWind.Versioning.Check
                 Thread.Sleep(waitTime);
         }
 
-        #endregion
-
         public void Stop()
         {
-
+            // todo: implement this
         }
 
         protected virtual void OnCheckCompleted(CheckCompletedEventArgs e)

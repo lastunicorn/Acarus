@@ -20,6 +20,7 @@ using DustInTheWind.Versioning.WinForms.Versioning;
 
 namespace DustInTheWind.CoolApp
 {
+    // todo: bad naming - rename it
     class VersioningOptions : IOptions
     {
         private readonly ICoolConfiguration coolConfiguration;

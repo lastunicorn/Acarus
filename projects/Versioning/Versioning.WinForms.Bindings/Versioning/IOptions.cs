@@ -18,6 +18,11 @@ using System;
 
 namespace DustInTheWind.Versioning.WinForms.Versioning
 {
+    // todo: bad naming - rename it
+    /// <summary>
+    /// This is an interface to be used by the Version Checker window to access some
+    /// configuration values like "CheckAtStartUp".
+    /// </summary>
     public interface IOptions
     {
         event EventHandler CheckAtStartupChanged;

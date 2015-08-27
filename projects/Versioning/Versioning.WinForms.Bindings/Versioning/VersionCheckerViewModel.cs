@@ -52,11 +52,6 @@ namespace DustInTheWind.Versioning.WinForms.Versioning
         public string AppWebPage { get; set; }
 
         /// <summary>
-        /// Provides configuration values to be used in Azzul application.
-        /// </summary>
-        private readonly IOptions options;
-
-        /// <summary>
         /// A service that checks if a newer version of Azzul exists.
         /// </summary>
         private readonly VersionChecker versionChecker;
@@ -70,6 +65,11 @@ namespace DustInTheWind.Versioning.WinForms.Versioning
         /// A service that displays messages to the user.
         /// </summary>
         private readonly IUserInterface userInterface;
+
+        /// <summary>
+        /// Provides configuration values to be used in Azzul application.
+        /// </summary>
+        private readonly IOptions options;
 
         public int ProgressBarValue
         {
@@ -175,16 +175,19 @@ namespace DustInTheWind.Versioning.WinForms.Versioning
         /// Initializes a new instance of the <see cref="VersionCheckerViewModel"/> class.
         /// </summary>
         /// <param name="versionChecker">A service that checks if a newer version of the application exists.</param>
+        /// <param name="fileDownloader"></param>
         /// <param name="userInterface">A service that displays messages to the user.</param>
         /// <param name="options">Provides configuration values to be used in the application.</param>
         /// <exception cref="ArgumentNullException">Exception thrown if one of the arguments is null.</exception>
-        public VersionCheckerViewModel(VersionChecker versionChecker, IUserInterface userInterface, IOptions options)
+        public VersionCheckerViewModel(VersionChecker versionChecker, FileDownloader fileDownloader, IUserInterface userInterface, IOptions options)
         {
             if (versionChecker == null) throw new ArgumentNullException("versionChecker");
+            if (fileDownloader == null) throw new ArgumentNullException("fileDownloader");
             if (userInterface == null) throw new ArgumentNullException("userInterface");
             if (options == null) throw new ArgumentNullException("options");
 
             this.versionChecker = versionChecker;
+            this.fileDownloader = fileDownloader;
             this.userInterface = userInterface;
             this.options = options;
 
@@ -193,85 +196,57 @@ namespace DustInTheWind.Versioning.WinForms.Versioning
             versionChecker.CheckStarting += HandleVersionCheckStarting;
             versionChecker.CheckCompleted += HandleCheckCompleted;
 
-            fileDownloader = new FileDownloader(userInterface);
-            fileDownloader.DownloadFileStarting += HandleDownloadFileStarting;
-            fileDownloader.DownloadProgressChanged += HandleDownloadProgressChanged;
-            fileDownloader.DownloadFileCompleted += HandleDownloadFileCompleted;
+            this.fileDownloader.DownloadFileStarting += HandleDownloadFileStarting;
+            this.fileDownloader.DownloadProgressChanged += HandleDownloadProgressChanged;
+            this.fileDownloader.DownloadFileCompleted += HandleDownloadFileCompleted;
+
+            options.CheckAtStartupChanged += HandleOptionsCheckAtStartupChanged;
 
             CheckAtStartupEnabled = true;
-            options.CheckAtStartupChanged += HandleOptionsCheckAtStartupChanged;
             CheckAtStartupValue = options.CheckAtStartup;
         }
 
         private void HandleOptionsCheckAtStartupChanged(object sender, EventArgs eventArgs)
         {
-            try
+            ExecuteSafe(() =>
             {
                 CheckAtStartupValue = options.CheckAtStartup;
-            }
-            catch (Exception ex)
-            {
-                userInterface.DisplayError(ex);
-            }
+            });
         }
 
         private void HandleVersionCheckStarting(object sender, EventArgs eventArgs)
         {
-            try
-            {
-                ChangeStateToBeginVersionCheck();
-            }
-            catch (Exception ex)
-            {
-                userInterface.DisplayError(ex);
-            }
+            ExecuteSafe(ChangeStateToBeginVersionCheck);
         }
 
         private void HandleCheckCompleted(object sender, CheckCompletedEventArgs e)
         {
-            userInterface.Dispatch(() =>
+            ExecuteSafeInUi(() =>
             {
-                try
+                if (e.Error != null)
                 {
-                    if (e.Error != null)
-                    {
-                        ChangeStateToVersionCheckError(e.Error);
-                    }
-                    else
-                    {
-                        VersionCheckingResult checkingResult = versionChecker.LastCheckingResult;
-
-                        if (checkingResult.IsNewerVersion)
-                            ChangeStateToShowNewVersion(checkingResult);
-                        else
-                            ChangeStateToShowNoVersion();
-                    }
+                    ChangeStateToVersionCheckError(e.Error);
                 }
-                catch (Exception ex)
+                else
                 {
-                    userInterface.DisplayError(ex);
+                    VersionCheckingResult checkingResult = versionChecker.LastCheckingResult;
+
+                    if (checkingResult.IsNewerVersion)
+                        ChangeStateToShowNewVersion(checkingResult);
+                    else
+                        ChangeStateToShowNoVersion();
                 }
             });
         }
 
         private void HandleDownloadFileStarting(object sender, EventArgs e)
         {
-            userInterface.Dispatch(() =>
-            {
-                try
-                {
-                    ChangeStateToBeginDownload();
-                }
-                catch (Exception ex)
-                {
-                    userInterface.DisplayError(ex);
-                }
-            });
+            ExecuteSafeInUi(ChangeStateToBeginDownload);
         }
 
         private void HandleDownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
-            userInterface.Dispatch(() =>
+            ExecuteSafeInUi(() =>
             {
                 ProgressBarValue = e.ProgressPercentage;
 
@@ -286,121 +261,80 @@ namespace DustInTheWind.Versioning.WinForms.Versioning
 
         private void HandleDownloadFileCompleted(object sender, DownloadFileCompletedEventArgs e)
         {
-            userInterface.Dispatch(() =>
+            ExecuteSafeInUi(() =>
             {
-                try
-                {
-                    if (e.Cancelled)
-                    {
-                        ChangeStateToDownloadCanceled();
-                    }
-                    else
-                    {
-                        if (e.Error != null)
-                            ChangeStateToDownloadError(e.Error);
-                        else
-                            ChangeStateToDownloadSuccess();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    userInterface.DisplayError(ex);
-                }
+                if (e.Cancelled)
+                    ChangeStateToDownloadCanceled();
+                else if (e.Error != null)
+                    ChangeStateToDownloadError(e.Error);
+                else
+                    ChangeStateToDownloadSuccess();
             });
         }
 
         public void ViewShown()
         {
-            try
+            ExecuteSafe(() =>
             {
                 VersionCheckingResult lastCheckingResult = versionChecker.LastCheckingResult;
 
                 if (lastCheckingResult == null)
-                {
                     versionChecker.CheckAsync();
-                }
+                else if (lastCheckingResult.IsNewerVersion)
+                    ChangeStateToShowNewVersion(lastCheckingResult);
                 else
-                {
-                    if (lastCheckingResult.IsNewerVersion)
-                        ChangeStateToShowNewVersion(lastCheckingResult);
-                    else
-                        ChangeStateToShowNoVersion();
-                }
-            }
-            catch (Exception ex)
-            {
-                userInterface.DisplayError(ex);
-            }
+                    ChangeStateToShowNoVersion();
+            });
         }
 
         public void CloseButtonClicked()
         {
-            try
+            ExecuteSafe(() =>
             {
                 versionChecker.Stop();
                 fileDownloader.Stop();
 
                 View.CloseView();
-            }
-            catch (Exception ex)
-            {
-                userInterface.DisplayError(ex);
-            }
+            });
         }
 
         public void CheckAgainButtonClicked()
         {
-            try
+            ExecuteSafe(() =>
             {
                 versionChecker.CheckAsync();
-            }
-            catch (Exception ex)
-            {
-                userInterface.DisplayError(ex);
-            }
+            });
         }
 
         public void DownloadButtonClicked()
         {
-            try
+            ExecuteSafe(() =>
             {
                 if (versionChecker.LastCheckingResult == null ||
-                    versionChecker.LastCheckingResult.RetrievedAppVersionInfo == null ||
-                    versionChecker.LastCheckingResult.RetrievedAppVersionInfo.DownloadUrl == null)
+                   versionChecker.LastCheckingResult.RetrievedAppVersionInfo == null ||
+                   versionChecker.LastCheckingResult.RetrievedAppVersionInfo.DownloadUrl == null)
                     return;
 
                 string downloadUrl = versionChecker.LastCheckingResult.RetrievedAppVersionInfo.DownloadUrl;
 
                 fileDownloader.Download(downloadUrl);
-            }
-            catch (Exception ex)
-            {
-                userInterface.DisplayError(ex);
-            }
+            });
         }
 
         public void CheckAtStartupCheckedChanged()
         {
-            try
+            ExecuteSafe(() =>
             {
                 options.CheckAtStartup = CheckAtStartupValue;
-            }
-            catch (Exception ex)
-            {
-                userInterface.DisplayError(ex);
-            }
+            });
         }
 
         public void OpenDownloadedFileButtonClicked()
         {
-            try
+            ExecuteSafe(() =>
             {
                 Process.Start(fileDownloader.DestinationFilePath);
-            }
-            catch (Exception ex)
-            {
-                userInterface.DisplayError(ex);
-            }
+            });
         }
 
         private void ChangeStateToEmpty()
@@ -512,6 +446,33 @@ namespace DustInTheWind.Versioning.WinForms.Versioning
 
             DownloadButtonVisible = true;
             CheckAgainButtonEnabled = true;
+        }
+
+        private void ExecuteSafe(Action action)
+        {
+            try
+            {
+                action();
+            }
+            catch (Exception ex)
+            {
+                userInterface.DisplayError(ex);
+            }
+        }
+
+        private void ExecuteSafeInUi(Action action)
+        {
+            userInterface.Dispatch(() =>
+            {
+                try
+                {
+                    action();
+                }
+                catch (Exception ex)
+                {
+                    userInterface.DisplayError(ex);
+                }
+            });
         }
     }
 }

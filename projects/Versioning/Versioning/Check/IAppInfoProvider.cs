@@ -21,7 +21,7 @@ namespace DustInTheWind.Versioning.Check
     /// <summary>
     /// Declares the methods for a class that provides version information about the application.
     /// </summary>
-    public interface IAppVersionInfoProvider
+    public interface IAppInfoProvider
     {
         string Location { get; }
 
