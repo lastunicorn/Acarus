@@ -1,8 +1,11 @@
-﻿<Application x:Class="CoolApp.Wpf.App"
+﻿<Application x:Class="DustInTheWind.CoolApp.Wpf.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             StartupUri="MainWindow.xaml">
+             xmlns:wpf="clr-namespace:DustInTheWind.CoolApp.Wpf"
+             StartupUri="CoolWindow.xaml">
+    
     <Application.Resources>
-         
+        <wpf:CoolViewModel x:Key="CoolViewModel" />
     </Application.Resources>
+    
 </Application>

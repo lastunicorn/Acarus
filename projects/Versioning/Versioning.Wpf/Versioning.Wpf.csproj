@@ -4,18 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{BB6FA37B-A7F8-4BB9-BA33-7D2CF14B9EEA}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <ProjectGuid>{0910531D-649A-45DB-9CA1-DB63C6E17C68}</ProjectGuid>
+    <OutputType>library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DustInTheWind.CoolApp.Wpf</RootNamespace>
-    <AssemblyName>CoolApp.Wpf</AssemblyName>
+    <RootNamespace>Versioning.Wpf</RootNamespace>
+    <AssemblyName>Versioning.Wpf</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -25,7 +24,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -50,23 +48,28 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Compile Include="Common\RelayCommand.cs" />
+    <Compile Include="Properties\ServicesResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ServicesResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterface.cs" />
+    <Compile Include="Properties\VersionCheckerResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>VersionCheckerResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="VersioningModule.cs" />
+    <Compile Include="Versioning\VersionCheckerViewModel.cs" />
+    <Compile Include="Versioning\VersionCheckerWindow.xaml.cs">
+      <DependentUpon>VersionCheckerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Common\ViewModelBase.cs" />
+    <Page Include="Versioning\VersionCheckerWindow.xaml">
       <SubType>Designer</SubType>
-    </ApplicationDefinition>
-    <Page Include="CoolWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="CoolViewModel.cs" />
-    <Compile Include="CoolWindow.xaml.cs">
-      <DependentUpon>CoolWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -86,6 +89,16 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\VersionCheckerResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>VersionCheckerResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\VersionCheckerResources.ro.resx" />
+    <EmbeddedResource Include="Properties\ServicesResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ServicesResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\ServicesResources.ro.resx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -93,13 +106,6 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Versioning.Wpf\Versioning.Wpf.csproj">
-      <Project>{0910531d-649a-45db-9ca1-db63c6e17c68}</Project>
-      <Name>Versioning.Wpf</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Versioning\Versioning.csproj">
       <Project>{522e5c0c-b756-4265-9d44-47cbeae865ac}</Project>
       <Name>Versioning</Name>

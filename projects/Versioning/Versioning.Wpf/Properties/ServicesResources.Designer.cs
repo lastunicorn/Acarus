@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DustInTheWind.CoolApp.Wpf.Properties {
+namespace Versioning.Wpf.Properties {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace DustInTheWind.CoolApp.Wpf.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    internal class ServicesResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources() {
+        internal ServicesResources() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace DustInTheWind.CoolApp.Wpf.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("DustInTheWind.CoolApp.Wpf.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Versioning.Wpf.Properties.ServicesResources", typeof(ServicesResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -57,6 +57,42 @@ namespace DustInTheWind.CoolApp.Wpf.Properties {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CoolApp - Error.
+        /// </summary>
+        internal static string MessagesService_Error_Title {
+            get {
+                return ResourceManager.GetString("MessagesService_Error_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CoolApp - Information.
+        /// </summary>
+        internal static string MessagesService_Information_Title {
+            get {
+                return ResourceManager.GetString("MessagesService_Information_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CoolApp - Question.
+        /// </summary>
+        internal static string MessagesService_Question_Title {
+            get {
+                return ResourceManager.GetString("MessagesService_Question_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CoolApp - Warning.
+        /// </summary>
+        internal static string MessagesService_Warning_Title {
+            get {
+                return ResourceManager.GetString("MessagesService_Warning_Title", resourceCulture);
             }
         }
     }

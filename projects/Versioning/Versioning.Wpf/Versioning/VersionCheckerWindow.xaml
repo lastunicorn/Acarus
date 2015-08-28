@@ -1,0 +1,94 @@
+﻿<Window x:Class="Versioning.Wpf.Versioning.VersionCheckerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Check for new version"
+        Height="330" Width="349"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize">
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="2"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="2"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0"
+               Content="{Binding StatusText}"
+               FontWeight="Bold"
+               Background="White"
+               VerticalContentAlignment="Center"/>
+
+        <Line Grid.Row="1"
+              Stretch="Fill"
+              Stroke="Black"
+              X2="1"/>
+
+        <ProgressBar Grid.Row="2"
+                     IsIndeterminate="{Binding ProgressBarStyle}"
+                     Height="23"
+                     Visibility="{Binding ProgressBarVisible}"
+                     Margin="8"
+                     Value="{Binding ProgressBarValue}"/>
+
+        <TextBox Grid.Row="3"
+                 Text="{Binding InformationText}"
+                 HorizontalScrollBarVisibility="Auto"
+                 VerticalScrollBarVisibility="Auto"
+                 Margin="8"
+                 BorderThickness="0"
+                 IsReadOnly="True"/>
+
+        <CheckBox Grid.Row="4"
+                  IsChecked="{Binding CheckAtStartupValue}"
+                  IsEnabled="{Binding CheckAtStartupEnabled}"
+                  Content="Check for new version at application start up"
+                  Command="{Binding CheckAtStartupCommand}"
+                  Margin="8,0,8,8"/>
+        
+        <Line Grid.Row="5"
+              Stretch="Fill"
+              Stroke="Black"
+              X2="1"/>
+
+        <StackPanel Grid.Row="6"
+                    Orientation="Horizontal"
+                    FlowDirection="RightToLeft"
+                    Margin="8">
+
+            <Button Content="_Close"
+                    Margin="0,0,2,0"
+                    Padding="4,2"
+                    MinWidth="75"/>
+
+            <Button Content="Chec_k Again"
+                    Margin="2,0"
+                    Padding="4,2"
+                    Command="{Binding CheckAgainCommand}"
+                    IsEnabled="{Binding CheckAgainButtonEnabled}"
+                    MinWidth="75"/>
+
+            <Button Content="_Open File"
+                    Margin="2,0"
+                    Padding="4,2"
+                    Command="{Binding OpenDownloadedFileCommand}"
+                    Visibility="{Binding OpenDownloadedFileButtonVisible}"
+                    MinWidth="75"/>
+
+            <Button Content="..._Download"
+                    Margin="2,0"
+                    Padding="4,2"
+                    Command="{Binding DownloadCommand}"
+                    Visibility="{Binding DownloadButtonVisible}"
+                    MinWidth="75"/>
+
+        </StackPanel>
+
+    </Grid>
+
+</Window>
