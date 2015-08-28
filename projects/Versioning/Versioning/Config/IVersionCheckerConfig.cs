@@ -26,7 +26,6 @@ namespace DustInTheWind.Versioning.Config
     {
         bool CheckAtStartup { get; set; }
         string Url { get; set; }
-        VersionCheckerConfigurationSection ConfigSection { get; }
 
         event EventHandler CheckAtStartupChanged;
         event EventHandler UrlChanged;

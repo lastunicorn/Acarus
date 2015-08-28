@@ -22,9 +22,8 @@ namespace DustInTheWind.Versioning.Config
     public class VersionCheckerConfig : IVersionCheckerConfig
     {
         private readonly Configuration config;
-        private string url;
 
-        public VersionCheckerConfigurationSection ConfigSection
+        private VersionCheckerConfigurationSection ConfigSection
         {
             get
             {
@@ -57,7 +56,7 @@ namespace DustInTheWind.Versioning.Config
 
         public string Url
         {
-            get { return url; }
+            get { return ConfigSection.Url; }
             set
             {
                 VersionCheckerConfigurationSection configSection = ConfigSection;
@@ -65,7 +64,7 @@ namespace DustInTheWind.Versioning.Config
                 if (configSection.Url == value)
                     return;
 
-                url = value;
+                ConfigSection.Url = value;
                 OnUrlChanged();
             }
         }

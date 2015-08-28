@@ -75,10 +75,8 @@ namespace DustInTheWind.Versioning.WinForms
 
         private string GetRepositoryUrl()
         {
-            VersionCheckerConfigurationSection configSection = Config.ConfigSection;
-
-            bool existsCustomUrl = !string.IsNullOrEmpty(configSection.Url);
-            return existsCustomUrl ? configSection.Url : DefaultCheckLocation;
+            bool existsCustomUrl = !string.IsNullOrEmpty(Config.Url);
+            return existsCustomUrl ? Config.Url : DefaultCheckLocation;
         }
 
         public void OpenVersionCheckerWindow(Form owner)
