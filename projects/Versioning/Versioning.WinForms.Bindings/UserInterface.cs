@@ -19,15 +19,14 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
-using DustInTheWind.CoolApp.Properties;
-using DustInTheWind.Versioning;
+using DustInTheWind.Versioning.WinForms.Properties;
 
-namespace DustInTheWind.CoolApp
+namespace DustInTheWind.Versioning.WinForms
 {
     /// <summary>
     /// Displays messages to the user.
     /// </summary>
-    internal class UserInterface : IUserInterface
+    public class UserInterface : IUserInterface
     {
         private readonly SynchronizationContext synchronizationContext;
 
@@ -97,7 +96,7 @@ namespace DustInTheWind.CoolApp
             return sb.ToString();
         }
 
-        private void ShowMessageBox(Form parentForm, string message, string title, MessageBoxButtons buttons, MessageBoxIcon icon)
+        private static void ShowMessageBox(Form parentForm, string message, string title, MessageBoxButtons buttons, MessageBoxIcon icon)
         {
             if (parentForm != null)
             {

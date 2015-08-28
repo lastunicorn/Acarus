@@ -19,6 +19,7 @@ using System.Diagnostics;
 using System.Net;
 using System.Windows.Forms;
 using DustInTheWind.Versioning.Check;
+using DustInTheWind.Versioning.Config;
 using DustInTheWind.Versioning.Download;
 using DustInTheWind.Versioning.WinForms.Common;
 using DustInTheWind.Versioning.WinForms.Properties;
@@ -69,7 +70,7 @@ namespace DustInTheWind.Versioning.WinForms.Versioning
         /// <summary>
         /// Provides configuration values to be used in Azzul application.
         /// </summary>
-        private readonly IOptions options;
+        private readonly IVersionCheckerConfig options;
 
         public int ProgressBarValue
         {
@@ -179,7 +180,7 @@ namespace DustInTheWind.Versioning.WinForms.Versioning
         /// <param name="userInterface">A service that displays messages to the user.</param>
         /// <param name="options">Provides configuration values to be used in the application.</param>
         /// <exception cref="ArgumentNullException">Exception thrown if one of the arguments is null.</exception>
-        public VersionCheckerViewModel(VersionChecker versionChecker, FileDownloader fileDownloader, IUserInterface userInterface, IOptions options)
+        public VersionCheckerViewModel(VersionChecker versionChecker, FileDownloader fileDownloader, IUserInterface userInterface, IVersionCheckerConfig options)
         {
             if (versionChecker == null) throw new ArgumentNullException("versionChecker");
             if (fileDownloader == null) throw new ArgumentNullException("fileDownloader");

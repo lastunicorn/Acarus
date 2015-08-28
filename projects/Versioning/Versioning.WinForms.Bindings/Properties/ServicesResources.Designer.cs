@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DustInTheWind.CoolApp.Properties {
+namespace DustInTheWind.Versioning.WinForms.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace DustInTheWind.CoolApp.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("DustInTheWind.CoolApp.Properties.ServicesResources", typeof(ServicesResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("DustInTheWind.Versioning.WinForms.Properties.ServicesResources", typeof(ServicesResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

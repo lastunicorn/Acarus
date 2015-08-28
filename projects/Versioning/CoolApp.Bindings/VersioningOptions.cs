@@ -16,12 +16,13 @@
 
 using System;
 using DustInTheWind.CoolApp.Config;
+using DustInTheWind.Versioning.Config;
 using DustInTheWind.Versioning.WinForms.Versioning;
 
 namespace DustInTheWind.CoolApp
 {
     // todo: bad naming - rename it
-    class VersioningOptions : IOptions
+    class VersioningOptions : IVersionCheckerConfig
     {
         private readonly ICoolConfiguration coolConfiguration;
         public event EventHandler CheckAtStartupChanged;

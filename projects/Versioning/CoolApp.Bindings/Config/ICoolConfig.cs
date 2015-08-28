@@ -21,12 +21,12 @@ namespace DustInTheWind.CoolApp.Config
     /// <summary>
     /// Loads and stores the configuration values.
     /// </summary>
-    public interface ICoolConfiguration
+    public interface ICoolConfig
     {
         /// <summary>
         /// Gets the azzul configuration section from the configuration file.
         /// </summary>
-        CoolConfigurationSection CoolConfig { get; set; }
+        CoolConfigurationSection CoolConfigSection { get; }
 
         /// <summary>
         /// Event raised when the configuration values are written into the persistent location. (usually a file on disk)

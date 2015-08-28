@@ -16,13 +16,18 @@
 
 using System.Configuration;
 
-namespace DustInTheWind.CoolApp.Config
+namespace DustInTheWind.Versioning.Config
 {
     /// <summary>
     /// Represents a configuration element containing values that specify how to perform the update.
     /// </summary>
-    public class UpdateConfigurationElement : ConfigurationElement
+    public class VersionCheckerConfigurationSection : ConfigurationSection
     {
+        /// <summary>
+        /// The default name of the azzul section.
+        /// </summary>
+        public const string DefaultSectionName = "versionChecker";
+
         /// <summary>
         /// Gets or sets the url of the file containing the update information.
         /// This is used only in debug for testing the update mechanism.

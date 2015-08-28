@@ -28,14 +28,6 @@ namespace DustInTheWind.CoolApp.Config
         /// </summary>
         public const string DefaultSectionName = "cool";
 
-        /// <summary>
-        /// Gets or sets the "update" configuration element.
-        /// </summary>
-        [ConfigurationProperty("update")]
-        public UpdateConfigurationElement Update
-        {
-            get { return (UpdateConfigurationElement) this["update"]; }
-            set { this["update"] = value; }
-        }
+        // todo: Here comes some custom configuration values.
     }
 }

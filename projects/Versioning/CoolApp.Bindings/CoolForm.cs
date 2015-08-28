@@ -15,91 +15,53 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.Configuration;
 using System.Windows.Forms;
-using DustInTheWind.CoolApp.Config;
-using DustInTheWind.Versioning.Check;
-using DustInTheWind.Versioning.Download;
-using DustInTheWind.Versioning.WinForms.Versioning;
+using DustInTheWind.Versioning.WinForms;
 
 namespace DustInTheWind.CoolApp
 {
     public partial class CoolForm : Form
     {
-        private readonly UserInterface userInterface;
-        private readonly VersioningOptions versioningOptions;
-        private readonly VersionChecker azzulVersionChecker;
-        private readonly FileDownloader fileDownloader;
-
-        /// <summary>
-        /// The default version file url. It is used only if the configuration object does not provide an url. 
-        /// </summary>
-        public const string DefaultCheckUrl = "http://azzul.alez.ro/appinfo.xml";
+        private readonly VersioningModule versioningModule;
 
         public CoolForm()
         {
             InitializeComponent();
 
-            userInterface = new UserInterface();
+            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
 
-            ICoolConfiguration coolConfiguration = new CoolConfiguration();
-            azzulVersionChecker = CreateVersionCheckerForAzzul(coolConfiguration);
+            versioningModule = CreateVersioningModule(config);
+            versioningModule.Config.CheckAtStartupChanged += HandleVersioningOptionsCheckAtStartupChanged;
 
-            versioningOptions = new VersioningOptions(coolConfiguration);
-            versioningOptions.CheckAtStartupChanged += HandleVersioningOptionsCheckAtStartupChanged;
+            checkBoxCheckAtStartUp.Checked = versioningModule.Config.CheckAtStartup;
+        }
 
-            fileDownloader = new FileDownloader(userInterface);
+        private VersioningModule CreateVersioningModule(Configuration config)
+        {
+            const string appName = "Azzul";
+            Version currentVersion = Version.Parse(textBoxAzzulVersion.Text);
 
-            checkBoxCheckAtStartUp.Checked = versioningOptions.CheckAtStartup;
+            return new VersioningModule(appName, currentVersion, config)
+            {
+                AppWebPage = "http://azzul.alez.ro",
+                DefaultCheckLocation = "http://azzul.alez.ro/appinfo.xml"
+            };
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            OpenVersionCheckerWindow();
-        }
-
-        private void OpenVersionCheckerWindow()
-        {
-            VersionCheckerForm form = new VersionCheckerForm { Owner = this };
-
-            VersionCheckerViewModel viewModel = new VersionCheckerViewModel(azzulVersionChecker, fileDownloader, userInterface, versioningOptions)
-            {
-                AppWebPage = "http://azzul.alez.ro",
-                View = form
-            };
-
-            form.ViewModel = viewModel;
-
-            form.Show();
+            versioningModule.OpenVersionCheckerWindow(this);
         }
 
         private void HandleVersioningOptionsCheckAtStartupChanged(object sender, EventArgs eventArgs)
         {
-            checkBoxCheckAtStartUp.Checked = versioningOptions.CheckAtStartup;
-        }
-
-        private VersionChecker CreateVersionCheckerForAzzul(ICoolConfiguration coolConfiguration)
-        {
-            return new VersionChecker
-            {
-                MinCheckTime = TimeSpan.FromSeconds(1),
-                CurrentVersion = Version.Parse(textBoxAzzulVersion.Text),
-                AppInfoProvider = new HttpAppInfoProvider
-                {
-                    Url = GetRepositoryUrl(coolConfiguration),
-                    AppName = "Azzul"
-                }
-            };
-        }
-
-        private static string GetRepositoryUrl(ICoolConfiguration coolConfiguration)
-        {
-            bool existsCustomUrl = coolConfiguration.CoolConfig != null && !string.IsNullOrEmpty(coolConfiguration.CoolConfig.Update.Url);
-            return existsCustomUrl ? coolConfiguration.CoolConfig.Update.Url : DefaultCheckUrl;
+            checkBoxCheckAtStartUp.Checked = versioningModule.Config.CheckAtStartup;
         }
 
         private void checkBoxCheckAtStartUp_CheckedChanged(object sender, EventArgs e)
         {
-            versioningOptions.CheckAtStartup = checkBoxCheckAtStartUp.Checked;
+            versioningModule.Config.CheckAtStartup = checkBoxCheckAtStartUp.Checked;
         }
     }
 }

@@ -16,16 +16,19 @@
 
 using System;
 
-namespace DustInTheWind.Versioning.WinForms.Versioning
+namespace DustInTheWind.Versioning.Config
 {
-    // todo: bad naming - rename it
     /// <summary>
     /// This is an interface to be used by the Version Checker window to access some
     /// configuration values like "CheckAtStartUp".
     /// </summary>
-    public interface IOptions
+    public interface IVersionCheckerConfig
     {
-        event EventHandler CheckAtStartupChanged;
         bool CheckAtStartup { get; set; }
+        string Url { get; set; }
+        VersionCheckerConfigurationSection ConfigSection { get; }
+
+        event EventHandler CheckAtStartupChanged;
+        event EventHandler UrlChanged;
     }
 }

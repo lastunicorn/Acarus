@@ -23,27 +23,27 @@ namespace DustInTheWind.CoolApp.Config
     /// <summary>
     /// Loads and stores the configuration values.
     /// </summary>
-    public class CoolConfiguration : ICoolConfiguration
+    public class CoolConfig : ICoolConfig
     {
         /// <summary>
         /// A <see cref="Configuration"/> objects that represents the configuration file managed by the current instance.
         /// </summary>
-        private readonly Configuration config;
+        public Configuration Config { get; private set; }
 
         /// <summary>
         /// Gets the azzul configuration section from the configuration file.
         /// </summary>
-        public CoolConfigurationSection CoolConfig { get; set; }
+        public CoolConfigurationSection CoolConfigSection { get; private set; }
 
         /// <summary>
         /// Event raised after the configuration values are written into the file.
         /// </summary>
         public event EventHandler ConfigurationSaved;
         
-        public CoolConfiguration()
+        public CoolConfig()
         {
-            config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            CoolConfig = GetOrCreateCoolSection();
+            Config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            CoolConfigSection = GetOrCreateCoolSection();
         }
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace DustInTheWind.CoolApp.Config
         {
             try
             {
-                return config.GetSection(CoolConfigurationSection.DefaultSectionName) as CoolConfigurationSection;
+                return Config.GetSection(CoolConfigurationSection.DefaultSectionName) as CoolConfigurationSection;
             }
             catch (Exception ex)
             {
@@ -85,7 +85,7 @@ namespace DustInTheWind.CoolApp.Config
         private CoolConfigurationSection CreateAndAddCoolConfigurationSection()
         {
             CoolConfigurationSection coolConfigurationSection = new CoolConfigurationSection();
-            config.Sections.Add(CoolConfigurationSection.DefaultSectionName, coolConfigurationSection);
+            Config.Sections.Add(CoolConfigurationSection.DefaultSectionName, coolConfigurationSection);
 
             return coolConfigurationSection;
         }
@@ -95,7 +95,7 @@ namespace DustInTheWind.CoolApp.Config
         /// </summary>
         public void Save()
         {
-            config.Save();
+            Config.Save();
             OnConfigurationSaved(EventArgs.Empty);
         }
     }

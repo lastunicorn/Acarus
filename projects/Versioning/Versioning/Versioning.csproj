@@ -34,6 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -41,6 +42,9 @@
     <Compile Include="Check\AppInfoFileParser.cs" />
     <Compile Include="Check\CheckCompletedEventArgs.cs" />
     <Compile Include="Check\IAppInfoProvider.cs" />
+    <Compile Include="Config\IVersionCheckerConfig.cs" />
+    <Compile Include="Config\VersionCheckerConfigurationSection.cs" />
+    <Compile Include="Config\VersionCheckerConfig.cs" />
     <Compile Include="Download\DownloadFileCompletedEventArgs.cs" />
     <Compile Include="Download\FileDownloader.cs" />
     <Compile Include="Download\FileDownloadResult.cs" />
