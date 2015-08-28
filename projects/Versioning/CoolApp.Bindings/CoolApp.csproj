@@ -39,6 +39,8 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AzzulVersioningModule.cs" />
+    <Compile Include="CoolViewModel.cs" />
     <Compile Include="Properties\AssemblyUtilResources.Designer.cs">
       <DependentUpon>AssemblyUtilResources.resx</DependentUpon>
       <DesignTime>True</DesignTime>

@@ -62,7 +62,6 @@
             this.checkBoxCheckAtStartUp.TabIndex = 2;
             this.checkBoxCheckAtStartUp.Text = "Check version at startup";
             this.checkBoxCheckAtStartUp.UseVisualStyleBackColor = true;
-            this.checkBoxCheckAtStartUp.CheckedChanged += new System.EventHandler(this.checkBoxCheckAtStartUp_CheckedChanged);
             // 
             // groupBox1
             // 

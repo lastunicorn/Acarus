@@ -63,7 +63,7 @@ namespace DustInTheWind.Versioning.WinForms
         /// <param name="message">The message text to be displayed.</param>
         public virtual void DisplayError(string message)
         {
-            ShowMessageBox(MainWindow, message, ServicesResources.MessagesService_Error_Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(MainWindow, message, ServicesResources.MessagesService_Error_Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace DustInTheWind.Versioning.WinForms
         /// <param name="message">The message text to be displayed.</param>
         public virtual void DisplayInfo(string message)
         {
-            ShowMessageBox(MainWindow, message, ServicesResources.MessagesService_Information_Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(MainWindow, message, ServicesResources.MessagesService_Information_Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace DustInTheWind.Versioning.WinForms
         {
             string message = BuildMessage(warnings);
 
-            ShowMessageBox(MainWindow, message, ServicesResources.MessagesService_Warning_Title, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            MessageBox.Show(MainWindow, message, ServicesResources.MessagesService_Warning_Title, MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         private static string BuildMessage(IEnumerable<Exception> warnings)
@@ -94,26 +94,6 @@ namespace DustInTheWind.Versioning.WinForms
                 sb.AppendLine(warning.Message);
 
             return sb.ToString();
-        }
-
-        private static void ShowMessageBox(Form parentForm, string message, string title, MessageBoxButtons buttons, MessageBoxIcon icon)
-        {
-            if (parentForm != null)
-            {
-                if (parentForm.InvokeRequired)
-                {
-                    object[] parameters = { parentForm, message, title, buttons, icon };
-                    parentForm.Invoke(new Action<Form, string, string, MessageBoxButtons, MessageBoxIcon>(ShowMessageBox), parameters);
-                }
-                else
-                {
-                    MessageBox.Show(parentForm, message, title, buttons, icon);
-                }
-            }
-            else
-            {
-                MessageBox.Show(message, title, buttons, icon);
-            }
         }
 
         /// <summary>

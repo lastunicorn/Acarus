@@ -15,6 +15,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using DustInTheWind.Versioning.Properties;
@@ -22,7 +23,7 @@ using DustInTheWind.Versioning.Properties;
 namespace DustInTheWind.Versioning.Check
 {
     /// <summary>
-    /// Checks a reference version (considered the current version) against the version obtained from a <see cref="IAppInfoProvider"/> object.
+    /// Checks a reference version (considered the current version) against the version obtained from a <see cref="IFileProvider"/> object.
     /// It has synchronous and asynchronous methods.
     /// </summary>
     public class VersionChecker
@@ -70,7 +71,11 @@ namespace DustInTheWind.Versioning.Check
 
         public Version CurrentVersion { get; set; }
 
-        public IAppInfoProvider AppInfoProvider { get; set; }
+        public IFileProvider AppInfoProvider { get; set; }
+
+        public string AppName { get; set; }
+
+        public string AppInfoFileLocation { get; set; }
 
         /// <summary>
         /// Gets the result of the latest performed check.
@@ -128,16 +133,19 @@ namespace DustInTheWind.Versioning.Check
         {
             LastCheckingResult = null;
 
-            AppVersionInfo newestVersion = AppInfoProvider.GetVersionInformation();
-
-            int comparationResult = newestVersion.Version.CompareTo(CurrentVersion);
-
-            LastCheckingResult = new VersionCheckingResult
+            using (Stream stream = AppInfoProvider.GetStream(AppInfoFileLocation))
             {
-                CurrentVersion = CurrentVersion,
-                RetrievedAppVersionInfo = newestVersion,
-                ComparationResult = comparationResult
-            };
+                AppVersionInfo newestVersion = AppInfoFileParser.GetAppInfo(stream, AppName);
+
+                int comparationResult = newestVersion.Version.CompareTo(CurrentVersion);
+
+                LastCheckingResult = new VersionCheckingResult
+                {
+                    CurrentVersion = CurrentVersion,
+                    RetrievedAppVersionInfo = newestVersion,
+                    ComparationResult = comparationResult
+                };
+            }
         }
 
         private bool ChangeStateToBusy()

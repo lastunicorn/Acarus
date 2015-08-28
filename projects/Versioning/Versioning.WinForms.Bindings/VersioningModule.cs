@@ -26,64 +26,46 @@ namespace DustInTheWind.Versioning.WinForms
 {
     public class VersioningModule
     {
-        private readonly Version currentVersion;
-
         private readonly UserInterface userInterface;
         private readonly FileDownloader fileDownloader;
-
-        /// <summary>
-        /// The default version file url. It is used only if the configuration object does not provide an url. 
-        /// </summary>
-        public string DefaultCheckLocation { get; set; }
 
         public string AppWebPage { get; set; }
 
         public VersionChecker VersionChecker { get; private set; }
 
-        public IVersionCheckerConfig Config { get; private set; }
+        public IVersionCheckerConfig VersionCheckerConfig { get; private set; }
 
-        public VersioningModule(string appName, Version currentVersion, Configuration config)
+        public VersioningModule(Configuration config)
         {
-            if (appName == null) throw new ArgumentNullException("appName");
-            if (currentVersion == null) throw new ArgumentNullException("currentVersion");
             if (config == null) throw new ArgumentNullException("config");
 
-            this.currentVersion = currentVersion;
-
-            DefaultCheckLocation = "http://azzul.alez.ro/appinfo.xml";
-            Config = new VersionCheckerConfig(config);
+            VersionCheckerConfig = new VersionCheckerConfig(config);
             userInterface = new UserInterface();
 
-            VersionChecker = CreateVersionCheckerForAzzul(appName);
-
-            fileDownloader = new FileDownloader(userInterface);
-        }
-
-        private VersionChecker CreateVersionCheckerForAzzul(string appName)
-        {
-            return new VersionChecker
+            VersionChecker = new VersionChecker
             {
                 MinCheckTime = TimeSpan.FromSeconds(1),
-                CurrentVersion = currentVersion,
-                AppInfoProvider = new HttpAppInfoProvider
-                {
-                    Url = GetRepositoryUrl(),
-                    AppName = appName
-                }
+                CurrentVersion = new Version(0, 0, 0, 0),
+                AppInfoFileLocation = VersionCheckerConfig.Url,
+                AppName = string.Empty,
+                AppInfoProvider = new HttpFileProvider()
             };
+
+            fileDownloader = new FileDownloader(userInterface);
+
+            VersionCheckerConfig.UrlChanged += HandleConfigUrlChanged;
         }
 
-        private string GetRepositoryUrl()
+        private void HandleConfigUrlChanged(object sender, EventArgs eventArgs)
         {
-            bool existsCustomUrl = !string.IsNullOrEmpty(Config.Url);
-            return existsCustomUrl ? Config.Url : DefaultCheckLocation;
+            VersionChecker.AppInfoFileLocation = VersionCheckerConfig.Url;
         }
 
         public void OpenVersionCheckerWindow(Form owner)
         {
             VersionCheckerForm form = new VersionCheckerForm { Owner = owner };
 
-            VersionCheckerViewModel viewModel = new VersionCheckerViewModel(VersionChecker, fileDownloader, userInterface, Config)
+            VersionCheckerViewModel viewModel = new VersionCheckerViewModel(VersionChecker, fileDownloader, userInterface, VersionCheckerConfig)
             {
                 AppWebPage = AppWebPage,
                 View = form

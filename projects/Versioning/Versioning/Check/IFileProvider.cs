@@ -14,28 +14,12 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-using System.Windows.Forms;
+using System.IO;
 
-namespace DustInTheWind.CoolApp
+namespace DustInTheWind.Versioning.Check
 {
-    internal static class Program
+    public interface IFileProvider
     {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
-        [STAThread]
-        private static void Main()
-        {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-
-            CoolForm mainForm = new CoolForm
-            {
-                ViewModel = new CoolViewModel()
-            };
-
-            Application.Run(mainForm);
-        }
+        Stream GetStream(string location);
     }
 }

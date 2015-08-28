@@ -14,28 +14,20 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-using System.Windows.Forms;
+using System.IO;
+using System.Net;
 
-namespace DustInTheWind.CoolApp
+namespace DustInTheWind.Versioning.Check
 {
-    internal static class Program
+    public class HttpFileProvider : IFileProvider
     {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
-        [STAThread]
-        private static void Main()
+        public Stream GetStream(string location)
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
+            HttpWebRequest myRequest = (HttpWebRequest)WebRequest.Create(location);
+            myRequest.Method = "GET";
 
-            CoolForm mainForm = new CoolForm
-            {
-                ViewModel = new CoolViewModel()
-            };
-
-            Application.Run(mainForm);
+            WebResponse myResponse = myRequest.GetResponse();
+            return myResponse.GetResponseStream();
         }
     }
 }

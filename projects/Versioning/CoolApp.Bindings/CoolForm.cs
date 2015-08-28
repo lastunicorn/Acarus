@@ -18,50 +18,43 @@ using System;
 using System.Configuration;
 using System.Windows.Forms;
 using DustInTheWind.Versioning.WinForms;
+using DustInTheWind.Versioning.WinForms.Common;
 
 namespace DustInTheWind.CoolApp
 {
-    public partial class CoolForm : Form
+    partial class CoolForm : Form
     {
-        private readonly VersioningModule versioningModule;
+        private CoolViewModel viewModel;
+
+        public CoolViewModel ViewModel
+        {
+            get { return viewModel; }
+            set
+            {
+                if (viewModel != null)
+                {
+                    checkBoxCheckAtStartUp.DataBindings.Clear();
+                    textBoxAzzulVersion.DataBindings.Clear();
+                }
+
+                viewModel = value;
+
+                if (viewModel != null)
+                {
+                    checkBoxCheckAtStartUp.CreateBinding(x => x.Checked, viewModel, x => x.CheckAtStartUp, false, DataSourceUpdateMode.OnPropertyChanged);
+                    textBoxAzzulVersion.CreateBinding(x => x.Text, viewModel, x => x.AzzulVersion, false, DataSourceUpdateMode.OnPropertyChanged);
+                }
+            }
+        }
 
         public CoolForm()
         {
             InitializeComponent();
-
-            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-
-            versioningModule = CreateVersioningModule(config);
-            versioningModule.Config.CheckAtStartupChanged += HandleVersioningOptionsCheckAtStartupChanged;
-
-            checkBoxCheckAtStartUp.Checked = versioningModule.Config.CheckAtStartup;
-        }
-
-        private VersioningModule CreateVersioningModule(Configuration config)
-        {
-            const string appName = "Azzul";
-            Version currentVersion = Version.Parse(textBoxAzzulVersion.Text);
-
-            return new VersioningModule(appName, currentVersion, config)
-            {
-                AppWebPage = "http://azzul.alez.ro",
-                DefaultCheckLocation = "http://azzul.alez.ro/appinfo.xml"
-            };
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            versioningModule.OpenVersionCheckerWindow(this);
-        }
-
-        private void HandleVersioningOptionsCheckAtStartupChanged(object sender, EventArgs eventArgs)
-        {
-            checkBoxCheckAtStartUp.Checked = versioningModule.Config.CheckAtStartup;
-        }
-
-        private void checkBoxCheckAtStartUp_CheckedChanged(object sender, EventArgs e)
-        {
-            versioningModule.Config.CheckAtStartup = checkBoxCheckAtStartUp.Checked;
+            viewModel.OpenVersionCheckerWindow(this);
         }
     }
 }
