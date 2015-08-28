@@ -50,6 +50,7 @@ namespace DustInTheWind.Versioning.WinForms
 
             this.currentVersion = currentVersion;
 
+            DefaultCheckLocation = "http://azzul.alez.ro/appinfo.xml";
             Config = new VersionCheckerConfig(config);
             userInterface = new UserInterface();
 

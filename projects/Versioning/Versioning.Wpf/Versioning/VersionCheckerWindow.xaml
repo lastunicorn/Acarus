@@ -62,30 +62,30 @@
                     Margin="8">
 
             <Button Content="_Close"
-                    Margin="0,0,2,0"
-                    Padding="4,2"
-                    MinWidth="75"/>
+                    Margin="4,4"
+                    Padding="8,1"
+                    MinWidth="80"/>
 
             <Button Content="Chec_k Again"
-                    Margin="2,0"
-                    Padding="4,2"
+                    Margin="4,4"
+                    Padding="8,1"
                     Command="{Binding CheckAgainCommand}"
                     IsEnabled="{Binding CheckAgainButtonEnabled}"
-                    MinWidth="75"/>
+                    MinWidth="80"/>
 
             <Button Content="_Open File"
-                    Margin="2,0"
-                    Padding="4,2"
+                    Margin="4,4"
+                    Padding="8,1"
                     Command="{Binding OpenDownloadedFileCommand}"
                     Visibility="{Binding OpenDownloadedFileButtonVisible}"
-                    MinWidth="75"/>
+                    MinWidth="80"/>
 
             <Button Content="..._Download"
-                    Margin="2,0"
-                    Padding="4,2"
+                    Margin="4,4"
+                    Padding="8,1"
                     Command="{Binding DownloadCommand}"
                     Visibility="{Binding DownloadButtonVisible}"
-                    MinWidth="75"/>
+                    MinWidth="80"/>
 
         </StackPanel>
 
