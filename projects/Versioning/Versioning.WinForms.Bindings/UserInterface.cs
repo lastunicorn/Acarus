@@ -16,10 +16,12 @@
 
 using System;
 using System.Collections.Generic;
+using System.Security;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using DustInTheWind.Versioning.WinForms.Properties;
+using DustInTheWind.Versioning.WinForms.Versioning;
 
 namespace DustInTheWind.Versioning.WinForms
 {
@@ -178,6 +180,39 @@ namespace DustInTheWind.Versioning.WinForms
         public void Dispatch(Action action)
         {
             synchronizationContext.Send(o => action(), null);
+        }
+
+        // todo: extract the ShowVersionChecker into a separate class.
+
+        private VersionCheckerForm versionCheckerForm;
+        public Func<VersionCheckerViewModel> ViewModelCreator;
+
+        public void ShowVersionChecker(object owner)
+        {
+            if (versionCheckerForm != null)
+            {
+                versionCheckerForm.Activate();
+            }
+            else
+            {
+                if(ViewModelCreator == null)
+                    throw new VerificationException("Cannot create a new VersionChecker window without a view model. The ViewModelCreator is not set.");
+
+                versionCheckerForm = new VersionCheckerForm { Owner = owner as Form };
+                versionCheckerForm.Closed += (sender, args) => versionCheckerForm = null;
+
+                versionCheckerForm.ViewModel = ViewModelCreator();
+
+                versionCheckerForm.Show();
+            }
+        }
+
+        public void CloseVersionChecker()
+        {
+            if (versionCheckerForm == null)
+                return;
+
+            versionCheckerForm.Close();
         }
     }
 }

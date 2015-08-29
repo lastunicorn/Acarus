@@ -87,5 +87,7 @@ namespace DustInTheWind.Versioning
         string RequestDirectory(string initialPath, string description);
 
         void Dispatch(Action action);
+        void ShowVersionChecker(object owner);
+        void CloseVersionChecker();
     }
 }

@@ -16,7 +16,6 @@
 
 using System;
 using System.Configuration;
-using System.Windows.Forms;
 using DustInTheWind.Versioning.Check;
 using DustInTheWind.Versioning.Config;
 using DustInTheWind.Versioning.Download;
@@ -26,8 +25,8 @@ namespace DustInTheWind.Versioning.WinForms
 {
     public class VersioningModule
     {
-        private readonly UserInterface userInterface;
         private readonly FileDownloader fileDownloader;
+        private readonly UserInterface userInterface;
 
         public string AppWebPage { get; set; }
 
@@ -45,15 +44,23 @@ namespace DustInTheWind.Versioning.WinForms
             VersionChecker = new VersionChecker
             {
                 MinCheckTime = TimeSpan.FromSeconds(1),
-                CurrentVersion = new Version(0, 0, 0, 0),
                 AppInfoFileLocation = VersionCheckerConfig.Url,
-                AppName = string.Empty,
                 AppInfoProvider = new HttpFileProvider()
             };
 
             fileDownloader = new FileDownloader(userInterface);
 
             VersionCheckerConfig.UrlChanged += HandleConfigUrlChanged;
+
+            userInterface.ViewModelCreator = ViewModelCreator;
+        }
+
+        private VersionCheckerViewModel ViewModelCreator()
+        {
+            return new VersionCheckerViewModel(VersionChecker, fileDownloader, userInterface, VersionCheckerConfig)
+            {
+                AppWebPage = AppWebPage
+            };
         }
 
         private void HandleConfigUrlChanged(object sender, EventArgs eventArgs)
@@ -61,19 +68,9 @@ namespace DustInTheWind.Versioning.WinForms
             VersionChecker.AppInfoFileLocation = VersionCheckerConfig.Url;
         }
 
-        public void OpenVersionCheckerWindow(Form owner)
+        public void OpenVersionCheckerWindow(object owner)
         {
-            VersionCheckerForm form = new VersionCheckerForm { Owner = owner };
-
-            VersionCheckerViewModel viewModel = new VersionCheckerViewModel(VersionChecker, fileDownloader, userInterface, VersionCheckerConfig)
-            {
-                AppWebPage = AppWebPage,
-                View = form
-            };
-
-            form.ViewModel = viewModel;
-
-            form.Show();
+            userInterface.ShowVersionChecker(owner);
         }
     }
 }

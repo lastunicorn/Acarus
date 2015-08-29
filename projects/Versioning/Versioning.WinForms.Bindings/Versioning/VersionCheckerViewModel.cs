@@ -43,11 +43,6 @@ namespace DustInTheWind.Versioning.WinForms.Versioning
         private ProgressBarStyle progressBarStyle;
 
         /// <summary>
-        /// Gets or sets the view that represents the GUI.
-        /// </summary>
-        public IVersionCheckerView View { get; set; }
-
-        /// <summary>
         /// The default url used if the configuration does not specify another one.
         /// </summary>
         public string AppWebPage { get; set; }
@@ -201,13 +196,13 @@ namespace DustInTheWind.Versioning.WinForms.Versioning
             this.fileDownloader.DownloadProgressChanged += HandleDownloadProgressChanged;
             this.fileDownloader.DownloadFileCompleted += HandleDownloadFileCompleted;
 
-            versionCheckerConfig.CheckAtStartUpChanged += HandleOptionsCheckAtStartUpChanged;
+            versionCheckerConfig.CheckAtStartUpChanged += HandleConfigCheckAtStartUpChanged;
 
             CheckAtStartupEnabled = true;
             CheckAtStartupValue = versionCheckerConfig.CheckAtStartUp;
         }
 
-        private void HandleOptionsCheckAtStartUpChanged(object sender, EventArgs eventArgs)
+        private void HandleConfigCheckAtStartUpChanged(object sender, EventArgs eventArgs)
         {
             ExecuteSafe(() =>
             {
@@ -217,7 +212,7 @@ namespace DustInTheWind.Versioning.WinForms.Versioning
 
         private void HandleVersionCheckStarting(object sender, EventArgs eventArgs)
         {
-            ExecuteSafe(ChangeStateToBeginVersionCheck);
+            ExecuteSafeInUi(ChangeStateToBeginVersionCheck);
         }
 
         private void HandleCheckCompleted(object sender, CheckCompletedEventArgs e)
@@ -295,7 +290,7 @@ namespace DustInTheWind.Versioning.WinForms.Versioning
                 versionChecker.Stop();
                 fileDownloader.Stop();
 
-                View.CloseView();
+                userInterface.CloseVersionChecker();
             });
         }
 

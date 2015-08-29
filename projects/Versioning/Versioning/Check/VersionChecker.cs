@@ -16,6 +16,7 @@
 
 using System;
 using System.IO;
+using System.Security;
 using System.Threading;
 using System.Threading.Tasks;
 using DustInTheWind.Versioning.Properties;
@@ -28,26 +29,25 @@ namespace DustInTheWind.Versioning.Check
     /// </summary>
     public class VersionChecker
     {
-        /// <summary>
-        /// The time when the last asynchronous check was started. If no asynchronous check was performed yet this value is null.
-        /// </summary>
-        private DateTime? checkStartTime;
+        private readonly object synchronizationObject = new object();
 
-        /// <summary>
-        /// Object used to synchronize the asynchronous calls.
-        /// </summary>
-        private readonly object checkSyncObject = new object();
+        private DateTime? checkStartTime;
+        private volatile bool isBusy;
+        private TimeSpan? minCheckTime;
+        private Version currentVersion;
+        private IFileProvider appInfoProvider;
+        private string appName;
+        private string appInfoFileLocation;
+        private volatile VersionCheckingResult lastCheckingResult;
 
         /// <summary>
         /// Gets a value specifying if an asynchronous operation is in progress.
         /// </summary>
-        public bool IsBusy { get; private set; }
-
-        /// <summary>
-        /// The minimum time that an asynchronous check should take.
-        /// If the operation is finished to soon, the thread is blocked until the specified time passed.
-        /// </summary>
-        private TimeSpan? minCheckTime;
+        public bool IsBusy
+        {
+            get { return isBusy; }
+            private set { isBusy = value; }
+        }
 
         /// <summary>
         /// Gets or sets the minimum time that an asynchronous check should take.
@@ -59,29 +59,76 @@ namespace DustInTheWind.Versioning.Check
             get { return minCheckTime; }
             set
             {
-                lock (checkSyncObject)
-                {
-                    if (IsBusy)
-                        throw new InvalidOperationException(VersioningResources.InternalError_MinCheckTimeCannotBeSet);
+                if (IsBusy)
+                    throw new InvalidOperationException(VersioningResources.InternalError_MinCheckTimeCannotBeSet);
 
-                    minCheckTime = value;
-                }
+                minCheckTime = value;
             }
         }
 
-        public Version CurrentVersion { get; set; }
+        /// <summary>
+        /// Gets or sets the current version of the application for which the current instance will check the version.
+        /// </summary>
+        public Version CurrentVersion
+        {
+            get { return currentVersion; }
+            set
+            {
+                if (IsBusy)
+                    throw new InvalidOperationException("You are not allowed to change the current version while the version checker is running.");
 
-        public IFileProvider AppInfoProvider { get; set; }
+                currentVersion = value;
+            }
+        }
 
-        public string AppName { get; set; }
+        public IFileProvider AppInfoProvider
+        {
+            get { return appInfoProvider; }
+            set
+            {
+                if (IsBusy)
+                    throw new InvalidOperationException("You are not allowed to change the app info provider while the version checker is running.");
 
-        public string AppInfoFileLocation { get; set; }
+                appInfoProvider = value;
+            }
+        }
+
+        public string AppName
+        {
+            get { return appName; }
+            set
+            {
+                if (IsBusy)
+                    throw new InvalidOperationException("You are not allowed to change the app name while the version checker is running.");
+
+                appName = value;
+            }
+        }
+
+        public string AppInfoFileLocation
+        {
+            get { return appInfoFileLocation; }
+            set
+            {
+                if (IsBusy)
+                    throw new InvalidOperationException("You are not allowed to change the app info file location while the version checker is running.");
+
+                appInfoFileLocation = value;
+            }
+        }
 
         /// <summary>
         /// Gets the result of the latest performed check.
         /// </summary>
-        public VersionCheckingResult LastCheckingResult { get; private set; }
+        public VersionCheckingResult LastCheckingResult
+        {
+            get { return lastCheckingResult; }
+            private set { lastCheckingResult = value; }
+        }
 
+        /// <summary>
+        /// Event raised before the asynchronous check is started.
+        /// </summary>
         public event EventHandler<EventArgs> CheckStarting;
 
         /// <summary>
@@ -96,29 +143,19 @@ namespace DustInTheWind.Versioning.Check
         /// <returns><c>true</c> if the asynchronous check was successfully started; <c>false</c> if another asynchronous check is already running.</returns>
         public bool CheckAsync()
         {
+            if (CurrentVersion == null) throw new VerificationException("CurrentVersion was not set.");
+            if (AppName == null) throw new VerificationException("AppName was not set.");
+            if (AppInfoProvider == null) throw new VerificationException("AppInfoProvider was not set.");
+            if (AppInfoFileLocation == null) throw new VerificationException("AppInfoFileLocation was not set.");
+
             if (!ChangeStateToBusy())
                 return false;
-
-            OnCheckStarting();
 
             Task.Factory.StartNew(() =>
             {
                 try
                 {
                     CheckInternal();
-
-                    // If the asynchronous check finishes to quickly, simulate it takes a little longer.
-                    DelayAsyncCheck();
-
-                    OnCheckCompleted(new CheckCompletedEventArgs(LastCheckingResult));
-                }
-                catch (VersionCheckingException ex)
-                {
-                    OnCheckCompleted(new CheckCompletedEventArgs(ex));
-                }
-                catch (Exception ex)
-                {
-                    OnCheckCompleted(new CheckCompletedEventArgs(new VersionCheckingException(ex)));
                 }
                 finally
                 {
@@ -130,6 +167,29 @@ namespace DustInTheWind.Versioning.Check
         }
 
         private void CheckInternal()
+        {
+            try
+            {
+                OnCheckStarting();
+
+                RetrieveNewCheckingResult();
+
+                // If the asynchronous check finishes to quickly, simulate it takes a little longer.
+                DelayAsyncCheck();
+
+                OnCheckCompleted(new CheckCompletedEventArgs(LastCheckingResult));
+            }
+            catch (VersionCheckingException ex)
+            {
+                OnCheckCompleted(new CheckCompletedEventArgs(ex));
+            }
+            catch (Exception ex)
+            {
+                OnCheckCompleted(new CheckCompletedEventArgs(new VersionCheckingException(ex)));
+            }
+        }
+
+        private void RetrieveNewCheckingResult()
         {
             LastCheckingResult = null;
 
@@ -150,7 +210,7 @@ namespace DustInTheWind.Versioning.Check
 
         private bool ChangeStateToBusy()
         {
-            lock (checkSyncObject)
+            lock (synchronizationObject)
             {
                 if (IsBusy)
                     return false;
@@ -164,7 +224,7 @@ namespace DustInTheWind.Versioning.Check
 
         private void ChangeStateBackToReady()
         {
-            lock (checkSyncObject)
+            lock (synchronizationObject)
             {
                 IsBusy = false;
             }
@@ -178,7 +238,7 @@ namespace DustInTheWind.Versioning.Check
         {
             TimeSpan waitTime = TimeSpan.Zero;
 
-            lock (checkSyncObject)
+            lock (synchronizationObject)
             {
                 if (minCheckTime != null && checkStartTime != null)
                 {

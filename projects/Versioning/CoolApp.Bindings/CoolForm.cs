@@ -15,9 +15,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Configuration;
 using System.Windows.Forms;
-using DustInTheWind.Versioning.WinForms;
 using DustInTheWind.Versioning.WinForms.Common;
 
 namespace DustInTheWind.CoolApp
@@ -25,6 +23,11 @@ namespace DustInTheWind.CoolApp
     partial class CoolForm : Form
     {
         private CoolViewModel viewModel;
+
+        public CoolForm()
+        {
+            InitializeComponent();
+        }
 
         public CoolViewModel ViewModel
         {
@@ -47,14 +50,9 @@ namespace DustInTheWind.CoolApp
             }
         }
 
-        public CoolForm()
+        private void HandleButtonCheckAzzulClick(object sender, EventArgs e)
         {
-            InitializeComponent();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            viewModel.OpenVersionCheckerWindow(this);
+            viewModel.CheckAzzulButtonWasClicked(this);
         }
     }
 }

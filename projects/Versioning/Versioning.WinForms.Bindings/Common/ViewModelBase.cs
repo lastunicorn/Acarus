@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
@@ -21,6 +22,8 @@ namespace DustInTheWind.Versioning.WinForms.Common
 {
     public abstract class ViewModelBase : INotifyPropertyChanged
     {
+        public bool IsInitializing { get; private set; }
+
         public virtual event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -29,6 +32,20 @@ namespace DustInTheWind.Versioning.WinForms.Common
 
             if (handler != null)
                 handler(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        protected void Initialize(Action action)
+        {
+            IsInitializing = true;
+
+            try
+            {
+                action();
+            }
+            finally
+            {
+                IsInitializing = false;
+            }
         }
     }
 }

@@ -1,4 +1,20 @@
-﻿using System;
+﻿// Acarus
+// Copyright (C) 2015 Dust in the Wind
+// 
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+// 
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+using System;
 using System.Configuration;
 using DustInTheWind.Versioning.WinForms;
 using DustInTheWind.Versioning.WinForms.Common;
@@ -8,28 +24,29 @@ namespace DustInTheWind.CoolApp
     internal class CoolViewModel : ViewModelBase
     {
         private readonly VersioningModule versioningModule;
+
         private string azzulVersion;
         private bool checkAtStartUp;
 
-        public CoolViewModel()
+        public string AzzulVersion
         {
-            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-
-            versioningModule = new VersioningModule(config)
+            get { return azzulVersion; }
+            set
             {
-                AppWebPage = "http://azzul.alez.ro"
-            };
+                if (azzulVersion == value)
+                    return;
 
-            if (string.IsNullOrEmpty(versioningModule.VersionCheckerConfig.Url))
-                versioningModule.VersionCheckerConfig.Url = "http://azzul.alez.ro/appinfo.xml";
+                azzulVersion = value;
+                OnPropertyChanged();
 
-            versioningModule.VersionCheckerConfig.CheckAtStartUpChanged += HandleVersioningOptionsCheckAtStartUpChanged;
+                if (!IsInitializing)
+                {
+                    Version version;
 
-            AzzulVersion = "1.0.0.0";
-            CheckAtStartUp = versioningModule.VersionCheckerConfig.CheckAtStartUp;
-
-            versioningModule.VersionChecker.AppName = "Azzul";
-            versioningModule.VersionChecker.CurrentVersion = Version.Parse(AzzulVersion);
+                    if (Version.TryParse(value, out version))
+                        versioningModule.VersionChecker.CurrentVersion = version;
+                }
+            }
         }
 
         public bool CheckAtStartUp
@@ -43,26 +60,24 @@ namespace DustInTheWind.CoolApp
                 checkAtStartUp = value;
                 OnPropertyChanged();
 
-                versioningModule.VersionCheckerConfig.CheckAtStartUp = checkAtStartUp;
+                if (!IsInitializing)
+                    versioningModule.VersionCheckerConfig.CheckAtStartUp = checkAtStartUp;
             }
         }
 
-        public string AzzulVersion
+        public CoolViewModel()
         {
-            get { return azzulVersion; }
-            set
+            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+
+            versioningModule = new AzzulVersioningModule(config) { AppWebPage = "http://azzul.alez.ro" };
+
+            versioningModule.VersionCheckerConfig.CheckAtStartUpChanged += HandleVersioningOptionsCheckAtStartUpChanged;
+
+            Initialize(() =>
             {
-                if (azzulVersion == value)
-                    return;
-
-                azzulVersion = value;
-                OnPropertyChanged();
-
-                Version version;
-
-                if (Version.TryParse(value, out version))
-                    versioningModule.VersionChecker.CurrentVersion = version;
-            }
+                AzzulVersion = versioningModule.VersionChecker.CurrentVersion.ToString();
+                CheckAtStartUp = versioningModule.VersionCheckerConfig.CheckAtStartUp;
+            });
         }
 
         private void HandleVersioningOptionsCheckAtStartUpChanged(object sender, EventArgs eventArgs)
@@ -70,7 +85,7 @@ namespace DustInTheWind.CoolApp
             CheckAtStartUp = versioningModule.VersionCheckerConfig.CheckAtStartUp;
         }
 
-        public void OpenVersionCheckerWindow(CoolForm coolForm)
+        public void CheckAzzulButtonWasClicked(object coolForm)
         {
             versioningModule.OpenVersionCheckerWindow(coolForm);
         }
