@@ -15,86 +15,132 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.ComponentModel;
 using System.Configuration;
-using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using DustInTheWind.Versioning.Check;
 using Versioning.Wpf;
+using Versioning.Wpf.aaa;
 using Versioning.Wpf.Common;
 
 namespace DustInTheWind.CoolApp.Wpf
 {
     class CoolViewModel : ViewModelBase
     {
+        private readonly UserInterface userInterface;
         private readonly VersioningModule versioningModule;
+
+        private string azzulVersion;
         private bool checkAtStartUp;
+        private string newVersionText;
+
+        public string AzzulVersion
+        {
+            get { return azzulVersion; }
+            set
+            {
+                if (azzulVersion == value)
+                    return;
+
+                azzulVersion = value;
+                OnPropertyChanged();
+
+                if (!IsInitializing)
+                {
+                    Version version;
+
+                    if (Version.TryParse(value, out version))
+                        versioningModule.Checker.CurrentVersion = version;
+                }
+            }
+        }
 
         public bool CheckAtStartUp
         {
             get { return checkAtStartUp; }
             set
             {
-                if(checkAtStartUp == value)
+                if (checkAtStartUp == value)
                     return;
 
                 checkAtStartUp = value;
                 OnPropertyChanged();
 
-                versioningModule.Config.CheckAtStartup = value;
+                if (!IsInitializing)
+                    versioningModule.Config.CheckAtStartUp = checkAtStartUp;
             }
         }
 
-        public string AzzulVersion { get; set; }
+        public string NewVersionText
+        {
+            get { return newVersionText; }
+            set
+            {
+                newVersionText = value;
+                OnPropertyChanged();
+            }
+        }
 
         public ICommand CheckAzzulCommand { get; private set; }
 
-        public CoolViewModel()
+        public CoolViewModel(UserInterface userInterface)
         {
+            if (userInterface == null) throw new ArgumentNullException("userInterface");
+
+            this.userInterface = userInterface;
+
             Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
 
-            AzzulVersion = "1.0.0.0";
+            versioningModule = new AzzulVersioningModule(config);
+            versioningModule.UserInterface.AppWebPage = "http://azzul.alez.ro";
 
-            versioningModule = CreateVersioningModule(config);
-            versioningModule.Config.CheckAtStartupChanged += HandleVersioningOptionsCheckAtStartupChanged;
+            Initialize(() =>
+            {
+                AzzulVersion = versioningModule.Checker.CurrentVersion.ToString();
+                CheckAtStartUp = versioningModule.Config.CheckAtStartUp;
+            });
 
-            CheckAtStartUp = versioningModule.Config.CheckAtStartup;
+            versioningModule.Config.CheckAtStartUpChanged += HandleVersioningOptionsCheckAtStartUpChanged;
+            versioningModule.Checker.CheckCompleted += HandleVersionCheckerCheckCompleted;
 
             CheckAzzulCommand = new RelayCommand(p => true, CheckAzzul);
         }
 
-        private VersioningModule CreateVersioningModule(Configuration config)
+        private void HandleVersionCheckerCheckCompleted(object sender, CheckCompletedEventArgs e)
         {
-            const string appName = "Azzul";
-            Version currentVersion = Version.Parse(AzzulVersion);
-
-            return new VersioningModule(appName, currentVersion, config)
+            ExecuteSafeInUi(() =>
             {
-                AppWebPage = "http://azzul.alez.ro",
-                DefaultCheckLocation = "http://azzul.alez.ro/appinfo.xml"
-            };
+                if (e.Cancelled || e.Error != null)
+                    return;
+
+                NewVersionText = e.VersionCheckingResult.IsNewerVersion
+                    ? "New version: " + e.VersionCheckingResult.RetrievedAppVersionInfo.Version
+                    : "No new version";
+            });
         }
 
-        private void CheckAzzul(object parameter)
+        private void HandleVersioningOptionsCheckAtStartUpChanged(object sender, EventArgs e)
         {
-            versioningModule.OpenVersionCheckerWindow();
+            CheckAtStartUp = versioningModule.Config.CheckAtStartUp;
         }
 
-        private void HandleVersioningOptionsCheckAtStartupChanged(object sender, EventArgs eventArgs)
+        private void CheckAzzul(object coolForm)
         {
-            CheckAtStartUp = versioningModule.Config.CheckAtStartup;
+            versioningModule.UserInterface.ShowVersionChecker(coolForm);
         }
-    }
 
-    internal class ViewModelBase : INotifyPropertyChanged
-    {
-        public virtual event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        private void ExecuteSafeInUi(Action action)
         {
-            PropertyChangedEventHandler handler = PropertyChanged;
-
-            if (handler != null)
-                handler(this, new PropertyChangedEventArgs(propertyName));
+            userInterface.Dispatch(() =>
+            {
+                try
+                {
+                    action();
+                }
+                catch (Exception ex)
+                {
+                    userInterface.DisplayError(ex);
+                }
+            });
         }
     }
 }

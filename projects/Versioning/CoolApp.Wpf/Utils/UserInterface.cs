@@ -18,15 +18,12 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
-using System.Windows.Forms;
 using System.Windows.Threading;
-using DustInTheWind.Versioning;
 using Versioning.Wpf.Properties;
-using MessageBox = System.Windows.MessageBox;
 
-namespace Versioning.Wpf
+namespace Versioning.Wpf.aaa
 {
-    internal class UserInterface : IUserInterface
+    internal class UserInterface
     {
         public Window MainWindow { get; set; }
 
@@ -173,15 +170,7 @@ namespace Versioning.Wpf
 
         public string RequestDirectory(string initialPath, string description)
         {
-            FolderBrowserDialog dialog = new FolderBrowserDialog
-            {
-                SelectedPath = initialPath,
-                Description = description
-            };
-
-            return dialog.ShowDialog() == DialogResult.OK
-                ? dialog.SelectedPath
-                : null;
+            return Environment.CurrentDirectory;
         }
 
         public void Dispatch(Action action)

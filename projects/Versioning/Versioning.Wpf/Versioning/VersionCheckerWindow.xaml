@@ -38,8 +38,9 @@
 
         <TextBox Grid.Row="3"
                  Text="{Binding InformationText}"
-                 HorizontalScrollBarVisibility="Auto"
+                 HorizontalScrollBarVisibility="Disabled"
                  VerticalScrollBarVisibility="Auto"
+                 TextWrapping="Wrap"
                  Margin="8"
                  BorderThickness="0"
                  IsReadOnly="True"/>
@@ -64,6 +65,7 @@
             <Button Content="_Close"
                     Margin="4,4"
                     Padding="8,1"
+                    Command="{Binding CloseCommand}"
                     MinWidth="80"/>
 
             <Button Content="Chec_k Again"

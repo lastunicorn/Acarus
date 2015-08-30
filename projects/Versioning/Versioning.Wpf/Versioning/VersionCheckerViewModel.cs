@@ -18,6 +18,7 @@ using System;
 using System.Diagnostics;
 using System.Net;
 using System.Windows;
+using DustInTheWind.Versioning;
 using DustInTheWind.Versioning.Check;
 using DustInTheWind.Versioning.Config;
 using DustInTheWind.Versioning.Download;
@@ -32,6 +33,7 @@ namespace Versioning.Wpf.Versioning
         private readonly FileDownloader fileDownloader;
         private readonly UserInterface userInterface;
         private readonly IVersionCheckerConfig config;
+        private readonly IVersionCheckerUi versionCheckerUi;
 
         private int progressBarValue;
         private Visibility progressBarVisible;
@@ -150,24 +152,28 @@ namespace Versioning.Wpf.Versioning
         public RelayCommand DownloadCommand { get; set; }
         public RelayCommand OpenDownloadedFileCommand { get; set; }
         public RelayCommand CheckAtStartupCommand { get; set; }
+        public RelayCommand CloseCommand { get; set; }
 
         public VersionCheckerViewModel(VersionChecker versionChecker, FileDownloader fileDownloader,
-            UserInterface userInterface, IVersionCheckerConfig config)
+            UserInterface userInterface, IVersionCheckerConfig config, IVersionCheckerUi versionCheckerUi)
         {
             if (versionChecker == null) throw new ArgumentNullException("versionChecker");
             if (fileDownloader == null) throw new ArgumentNullException("fileDownloader");
             if (userInterface == null) throw new ArgumentNullException("userInterface");
             if (config == null) throw new ArgumentNullException("config");
+            if (versionCheckerUi == null) throw new ArgumentNullException("versionCheckerUi");
 
             this.versionChecker = versionChecker;
             this.fileDownloader = fileDownloader;
             this.userInterface = userInterface;
             this.config = config;
+            this.versionCheckerUi = versionCheckerUi;
 
             CheckAgainCommand = new RelayCommand(p => true, CheckAgainClicked);
             DownloadCommand = new RelayCommand(p => true, DownloadClicked);
             OpenDownloadedFileCommand = new RelayCommand(p => true, OpenDownloadedFileClicked);
             CheckAtStartupCommand = new RelayCommand(p => true, CheckAtStartupChanged);
+            CloseCommand = new RelayCommand(p => true, CloseClicked);
 
             ChangeStateToEmpty();
 
@@ -178,17 +184,17 @@ namespace Versioning.Wpf.Versioning
             this.fileDownloader.DownloadProgressChanged += HandleDownloadProgressChanged;
             this.fileDownloader.DownloadFileCompleted += HandleDownloadFileCompleted;
 
-            config.CheckAtStartupChanged += HandleOptionsCheckAtStartupChanged;
+            config.CheckAtStartUpChanged += HandleOptionsCheckAtStartupChanged;
 
             CheckAtStartupEnabled = true;
-            CheckAtStartupValue = config.CheckAtStartup;
+            CheckAtStartupValue = config.CheckAtStartUp;
         }
 
         private void HandleOptionsCheckAtStartupChanged(object sender, EventArgs eventArgs)
         {
             ExecuteSafe(() =>
             {
-                CheckAtStartupValue = config.CheckAtStartup;
+                CheckAtStartupValue = config.CheckAtStartUp;
             });
         }
 
@@ -285,7 +291,18 @@ namespace Versioning.Wpf.Versioning
         {
             ExecuteSafe(() =>
             {
-                config.CheckAtStartup = CheckAtStartupValue;
+                config.CheckAtStartUp = CheckAtStartupValue;
+            });
+        }
+
+        private void CloseClicked(object obj)
+        {
+            ExecuteSafeInUi(() =>
+            {
+                versionChecker.Stop();
+                fileDownloader.Stop();
+
+                versionCheckerUi.CloseVersionChecker();
             });
         }
 
@@ -333,11 +350,9 @@ namespace Versioning.Wpf.Versioning
             ProgressBarVisible = Visibility.Visible;
             ProgressBarStyle = true;
 
-            string location = versionChecker.AppInfoProvider == null
-                ? null
-                : versionChecker.AppInfoProvider.Location;
+            string appInfoFileLocation = versionChecker.AppInfoFileLocation;
 
-            InformationText = string.Format(VersionCheckerResources.VersionCheckerWindow_Checking, location);
+            InformationText = string.Format(VersionCheckerResources.VersionCheckerWindow_Checking, appInfoFileLocation);
             StatusText = VersionCheckerResources.VersionCheckerWindow_StatusText_Checking;
 
             DownloadButtonVisible = Visibility.Collapsed;

@@ -14,23 +14,24 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System.Windows;
-using DustInTheWind.Versioning;
-using Versioning.Wpf.aaa;
+using System;
+using System.Configuration;
+using Versioning.Wpf;
 
 namespace DustInTheWind.CoolApp.Wpf
 {
-    /// <summary>
-    /// Interaction logic for CoolWindow.xaml
-    /// </summary>
-    public partial class CoolWindow : Window
+    internal class AzzulVersioningModule : VersioningModule
     {
-        public CoolWindow()
+        public AzzulVersioningModule(Configuration config)
+            : base(config)
         {
-            InitializeComponent();
+            var url = Config.Url;
 
-            UserInterface userInterface = new UserInterface();
-            DataContext = new CoolViewModel(userInterface);
+            if (string.IsNullOrEmpty(url))
+                Config.Url = "http://azzul.alez.ro/appinfo.xml";
+
+            Checker.AppName = "Azzul";
+            Checker.CurrentVersion = new Version(1, 2, 3, 4);
         }
     }
 }
