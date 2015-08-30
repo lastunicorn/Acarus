@@ -1,4 +1,4 @@
-// Acarus
+﻿// Acarus
 // Copyright (C) 2015 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -15,14 +15,23 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.Configuration;
+using DustInTheWind.Versioning.WinForms;
 
-namespace DustInTheWind.Versioning.Download
+namespace DustInTheWind.CoolApp
 {
-    public class FileDownloadResult
+    internal class AzzulVersioningModule : VersioningModule
     {
-        public string SourceUri { get; set; }
-        public string DestinationFilePath { get; set; }
-        public Exception Error { get; set; }
-        public bool Cancelled { get; private set; }
+        public AzzulVersioningModule(Configuration config)
+            : base(config)
+        {
+            var url = Config.Url;
+
+            if (string.IsNullOrEmpty(url))
+                Config.Url = "http://azzul.alez.ro/appinfo.xml";
+
+            Checker.AppName = "Azzul";
+            Checker.CurrentVersion = new Version(1, 2, 3, 4);
+        }
     }
 }

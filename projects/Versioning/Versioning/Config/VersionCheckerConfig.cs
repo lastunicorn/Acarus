@@ -39,7 +39,7 @@ namespace DustInTheWind.Versioning.Config
             }
         }
 
-        public bool CheckAtStartup
+        public bool CheckAtStartUp
         {
             get { return ConfigSection.CheckAtStartup; }
             set
@@ -69,7 +69,7 @@ namespace DustInTheWind.Versioning.Config
             }
         }
 
-        public event EventHandler CheckAtStartupChanged;
+        public event EventHandler CheckAtStartUpChanged;
         public event EventHandler UrlChanged;
 
         public VersionCheckerConfig(Configuration config)
@@ -80,7 +80,7 @@ namespace DustInTheWind.Versioning.Config
 
         protected virtual void OnCheckAtStartupChanged()
         {
-            EventHandler handler = CheckAtStartupChanged;
+            EventHandler handler = CheckAtStartUpChanged;
 
             if (handler != null)
                 handler(this, EventArgs.Empty);

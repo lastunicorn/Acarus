@@ -41,7 +41,7 @@
   <ItemGroup>
     <Compile Include="Check\AppInfoFileParser.cs" />
     <Compile Include="Check\CheckCompletedEventArgs.cs" />
-    <Compile Include="Check\IAppInfoProvider.cs" />
+    <Compile Include="Check\IFileProvider.cs" />
     <Compile Include="Config\IVersionCheckerConfig.cs" />
     <Compile Include="Config\VersionCheckerConfigurationSection.cs" />
     <Compile Include="Config\VersionCheckerConfig.cs" />
@@ -49,6 +49,7 @@
     <Compile Include="Download\FileDownloader.cs" />
     <Compile Include="Download\FileDownloadResult.cs" />
     <Compile Include="IUserInterface.cs" />
+    <Compile Include="IVersionCheckerUi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\VersioningResources.Designer.cs">
       <DependentUpon>VersioningResources.resx</DependentUpon>
@@ -60,7 +61,7 @@
     <Compile Include="Check\VersionCheckingResult.cs" />
     <Compile Include="Check\VersionDocumentRetrieveException.cs" />
     <Compile Include="Check\AppVersionInfo.cs" />
-    <Compile Include="Check\HttpAppInfoProvider.cs" />
+    <Compile Include="Check\HttpFileProvider.cs" />
     <Compile Include="Properties\VersionCheckerResources.Designer.cs">
       <DependentUpon>VersionCheckerResources.resx</DependentUpon>
       <AutoGen>True</AutoGen>

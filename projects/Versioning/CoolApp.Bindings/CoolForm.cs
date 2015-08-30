@@ -15,53 +15,45 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Configuration;
 using System.Windows.Forms;
-using DustInTheWind.Versioning.WinForms;
+using DustInTheWind.Versioning.WinForms.Common;
 
 namespace DustInTheWind.CoolApp
 {
-    public partial class CoolForm : Form
+    partial class CoolForm : Form
     {
-        private readonly VersioningModule versioningModule;
+        private CoolViewModel viewModel;
 
         public CoolForm()
         {
             InitializeComponent();
-
-            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-
-            versioningModule = CreateVersioningModule(config);
-            versioningModule.Config.CheckAtStartupChanged += HandleVersioningOptionsCheckAtStartupChanged;
-
-            checkBoxCheckAtStartUp.Checked = versioningModule.Config.CheckAtStartup;
         }
 
-        private VersioningModule CreateVersioningModule(Configuration config)
+        public CoolViewModel ViewModel
         {
-            const string appName = "Azzul";
-            Version currentVersion = Version.Parse(textBoxAzzulVersion.Text);
-
-            return new VersioningModule(appName, currentVersion, config)
+            get { return viewModel; }
+            set
             {
-                AppWebPage = "http://azzul.alez.ro",
-                DefaultCheckLocation = "http://azzul.alez.ro/appinfo.xml"
-            };
+                if (viewModel != null)
+                {
+                    checkBoxCheckAtStartUp.DataBindings.Clear();
+                    textBoxAzzulVersion.DataBindings.Clear();
+                }
+
+                viewModel = value;
+
+                if (viewModel != null)
+                {
+                    checkBoxCheckAtStartUp.CreateBinding(x => x.Checked, viewModel, x => x.CheckAtStartUp, false, DataSourceUpdateMode.OnPropertyChanged);
+                    textBoxAzzulVersion.CreateBinding(x => x.Text, viewModel, x => x.AzzulVersion, false, DataSourceUpdateMode.OnPropertyChanged);
+                    toolStripStatusLabelNewVersion.CreateBinding(x => x.Text, viewModel, x => x.NewVersionText, false, DataSourceUpdateMode.Never);
+                }
+            }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void HandleButtonCheckAzzulClick(object sender, EventArgs e)
         {
-            versioningModule.OpenVersionCheckerWindow(this);
-        }
-
-        private void HandleVersioningOptionsCheckAtStartupChanged(object sender, EventArgs eventArgs)
-        {
-            checkBoxCheckAtStartUp.Checked = versioningModule.Config.CheckAtStartup;
-        }
-
-        private void checkBoxCheckAtStartUp_CheckedChanged(object sender, EventArgs e)
-        {
-            versioningModule.Config.CheckAtStartup = checkBoxCheckAtStartUp.Checked;
+            viewModel.CheckAzzulButtonWasClicked(this);
         }
     }
 }

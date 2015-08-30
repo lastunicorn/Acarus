@@ -24,10 +24,10 @@ namespace DustInTheWind.Versioning.Config
     /// </summary>
     public interface IVersionCheckerConfig
     {
-        bool CheckAtStartup { get; set; }
+        bool CheckAtStartUp { get; set; }
         string Url { get; set; }
 
-        event EventHandler CheckAtStartupChanged;
+        event EventHandler CheckAtStartUpChanged;
         event EventHandler UrlChanged;
     }
 }

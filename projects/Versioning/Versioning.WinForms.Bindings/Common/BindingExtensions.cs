@@ -20,10 +20,10 @@ using System.Windows.Forms;
 
 namespace DustInTheWind.Versioning.WinForms.Common
 {
-    internal static class BindingExtensions
+    public static class BindingExtensions
     {
         public static Binding CreateBinding<TControl, TData, TProp1, TProp2>(this TControl control, Expression<Func<TControl, TProp1>> property, TData dataSource, Expression<Func<TData, TProp2>> dataSourceProperty, bool formattingEnabled)
-            where TControl : Control
+            where TControl : IBindableComponent
         {
             string controlPropertyName = GetControlPropertyName(property);
             string dataSourcePropertyName = GetControlPropertyName(dataSourceProperty);
@@ -35,7 +35,7 @@ namespace DustInTheWind.Versioning.WinForms.Common
         }
 
         public static Binding CreateBinding<TControl, TData, TProp1, TProp2>(this TControl control, Expression<Func<TControl, TProp1>> property, TData dataSource, Expression<Func<TData, TProp2>> dataSourceProperty, bool formattingEnabled, DataSourceUpdateMode updateMode)
-            where TControl : Control
+            where TControl : IBindableComponent
         {
             string controlPropertyName = GetControlPropertyName(property);
             string dataSourcePropertyName = GetControlPropertyName(dataSourceProperty);

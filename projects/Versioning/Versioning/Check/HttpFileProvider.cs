@@ -1,4 +1,4 @@
-// Acarus
+﻿// Acarus
 // Copyright (C) 2015 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -14,15 +14,20 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
+using System.IO;
+using System.Net;
 
-namespace DustInTheWind.Versioning.Download
+namespace DustInTheWind.Versioning.Check
 {
-    public class FileDownloadResult
+    public class HttpFileProvider : IFileProvider
     {
-        public string SourceUri { get; set; }
-        public string DestinationFilePath { get; set; }
-        public Exception Error { get; set; }
-        public bool Cancelled { get; private set; }
+        public Stream GetStream(string location)
+        {
+            HttpWebRequest myRequest = (HttpWebRequest)WebRequest.Create(location);
+            myRequest.Method = "GET";
+
+            WebResponse myResponse = myRequest.GetResponse();
+            return myResponse.GetResponseStream();
+        }
     }
 }

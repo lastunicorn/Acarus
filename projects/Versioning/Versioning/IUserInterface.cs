@@ -30,13 +30,6 @@ namespace DustInTheWind.Versioning
         void DisplayError(Exception ex);
 
         /// <summary>
-        /// Displays the exception in a friendly way for the user.
-        /// </summary>
-        /// <param name="ex">The <see cref="Exception"/> instance containing data about the error.</param>
-        /// <param name="message">The message text to be displayed along with the error message.</param>
-        void DisplayError(Exception ex, string message);
-
-        /// <summary>
         /// Displays an error message to the user.
         /// </summary>
         /// <param name="message">The message text to be displayed.</param>
@@ -49,34 +42,12 @@ namespace DustInTheWind.Versioning
         void DisplayInfo(string message);
 
         /// <summary>
-        /// Displays a list of warnings to the user.
-        /// </summary>
-        /// <param name="warnings">The list of warnings to be displayed to the user.</param>
-        void DisplayWarnings(Exception[] warnings);
-
-        /// <summary>
         /// Asks the user a question in a message box and returns a yes/no answer.
         /// </summary>
         /// <param name="text">The question to be asked.</param>
         /// <param name="title">The text to be displayed in the title bar of the popup window.</param>
         /// <returns><c>true</c> if the user answered yes; <c>false</c> otherwise.</returns>
         bool YesNoQuestion(string text, string title = null);
-
-        /// <summary>
-        /// Presents the user a warning and asks a question in a message box and returns a yes/no answer.
-        /// </summary>
-        /// <param name="text">The warning and question to be asked.</param>
-        /// <param name="title">The text to be displayed in the title bar of the popup window.</param>
-        /// <returns><c>true</c> if the user answered yes; <c>false</c> otherwise.</returns>
-        bool YesNoWarning(string text, string title = null);
-
-        /// <summary>
-        /// Asks the user a question in a message box and returns the answer as a nullable boolean.
-        /// </summary>
-        /// <param name="text">The question to be asked.</param>
-        /// <param name="title">The text to be displayed in the title bar of the popup window.</param>
-        /// <returns><c>true</c> if the user answered yes; <c>false</c> if the user answered no; <c>null</c> otherwise.</returns>
-        bool? YesNoCancelQuestion(string text, string title = null);
 
         /// <summary>
         /// Requests a directory path from the user.

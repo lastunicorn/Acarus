@@ -23,7 +23,7 @@ namespace DustInTheWind.Versioning.WinForms.Versioning
     /// <summary>
     /// This form checks if there is a new version of the application on the web.
     /// </summary>
-    public partial class VersionCheckerForm : Form, IVersionCheckerView
+    partial class VersionCheckerForm : Form
     {
         private VersionCheckerViewModel viewModel;
 

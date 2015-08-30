@@ -14,15 +14,12 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-
-namespace DustInTheWind.Versioning.Download
+namespace DustInTheWind.Versioning
 {
-    public class FileDownloadResult
+    public interface IVersionCheckerUi
     {
-        public string SourceUri { get; set; }
-        public string DestinationFilePath { get; set; }
-        public Exception Error { get; set; }
-        public bool Cancelled { get; private set; }
+        void ShowVersionChecker(object owner);
+        void CloseVersionChecker();
+        string AppWebPage { get; set; }
     }
 }

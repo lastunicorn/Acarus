@@ -29,7 +29,7 @@ namespace DustInTheWind.Versioning.WinForms.Versioning
     /// <summary>
     /// ViewModel class that contains the logic of the Version Checker window.
     /// </summary>
-    public class VersionCheckerViewModel : ViewModelBase
+    class VersionCheckerViewModel : ViewModelBase
     {
         private int progressBarValue;
         private bool progressBarVisible;
@@ -41,11 +41,6 @@ namespace DustInTheWind.Versioning.WinForms.Versioning
         private bool checkAtStartupEnabled;
         private bool checkAtStartupValue;
         private ProgressBarStyle progressBarStyle;
-
-        /// <summary>
-        /// Gets or sets the view that represents the GUI.
-        /// </summary>
-        public IVersionCheckerView View { get; set; }
 
         /// <summary>
         /// The default url used if the configuration does not specify another one.
@@ -70,7 +65,9 @@ namespace DustInTheWind.Versioning.WinForms.Versioning
         /// <summary>
         /// Provides configuration values to be used in Azzul application.
         /// </summary>
-        private readonly IVersionCheckerConfig options;
+        private readonly IVersionCheckerConfig versionCheckerConfig;
+
+        private readonly IVersionCheckerUi versionCheckerUi;
 
         public int ProgressBarValue
         {
@@ -178,19 +175,23 @@ namespace DustInTheWind.Versioning.WinForms.Versioning
         /// <param name="versionChecker">A service that checks if a newer version of the application exists.</param>
         /// <param name="fileDownloader"></param>
         /// <param name="userInterface">A service that displays messages to the user.</param>
-        /// <param name="options">Provides configuration values to be used in the application.</param>
+        /// <param name="versionCheckerConfig">Provides configuration values to be used in the application.</param>
+        /// <param name="versionCheckerUi"></param>
         /// <exception cref="ArgumentNullException">Exception thrown if one of the arguments is null.</exception>
-        public VersionCheckerViewModel(VersionChecker versionChecker, FileDownloader fileDownloader, IUserInterface userInterface, IVersionCheckerConfig options)
+        public VersionCheckerViewModel(VersionChecker versionChecker, FileDownloader fileDownloader,
+            IUserInterface userInterface, IVersionCheckerConfig versionCheckerConfig,
+            IVersionCheckerUi versionCheckerUi)
         {
             if (versionChecker == null) throw new ArgumentNullException("versionChecker");
             if (fileDownloader == null) throw new ArgumentNullException("fileDownloader");
             if (userInterface == null) throw new ArgumentNullException("userInterface");
-            if (options == null) throw new ArgumentNullException("options");
+            if (versionCheckerConfig == null) throw new ArgumentNullException("versionCheckerConfig");
 
             this.versionChecker = versionChecker;
             this.fileDownloader = fileDownloader;
             this.userInterface = userInterface;
-            this.options = options;
+            this.versionCheckerConfig = versionCheckerConfig;
+            this.versionCheckerUi = versionCheckerUi;
 
             ChangeStateToEmpty();
 
@@ -201,23 +202,23 @@ namespace DustInTheWind.Versioning.WinForms.Versioning
             this.fileDownloader.DownloadProgressChanged += HandleDownloadProgressChanged;
             this.fileDownloader.DownloadFileCompleted += HandleDownloadFileCompleted;
 
-            options.CheckAtStartupChanged += HandleOptionsCheckAtStartupChanged;
+            versionCheckerConfig.CheckAtStartUpChanged += HandleConfigCheckAtStartUpChanged;
 
             CheckAtStartupEnabled = true;
-            CheckAtStartupValue = options.CheckAtStartup;
+            CheckAtStartupValue = versionCheckerConfig.CheckAtStartUp;
         }
 
-        private void HandleOptionsCheckAtStartupChanged(object sender, EventArgs eventArgs)
+        private void HandleConfigCheckAtStartUpChanged(object sender, EventArgs eventArgs)
         {
             ExecuteSafe(() =>
             {
-                CheckAtStartupValue = options.CheckAtStartup;
+                CheckAtStartupValue = versionCheckerConfig.CheckAtStartUp;
             });
         }
 
         private void HandleVersionCheckStarting(object sender, EventArgs eventArgs)
         {
-            ExecuteSafe(ChangeStateToBeginVersionCheck);
+            ExecuteSafeInUi(ChangeStateToBeginVersionCheck);
         }
 
         private void HandleCheckCompleted(object sender, CheckCompletedEventArgs e)
@@ -295,7 +296,7 @@ namespace DustInTheWind.Versioning.WinForms.Versioning
                 versionChecker.Stop();
                 fileDownloader.Stop();
 
-                View.CloseView();
+                versionCheckerUi.CloseVersionChecker();
             });
         }
 
@@ -326,7 +327,7 @@ namespace DustInTheWind.Versioning.WinForms.Versioning
         {
             ExecuteSafe(() =>
             {
-                options.CheckAtStartup = CheckAtStartupValue;
+                versionCheckerConfig.CheckAtStartUp = CheckAtStartupValue;
             });
         }
 
@@ -354,11 +355,9 @@ namespace DustInTheWind.Versioning.WinForms.Versioning
             ProgressBarVisible = true;
             ProgressBarStyle = ProgressBarStyle.Marquee;
 
-            string location = versionChecker.AppInfoProvider == null
-                ? null
-                : versionChecker.AppInfoProvider.Location;
+            string appInfoFileLocation = versionChecker.AppInfoFileLocation;
 
-            InformationText = string.Format(VersionCheckerResources.VersionCheckerWindow_Checking, location);
+            InformationText = string.Format(VersionCheckerResources.VersionCheckerWindow_Checking, appInfoFileLocation);
             StatusText = VersionCheckerResources.VersionCheckerWindow_StatusText_Checking;
 
             OpenDownloadedFileButtonVisible = false;
