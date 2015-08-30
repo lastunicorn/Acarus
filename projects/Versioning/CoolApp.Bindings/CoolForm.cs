@@ -46,6 +46,7 @@ namespace DustInTheWind.CoolApp
                 {
                     checkBoxCheckAtStartUp.CreateBinding(x => x.Checked, viewModel, x => x.CheckAtStartUp, false, DataSourceUpdateMode.OnPropertyChanged);
                     textBoxAzzulVersion.CreateBinding(x => x.Text, viewModel, x => x.AzzulVersion, false, DataSourceUpdateMode.OnPropertyChanged);
+                    toolStripStatusLabelNewVersion.CreateBinding(x => x.Text, viewModel, x => x.NewVersionText, false, DataSourceUpdateMode.Never);
                 }
             }
         }

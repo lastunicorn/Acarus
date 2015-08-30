@@ -1,4 +1,6 @@
-﻿namespace DustInTheWind.CoolApp
+﻿using DustInTheWind.CoolApp.Utils;
+
+namespace DustInTheWind.CoolApp
 {
     partial class CoolForm
     {
@@ -34,9 +36,13 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabelNewVersion = new BindableToolStripStatusLabel();
+            this.toolStripStatusLabelStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonCheckAzzul
@@ -55,7 +61,7 @@
             this.textBoxAzzulVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxAzzulVersion.Location = new System.Drawing.Point(84, 4);
             this.textBoxAzzulVersion.Name = "textBoxAzzulVersion";
-            this.textBoxAzzulVersion.Size = new System.Drawing.Size(181, 20);
+            this.textBoxAzzulVersion.Size = new System.Drawing.Size(237, 20);
             this.textBoxAzzulVersion.TabIndex = 1;
             this.textBoxAzzulVersion.Text = "1.0.0.0";
             // 
@@ -76,7 +82,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(3, 32);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(262, 211);
+            this.groupBox1.Size = new System.Drawing.Size(318, 187);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Options Panel";
@@ -95,7 +101,7 @@
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(268, 246);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(324, 222);
             this.tableLayoutPanel1.TabIndex = 4;
             // 
             // panel1
@@ -105,15 +111,42 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Padding = new System.Windows.Forms.Padding(8);
-            this.panel1.Size = new System.Drawing.Size(284, 262);
+            this.panel1.Size = new System.Drawing.Size(340, 238);
             this.panel1.TabIndex = 5;
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabelStatus,
+            this.toolStripStatusLabelNewVersion});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 238);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(340, 24);
+            this.statusStrip1.TabIndex = 6;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabelNewVersion
+            // 
+            this.toolStripStatusLabelNewVersion.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
+            this.toolStripStatusLabelNewVersion.BorderStyle = System.Windows.Forms.Border3DStyle.RaisedOuter;
+            this.toolStripStatusLabelNewVersion.Name = "toolStripStatusLabelNewVersion";
+            this.toolStripStatusLabelNewVersion.Size = new System.Drawing.Size(115, 19);
+            this.toolStripStatusLabelNewVersion.Text = "New version: 0.0.0.0";
+            // 
+            // toolStripStatusLabelStatus
+            // 
+            this.toolStripStatusLabelStatus.Name = "toolStripStatusLabelStatus";
+            this.toolStripStatusLabelStatus.Size = new System.Drawing.Size(210, 19);
+            this.toolStripStatusLabelStatus.Spring = true;
+            this.toolStripStatusLabelStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // CoolForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 262);
+            this.ClientSize = new System.Drawing.Size(340, 262);
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.statusStrip1);
             this.Name = "CoolForm";
             this.Text = "Cool Application";
             this.groupBox1.ResumeLayout(false);
@@ -121,7 +154,10 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.panel1.ResumeLayout(false);
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -133,6 +169,9 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelStatus;
+        private BindableToolStripStatusLabel toolStripStatusLabelNewVersion;
     }
 }
 

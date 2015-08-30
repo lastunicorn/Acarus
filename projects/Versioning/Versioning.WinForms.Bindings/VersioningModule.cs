@@ -19,58 +19,42 @@ using System.Configuration;
 using DustInTheWind.Versioning.Check;
 using DustInTheWind.Versioning.Config;
 using DustInTheWind.Versioning.Download;
-using DustInTheWind.Versioning.WinForms.Versioning;
 
 namespace DustInTheWind.Versioning.WinForms
 {
     public class VersioningModule
     {
-        private readonly FileDownloader fileDownloader;
-        private readonly UserInterface userInterface;
+        public VersionChecker Checker { get; private set; }
 
-        public string AppWebPage { get; set; }
+        public IVersionCheckerConfig Config { get; private set; }
 
-        public VersionChecker VersionChecker { get; private set; }
-
-        public IVersionCheckerConfig VersionCheckerConfig { get; private set; }
+        public IVersionCheckerUi UserInterface { get; private set; }
 
         public VersioningModule(Configuration config)
         {
             if (config == null) throw new ArgumentNullException("config");
 
-            VersionCheckerConfig = new VersionCheckerConfig(config);
-            userInterface = new UserInterface();
+            Config = new VersionCheckerConfig(config);
 
-            VersionChecker = new VersionChecker
+            UserInterface userInterface = new UserInterface();
+
+            Checker = new VersionChecker
             {
                 MinCheckTime = TimeSpan.FromSeconds(1),
-                AppInfoFileLocation = VersionCheckerConfig.Url,
+                AppInfoFileLocation = Config.Url,
                 AppInfoProvider = new HttpFileProvider()
             };
 
-            fileDownloader = new FileDownloader(userInterface);
+            FileDownloader fileDownloader = new FileDownloader(userInterface);
 
-            VersionCheckerConfig.UrlChanged += HandleConfigUrlChanged;
+            UserInterface = new VersionCheckerUi(Checker, fileDownloader, userInterface, Config);
 
-            userInterface.ViewModelCreator = ViewModelCreator;
-        }
-
-        private VersionCheckerViewModel ViewModelCreator()
-        {
-            return new VersionCheckerViewModel(VersionChecker, fileDownloader, userInterface, VersionCheckerConfig)
-            {
-                AppWebPage = AppWebPage
-            };
+            Config.UrlChanged += HandleConfigUrlChanged;
         }
 
         private void HandleConfigUrlChanged(object sender, EventArgs eventArgs)
         {
-            VersionChecker.AppInfoFileLocation = VersionCheckerConfig.Url;
-        }
-
-        public void OpenVersionCheckerWindow(object owner)
-        {
-            userInterface.ShowVersionChecker(owner);
+            Checker.AppInfoFileLocation = Config.Url;
         }
     }
 }

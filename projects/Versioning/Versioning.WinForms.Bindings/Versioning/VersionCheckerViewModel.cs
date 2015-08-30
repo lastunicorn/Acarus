@@ -29,7 +29,7 @@ namespace DustInTheWind.Versioning.WinForms.Versioning
     /// <summary>
     /// ViewModel class that contains the logic of the Version Checker window.
     /// </summary>
-    public class VersionCheckerViewModel : ViewModelBase
+    class VersionCheckerViewModel : ViewModelBase
     {
         private int progressBarValue;
         private bool progressBarVisible;
@@ -66,6 +66,8 @@ namespace DustInTheWind.Versioning.WinForms.Versioning
         /// Provides configuration values to be used in Azzul application.
         /// </summary>
         private readonly IVersionCheckerConfig versionCheckerConfig;
+
+        private readonly IVersionCheckerUi versionCheckerUi;
 
         public int ProgressBarValue
         {
@@ -174,8 +176,11 @@ namespace DustInTheWind.Versioning.WinForms.Versioning
         /// <param name="fileDownloader"></param>
         /// <param name="userInterface">A service that displays messages to the user.</param>
         /// <param name="versionCheckerConfig">Provides configuration values to be used in the application.</param>
+        /// <param name="versionCheckerUi"></param>
         /// <exception cref="ArgumentNullException">Exception thrown if one of the arguments is null.</exception>
-        public VersionCheckerViewModel(VersionChecker versionChecker, FileDownloader fileDownloader, IUserInterface userInterface, IVersionCheckerConfig versionCheckerConfig)
+        public VersionCheckerViewModel(VersionChecker versionChecker, FileDownloader fileDownloader,
+            IUserInterface userInterface, IVersionCheckerConfig versionCheckerConfig,
+            IVersionCheckerUi versionCheckerUi)
         {
             if (versionChecker == null) throw new ArgumentNullException("versionChecker");
             if (fileDownloader == null) throw new ArgumentNullException("fileDownloader");
@@ -186,6 +191,7 @@ namespace DustInTheWind.Versioning.WinForms.Versioning
             this.fileDownloader = fileDownloader;
             this.userInterface = userInterface;
             this.versionCheckerConfig = versionCheckerConfig;
+            this.versionCheckerUi = versionCheckerUi;
 
             ChangeStateToEmpty();
 
@@ -290,7 +296,7 @@ namespace DustInTheWind.Versioning.WinForms.Versioning
                 versionChecker.Stop();
                 fileDownloader.Stop();
 
-                userInterface.CloseVersionChecker();
+                versionCheckerUi.CloseVersionChecker();
             });
         }
 

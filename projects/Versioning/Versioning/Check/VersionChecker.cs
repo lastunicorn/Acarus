@@ -151,7 +151,7 @@ namespace DustInTheWind.Versioning.Check
             if (!ChangeStateToBusy())
                 return false;
 
-            Task.Factory.StartNew(() =>
+            Task task = Task.Factory.StartNew(() =>
             {
                 try
                 {
@@ -168,25 +168,27 @@ namespace DustInTheWind.Versioning.Check
 
         private void CheckInternal()
         {
+            OnCheckStarting();
+
             try
             {
-                OnCheckStarting();
-
                 RetrieveNewCheckingResult();
 
                 // If the asynchronous check finishes to quickly, simulate it takes a little longer.
                 DelayAsyncCheck();
-
-                OnCheckCompleted(new CheckCompletedEventArgs(LastCheckingResult));
             }
             catch (VersionCheckingException ex)
             {
                 OnCheckCompleted(new CheckCompletedEventArgs(ex));
+                return;
             }
             catch (Exception ex)
             {
                 OnCheckCompleted(new CheckCompletedEventArgs(new VersionCheckingException(ex)));
+                return;
             }
+
+            OnCheckCompleted(new CheckCompletedEventArgs(LastCheckingResult));
         }
 
         private void RetrieveNewCheckingResult()

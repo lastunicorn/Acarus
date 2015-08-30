@@ -16,6 +16,8 @@
 
 using System;
 using System.Configuration;
+using DustInTheWind.CoolApp.Utils;
+using DustInTheWind.Versioning.Check;
 using DustInTheWind.Versioning.WinForms;
 using DustInTheWind.Versioning.WinForms.Common;
 
@@ -23,10 +25,12 @@ namespace DustInTheWind.CoolApp
 {
     internal class CoolViewModel : ViewModelBase
     {
+        private readonly UserInterface userInterface;
         private readonly VersioningModule versioningModule;
 
         private string azzulVersion;
         private bool checkAtStartUp;
+        private string newVersionText;
 
         public string AzzulVersion
         {
@@ -44,7 +48,7 @@ namespace DustInTheWind.CoolApp
                     Version version;
 
                     if (Version.TryParse(value, out version))
-                        versioningModule.VersionChecker.CurrentVersion = version;
+                        versioningModule.Checker.CurrentVersion = version;
                 }
             }
         }
@@ -61,33 +65,77 @@ namespace DustInTheWind.CoolApp
                 OnPropertyChanged();
 
                 if (!IsInitializing)
-                    versioningModule.VersionCheckerConfig.CheckAtStartUp = checkAtStartUp;
+                    versioningModule.Config.CheckAtStartUp = checkAtStartUp;
             }
         }
 
-        public CoolViewModel()
+        public string NewVersionText
         {
+            get { return newVersionText; }
+            set
+            {
+                newVersionText = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public CoolViewModel(UserInterface userInterface)
+        {
+            if (userInterface == null) throw new ArgumentNullException("userInterface");
+
+            this.userInterface = userInterface;
+
             Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
 
-            versioningModule = new AzzulVersioningModule(config) { AppWebPage = "http://azzul.alez.ro" };
-
-            versioningModule.VersionCheckerConfig.CheckAtStartUpChanged += HandleVersioningOptionsCheckAtStartUpChanged;
+            versioningModule = new AzzulVersioningModule(config);
+            versioningModule.UserInterface.AppWebPage = "http://azzul.alez.ro";
 
             Initialize(() =>
             {
-                AzzulVersion = versioningModule.VersionChecker.CurrentVersion.ToString();
-                CheckAtStartUp = versioningModule.VersionCheckerConfig.CheckAtStartUp;
+                AzzulVersion = versioningModule.Checker.CurrentVersion.ToString();
+                CheckAtStartUp = versioningModule.Config.CheckAtStartUp;
+            });
+
+            versioningModule.Config.CheckAtStartUpChanged += HandleVersioningOptionsCheckAtStartUpChanged;
+            versioningModule.Checker.CheckCompleted += HandleVersionCheckerCheckCompleted;
+        }
+
+        private void HandleVersionCheckerCheckCompleted(object sender, CheckCompletedEventArgs e)
+        {
+            ExecuteSafeInUi(() =>
+            {
+                if (e.Cancelled || e.Error != null)
+                    return;
+
+                NewVersionText = e.VersionCheckingResult.IsNewerVersion
+                    ? "New version: " + e.VersionCheckingResult.RetrievedAppVersionInfo.Version
+                    : "No new version";
             });
         }
 
-        private void HandleVersioningOptionsCheckAtStartUpChanged(object sender, EventArgs eventArgs)
+        private void HandleVersioningOptionsCheckAtStartUpChanged(object sender, EventArgs e)
         {
-            CheckAtStartUp = versioningModule.VersionCheckerConfig.CheckAtStartUp;
+            CheckAtStartUp = versioningModule.Config.CheckAtStartUp;
         }
 
         public void CheckAzzulButtonWasClicked(object coolForm)
         {
-            versioningModule.OpenVersionCheckerWindow(coolForm);
+            versioningModule.UserInterface.ShowVersionChecker(coolForm);
+        }
+
+        private void ExecuteSafeInUi(Action action)
+        {
+            userInterface.Dispatch(() =>
+            {
+                try
+                {
+                    action();
+                }
+                catch (Exception ex)
+                {
+                    userInterface.DisplayError(ex);
+                }
+            });
         }
     }
 }

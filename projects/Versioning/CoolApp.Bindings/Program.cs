@@ -16,6 +16,7 @@
 
 using System;
 using System.Windows.Forms;
+using DustInTheWind.CoolApp.Utils;
 
 namespace DustInTheWind.CoolApp
 {
@@ -29,11 +30,13 @@ namespace DustInTheWind.CoolApp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
-            CoolForm mainForm = new CoolForm
-            {
-                ViewModel = new CoolViewModel()
-            };
+            
+            CoolForm mainForm = new CoolForm();
+            
+            UserInterface userInterface = new UserInterface();
+            userInterface.MainWindow = mainForm;
+            
+            mainForm.ViewModel = new CoolViewModel(userInterface);
 
             Application.Run(mainForm);
         }
