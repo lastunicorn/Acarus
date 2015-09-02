@@ -2,6 +2,7 @@
 using System.Configuration;
 using DustInTheWind.Versioning.Check;
 using DustInTheWind.Versioning.Config;
+using DustInTheWind.Versioning.Download;
 
 namespace DustInTheWind.Versioning
 {
@@ -41,13 +42,14 @@ namespace DustInTheWind.Versioning
                 AppInfoProvider = new HttpFileProvider()
             };
 
-            UserInterface = CreateVersionCheckerUserInterface(userInterface);
+            FileDownloader fileDownloader = new FileDownloader(userInterface);
+            UserInterface = CreateVersionCheckerUserInterface(Checker, fileDownloader, userInterface, Config);
 
             Config.UrlChanged += HandleConfigUrlChanged;
         }
 
         protected abstract IUserInterface CreateUserInterfaceHelper();
-        protected abstract IVersionCheckerUserInterface CreateVersionCheckerUserInterface(IUserInterface userInterface);
+        protected abstract IVersionCheckerUserInterface CreateVersionCheckerUserInterface(VersionChecker versionChecker, FileDownloader fileDownloader, IUserInterface userInterface, IVersionCheckerConfig versionCheckerConfig);
 
         private void HandleConfigUrlChanged(object sender, EventArgs eventArgs)
         {

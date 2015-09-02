@@ -15,6 +15,8 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System.Configuration;
+using DustInTheWind.Versioning.Check;
+using DustInTheWind.Versioning.Config;
 using DustInTheWind.Versioning.Download;
 
 namespace DustInTheWind.Versioning.WinForms
@@ -31,11 +33,9 @@ namespace DustInTheWind.Versioning.WinForms
             return new UserInterface();
         }
 
-        protected override IVersionCheckerUserInterface CreateVersionCheckerUserInterface(IUserInterface userInterface)
+        protected override IVersionCheckerUserInterface CreateVersionCheckerUserInterface(VersionChecker versionChecker, FileDownloader fileDownloader, IUserInterface userInterface, IVersionCheckerConfig versionCheckerConfig)
         {
-            FileDownloader fileDownloader = new FileDownloader(userInterface);
-
-            return new VersionCheckerUserInterface(Checker, fileDownloader, userInterface, Config);
+            return new VersionCheckerUserInterface(versionChecker, fileDownloader, userInterface, versionCheckerConfig);
         }
     }
 }
