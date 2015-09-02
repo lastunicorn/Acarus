@@ -19,9 +19,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows;
 using System.Windows.Threading;
-using Versioning.Wpf.Properties;
+using DustInTheWind.CoolApp.Wpf.Properties;
 
-namespace Versioning.Wpf.aaa
+namespace DustInTheWind.CoolApp.Wpf.Utils
 {
     internal class UserInterface
     {

@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace DustInTheWind.CoolApp.Wpf
+namespace DustInTheWind.CoolApp.Wpf.Utils
 {
     internal class ViewModelBase : INotifyPropertyChanged
     {

@@ -2,45 +2,59 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="CoolWindow" Height="350" Width="350"
-        x:Name="CoolWindow1">
+        x:Name="CoolWindow1"
+        Icon="{Binding Icon}">
 
     <Window.Resources>
     </Window.Resources>
-    
-    <Grid Margin="10">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
 
-        <Button Grid.Row="0"
+    <DockPanel>
+
+        <StatusBar DockPanel.Dock="Bottom"
+                   Padding="4,0">
+
+            <StatusBarItem Content="Ready"/>
+
+            <StatusBarItem HorizontalAlignment="Right" Content="{Binding NewVersionText}"/>
+
+        </StatusBar>
+
+        <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Row="0"
                 Grid.Column="0"
                 Content="Check Azzul"
                 Padding="4,0"
                 Command="{Binding Path=CheckAzzulCommand}"
                 CommandParameter="{Binding ElementName=CoolWindow1}"/>
 
-        <TextBox Grid.Row="0"
+            <TextBox Grid.Row="0"
                  Grid.Column="1"
                  Text="{Binding AzzulVersion, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  Margin="8,0,0,0"/>
 
-        <GroupBox Grid.Row="1"
+            <GroupBox Grid.Row="1"
                   Grid.Column="0"
                   Grid.ColumnSpan="2"
                   Margin="0,8,0,0"
                   Header="Options Panel">
-            
-            <CheckBox IsChecked="{Binding CheckAtStartUp}"
+
+                <CheckBox IsChecked="{Binding CheckAtStartUp}"
                       Content="Check version at start up"
                       Margin="8"/>
-            
-        </GroupBox>
-    </Grid>
-        
+
+            </GroupBox>
+        </Grid>
+
+    </DockPanel>
+
 </Window>

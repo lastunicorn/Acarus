@@ -15,8 +15,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System.Windows;
-using DustInTheWind.Versioning;
-using Versioning.Wpf.aaa;
+using DustInTheWind.CoolApp.Wpf.Utils;
 
 namespace DustInTheWind.CoolApp.Wpf
 {

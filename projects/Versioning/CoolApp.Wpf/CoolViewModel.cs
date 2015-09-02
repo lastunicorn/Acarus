@@ -16,10 +16,14 @@
 
 using System;
 using System.Configuration;
+using System.Drawing;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using DustInTheWind.CoolApp.Wpf.Properties;
+using DustInTheWind.CoolApp.Wpf.Utils;
 using DustInTheWind.Versioning.Check;
 using Versioning.Wpf;
-using Versioning.Wpf.aaa;
 using Versioning.Wpf.Common;
 
 namespace DustInTheWind.CoolApp.Wpf
@@ -80,6 +84,8 @@ namespace DustInTheWind.CoolApp.Wpf
             }
         }
 
+        public ImageSource Icon { get; set; }
+
         public ICommand CheckAzzulCommand { get; private set; }
 
         public CoolViewModel(UserInterface userInterface)
@@ -97,6 +103,7 @@ namespace DustInTheWind.CoolApp.Wpf
             {
                 AzzulVersion = versioningModule.Checker.CurrentVersion.ToString();
                 CheckAtStartUp = versioningModule.Config.CheckAtStartUp;
+                NewVersionText = "No new version";
             });
 
             versioningModule.Config.CheckAtStartUpChanged += HandleVersioningOptionsCheckAtStartUpChanged;

@@ -1,4 +1,4 @@
-// Acarus
+﻿// Acarus
 // Copyright (C) 2015 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -14,12 +14,28 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace DustInTheWind.Versioning
+using System.Windows;
+
+namespace Versioning.Wpf.Views
 {
-    public interface IVersionCheckerUi
+    /// <summary>
+    /// Interaction logic for VersionCheckerWindow.xaml
+    /// </summary>
+    public partial class VersionCheckerWindow : Window
     {
-        void ShowVersionChecker(object owner);
-        void CloseVersionChecker();
-        string AppWebPage { get; set; }
+        public VersionCheckerWindow()
+        {
+            InitializeComponent();
+        }
+
+        private void HandleWindowLoaded(object sender, RoutedEventArgs e)
+        {
+           VersionCheckerViewModel viewModel = DataContext as VersionCheckerViewModel;
+
+            if (viewModel == null)
+                return;
+
+            viewModel.WindowWasLoaded();
+        }
     }
 }

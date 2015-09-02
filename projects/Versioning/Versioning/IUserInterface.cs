@@ -19,7 +19,8 @@ using System;
 namespace DustInTheWind.Versioning
 {
     /// <summary>
-    /// Displays messages to the user.
+    /// Offers functionality related to the graphical user interface like display popup windows, dispatch execution on ui thread.
+    /// It is used internaly by the versioning module.
     /// </summary>
     public interface IUserInterface
     {
@@ -57,6 +58,10 @@ namespace DustInTheWind.Versioning
         /// <returns>The directory path selected by the user or null if the user canceled the action.</returns>
         string RequestDirectory(string initialPath, string description);
 
+        /// <summary>
+        /// Dispatches the execution on the GUI thread.
+        /// </summary>
+        /// <param name="action">The function to be run on the GUI thread.</param>
         void Dispatch(Action action);
     }
 }

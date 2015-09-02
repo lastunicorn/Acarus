@@ -75,6 +75,7 @@ namespace DustInTheWind.Versioning.Config
         public VersionCheckerConfig(Configuration config)
         {
             if (config == null) throw new ArgumentNullException("config");
+
             this.config = config;
         }
 

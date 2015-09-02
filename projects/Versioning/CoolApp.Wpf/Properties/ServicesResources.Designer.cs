@@ -8,10 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Versioning.Wpf.Properties {
-    using System;
-    
-    
+namespace DustInTheWind.CoolApp.Wpf.Properties {
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>

@@ -16,6 +16,7 @@
 
 using System;
 using System.Diagnostics;
+using System.Drawing;
 using System.Net;
 using System.Windows;
 using DustInTheWind.Versioning;
@@ -25,7 +26,7 @@ using DustInTheWind.Versioning.Download;
 using Versioning.Wpf.Common;
 using Versioning.Wpf.Properties;
 
-namespace Versioning.Wpf.Versioning
+namespace Versioning.Wpf.Views
 {
     class VersionCheckerViewModel : ViewModelBase
     {
@@ -33,7 +34,7 @@ namespace Versioning.Wpf.Versioning
         private readonly FileDownloader fileDownloader;
         private readonly UserInterface userInterface;
         private readonly IVersionCheckerConfig config;
-        private readonly IVersionCheckerUi versionCheckerUi;
+        private readonly IVersionCheckerUserInterface versionCheckerUserInterface;
 
         private int progressBarValue;
         private Visibility progressBarVisible;
@@ -45,6 +46,7 @@ namespace Versioning.Wpf.Versioning
         private bool checkAtStartupEnabled;
         private bool checkAtStartupValue;
         private bool progressBarStyle;
+        private Image icon;
 
         public string AppWebPage { get; set; }
 
@@ -148,6 +150,16 @@ namespace Versioning.Wpf.Versioning
             }
         }
 
+        public Image Icon
+        {
+            get { return icon; }
+            set
+            {
+                icon = value;
+                OnPropertyChanged();
+            }
+        }
+
         public RelayCommand CheckAgainCommand { get; set; }
         public RelayCommand DownloadCommand { get; set; }
         public RelayCommand OpenDownloadedFileCommand { get; set; }
@@ -155,19 +167,19 @@ namespace Versioning.Wpf.Versioning
         public RelayCommand CloseCommand { get; set; }
 
         public VersionCheckerViewModel(VersionChecker versionChecker, FileDownloader fileDownloader,
-            UserInterface userInterface, IVersionCheckerConfig config, IVersionCheckerUi versionCheckerUi)
+            UserInterface userInterface, IVersionCheckerConfig config, IVersionCheckerUserInterface versionCheckerUserInterface)
         {
             if (versionChecker == null) throw new ArgumentNullException("versionChecker");
             if (fileDownloader == null) throw new ArgumentNullException("fileDownloader");
             if (userInterface == null) throw new ArgumentNullException("userInterface");
             if (config == null) throw new ArgumentNullException("config");
-            if (versionCheckerUi == null) throw new ArgumentNullException("versionCheckerUi");
+            if (versionCheckerUserInterface == null) throw new ArgumentNullException("versionCheckerUserInterface");
 
             this.versionChecker = versionChecker;
             this.fileDownloader = fileDownloader;
             this.userInterface = userInterface;
             this.config = config;
-            this.versionCheckerUi = versionCheckerUi;
+            this.versionCheckerUserInterface = versionCheckerUserInterface;
 
             CheckAgainCommand = new RelayCommand(p => true, CheckAgainClicked);
             DownloadCommand = new RelayCommand(p => true, DownloadClicked);
@@ -302,7 +314,22 @@ namespace Versioning.Wpf.Versioning
                 versionChecker.Stop();
                 fileDownloader.Stop();
 
-                versionCheckerUi.CloseVersionChecker();
+                versionCheckerUserInterface.CloseVersionChecker();
+            });
+        }
+
+        public void WindowWasLoaded()
+        {
+            ExecuteSafe(() =>
+            {
+                VersionCheckingResult lastCheckingResult = versionChecker.LastCheckingResult;
+
+                if (lastCheckingResult == null)
+                    versionChecker.CheckAsync();
+                else if (lastCheckingResult.IsNewerVersion)
+                    ChangeStateToShowNewVersion(lastCheckingResult);
+                else
+                    ChangeStateToShowNoVersion();
             });
         }
 

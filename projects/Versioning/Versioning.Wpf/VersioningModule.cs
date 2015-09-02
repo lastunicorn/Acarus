@@ -29,7 +29,7 @@ namespace Versioning.Wpf
 
         public IVersionCheckerConfig Config { get; private set; }
 
-        public IVersionCheckerUi UserInterface { get; private set; }
+        public IVersionCheckerUserInterface UserInterface { get; private set; }
 
         public VersioningModule(Configuration config)
         {
@@ -48,7 +48,7 @@ namespace Versioning.Wpf
 
             FileDownloader fileDownloader = new FileDownloader(userInterface);
 
-            UserInterface = new VersionCheckerUi(Checker, fileDownloader, userInterface, Config);
+            UserInterface = new VersionCheckerUserInterface(Checker, fileDownloader, userInterface, Config);
 
             Config.UrlChanged += HandleConfigUrlChanged;
         }

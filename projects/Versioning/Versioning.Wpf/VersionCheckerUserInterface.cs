@@ -1,14 +1,15 @@
 using System;
+using System.Drawing;
 using System.Windows;
 using DustInTheWind.Versioning;
 using DustInTheWind.Versioning.Check;
 using DustInTheWind.Versioning.Config;
 using DustInTheWind.Versioning.Download;
-using Versioning.Wpf.Versioning;
+using Versioning.Wpf.Views;
 
 namespace Versioning.Wpf
 {
-    class VersionCheckerUi : IVersionCheckerUi
+    class VersionCheckerUserInterface : IVersionCheckerUserInterface
     {
         private readonly VersionChecker versionChecker;
         private readonly FileDownloader fileDownloader;
@@ -19,7 +20,9 @@ namespace Versioning.Wpf
 
         public string AppWebPage { get; set; }
 
-        public VersionCheckerUi(VersionChecker versionChecker, FileDownloader fileDownloader,
+        public Image Icon { get; set; }
+
+        public VersionCheckerUserInterface(VersionChecker versionChecker, FileDownloader fileDownloader,
             UserInterface userInterface, IVersionCheckerConfig versionCheckerConfig)
         {
             if (versionChecker == null) throw new ArgumentNullException("versionChecker");
@@ -46,6 +49,7 @@ namespace Versioning.Wpf
 
                 VersionCheckerViewModel viewModel = new VersionCheckerViewModel(versionChecker, fileDownloader, userInterface, versionCheckerConfig, this);
                 viewModel.AppWebPage = AppWebPage;
+                viewModel.Icon = Icon;
 
                 versionCheckerWindow.DataContext = viewModel;
 
