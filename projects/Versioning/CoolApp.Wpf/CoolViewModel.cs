@@ -104,9 +104,20 @@ namespace DustInTheWind.CoolApp.Wpf
             });
 
             versioningModule.CheckAtStartUpChanged += HandleVersioningOptionsCheckAtStartUpChanged;
+            versioningModule.Checker.CheckStarting += HandleVersionCheckerCheckStarting;
             versioningModule.Checker.CheckCompleted += HandleVersionCheckerCheckCompleted;
 
             CheckAzzulCommand = new RelayCommand(p => true, CheckAzzul);
+
+            versioningModule.Start();
+        }
+
+        private void HandleVersionCheckerCheckStarting(object sender, EventArgs eventArgs)
+        {
+            ExecuteSafeInUi(() =>
+            {
+                NewVersionText = "Checking...";
+            });
         }
 
         private void HandleVersionCheckerCheckCompleted(object sender, CheckCompletedEventArgs e)

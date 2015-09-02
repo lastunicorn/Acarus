@@ -97,7 +97,18 @@ namespace DustInTheWind.CoolApp
             });
 
             versioningModule.CheckAtStartUpChanged += HandleVersioningOptionsCheckAtStartUpChanged;
+            versioningModule.Checker.CheckStarting += HandleVersionCheckerCheckStarting;
             versioningModule.Checker.CheckCompleted += HandleVersionCheckerCheckCompleted;
+
+            versioningModule.Start();
+        }
+
+        private void HandleVersionCheckerCheckStarting(object sender, EventArgs eventArgs)
+        {
+            ExecuteSafeInUi(() =>
+            {
+                NewVersionText = "Checking...";
+            });
         }
 
         private void HandleVersionCheckerCheckCompleted(object sender, CheckCompletedEventArgs e)
