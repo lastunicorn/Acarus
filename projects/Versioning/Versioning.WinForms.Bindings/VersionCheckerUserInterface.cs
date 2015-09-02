@@ -15,6 +15,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 using DustInTheWind.Versioning.Check;
 using DustInTheWind.Versioning.Config;
@@ -23,19 +24,20 @@ using DustInTheWind.Versioning.WinForms.Versioning;
 
 namespace DustInTheWind.Versioning.WinForms
 {
-    class VersionCheckerUi : IVersionCheckerUi
+    public class VersionCheckerUserInterface : IVersionCheckerUserInterface
     {
         private readonly VersionChecker versionChecker;
         private readonly FileDownloader fileDownloader;
-        private readonly UserInterface userInterface;
+        private readonly IUserInterface userInterface;
         private readonly IVersionCheckerConfig versionCheckerConfig;
 
         private VersionCheckerForm versionCheckerForm;
 
         public string AppWebPage { get; set; }
+        public Image Icon { get; set; }
 
-        public VersionCheckerUi(VersionChecker versionChecker, FileDownloader fileDownloader,
-            UserInterface userInterface, IVersionCheckerConfig versionCheckerConfig)
+        public VersionCheckerUserInterface(VersionChecker versionChecker, FileDownloader fileDownloader,
+            IUserInterface userInterface, IVersionCheckerConfig versionCheckerConfig)
         {
             if (versionChecker == null) throw new ArgumentNullException("versionChecker");
             if (fileDownloader == null) throw new ArgumentNullException("fileDownloader");
@@ -51,19 +53,31 @@ namespace DustInTheWind.Versioning.WinForms
         public void ShowVersionChecker(object owner)
         {
             if (versionCheckerForm != null)
-            {
-                versionCheckerForm.Activate();
-            }
+                FocusExistingWindow();
             else
-            {
-                versionCheckerForm = new VersionCheckerForm { Owner = owner as Form };
-                versionCheckerForm.Closed += (sender, args) => versionCheckerForm = null;
+                CreateAndDisplayWindow(owner);
+        }
 
-                versionCheckerForm.ViewModel = new VersionCheckerViewModel(versionChecker, fileDownloader, userInterface, versionCheckerConfig, this);
-                versionCheckerForm.ViewModel.AppWebPage = AppWebPage;
+        private void FocusExistingWindow()
+        {
+            versionCheckerForm.Activate();
+        }
 
-                versionCheckerForm.Show();
-            }
+        private void CreateAndDisplayWindow(object owner)
+        {
+            versionCheckerForm = new VersionCheckerForm { Owner = owner as Form };
+            versionCheckerForm.Closed += HandleVersionCheckerWindowClosed;
+
+            versionCheckerForm.ViewModel = new VersionCheckerViewModel(versionChecker, fileDownloader, userInterface, versionCheckerConfig, this);
+            versionCheckerForm.ViewModel.AppWebPage = AppWebPage;
+
+            versionCheckerForm.Show();
+        }
+
+        private void HandleVersionCheckerWindowClosed(object sender, EventArgs e)
+        {
+            versionCheckerForm.Closed -= HandleVersionCheckerWindowClosed;
+            versionCheckerForm = null;
         }
 
         public void CloseVersionChecker()

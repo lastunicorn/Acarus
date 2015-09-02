@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Versioning.Wpf.Properties {
+namespace DustInTheWind.Versioning.Wpf.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Versioning.Wpf.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Versioning.Wpf.Properties.ServicesResources", typeof(ServicesResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("DustInTheWind.Versioning.Wpf.Properties.ServicesResources", typeof(ServicesResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

@@ -19,20 +19,19 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Net;
 using System.Windows;
-using DustInTheWind.Versioning;
 using DustInTheWind.Versioning.Check;
 using DustInTheWind.Versioning.Config;
 using DustInTheWind.Versioning.Download;
-using Versioning.Wpf.Common;
-using Versioning.Wpf.Properties;
+using DustInTheWind.Versioning.Wpf.Common;
+using DustInTheWind.Versioning.Wpf.Properties;
 
-namespace Versioning.Wpf.Views
+namespace DustInTheWind.Versioning.Wpf.Views
 {
     class VersionCheckerViewModel : ViewModelBase
     {
         private readonly VersionChecker versionChecker;
         private readonly FileDownloader fileDownloader;
-        private readonly UserInterface userInterface;
+        private readonly IUserInterface userInterface;
         private readonly IVersionCheckerConfig config;
         private readonly IVersionCheckerUserInterface versionCheckerUserInterface;
 
@@ -167,7 +166,7 @@ namespace Versioning.Wpf.Views
         public RelayCommand CloseCommand { get; set; }
 
         public VersionCheckerViewModel(VersionChecker versionChecker, FileDownloader fileDownloader,
-            UserInterface userInterface, IVersionCheckerConfig config, IVersionCheckerUserInterface versionCheckerUserInterface)
+            IUserInterface userInterface, IVersionCheckerConfig config, IVersionCheckerUserInterface versionCheckerUserInterface)
         {
             if (versionChecker == null) throw new ArgumentNullException("versionChecker");
             if (fileDownloader == null) throw new ArgumentNullException("fileDownloader");

@@ -16,15 +16,12 @@
 
 using System;
 using System.Configuration;
-using System.Drawing;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using DustInTheWind.CoolApp.Wpf.Properties;
 using DustInTheWind.CoolApp.Wpf.Utils;
 using DustInTheWind.Versioning.Check;
-using Versioning.Wpf;
-using Versioning.Wpf.Common;
+using DustInTheWind.Versioning.Wpf;
+using DustInTheWind.Versioning.Wpf.Common;
 
 namespace DustInTheWind.CoolApp.Wpf
 {
@@ -70,7 +67,7 @@ namespace DustInTheWind.CoolApp.Wpf
                 OnPropertyChanged();
 
                 if (!IsInitializing)
-                    versioningModule.Config.CheckAtStartUp = checkAtStartUp;
+                    versioningModule.CheckAtStartUp = checkAtStartUp;
             }
         }
 
@@ -102,11 +99,11 @@ namespace DustInTheWind.CoolApp.Wpf
             Initialize(() =>
             {
                 AzzulVersion = versioningModule.Checker.CurrentVersion.ToString();
-                CheckAtStartUp = versioningModule.Config.CheckAtStartUp;
+                CheckAtStartUp = versioningModule.CheckAtStartUp;
                 NewVersionText = "No new version";
             });
 
-            versioningModule.Config.CheckAtStartUpChanged += HandleVersioningOptionsCheckAtStartUpChanged;
+            versioningModule.CheckAtStartUpChanged += HandleVersioningOptionsCheckAtStartUpChanged;
             versioningModule.Checker.CheckCompleted += HandleVersionCheckerCheckCompleted;
 
             CheckAzzulCommand = new RelayCommand(p => true, CheckAzzul);
@@ -127,7 +124,7 @@ namespace DustInTheWind.CoolApp.Wpf
 
         private void HandleVersioningOptionsCheckAtStartUpChanged(object sender, EventArgs e)
         {
-            CheckAtStartUp = versioningModule.Config.CheckAtStartUp;
+            CheckAtStartUp = versioningModule.CheckAtStartUp;
         }
 
         private void CheckAzzul(object coolForm)

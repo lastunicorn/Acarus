@@ -14,47 +14,28 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
 using System.Configuration;
-using DustInTheWind.Versioning.Check;
-using DustInTheWind.Versioning.Config;
 using DustInTheWind.Versioning.Download;
 
 namespace DustInTheWind.Versioning.WinForms
 {
-    public class VersioningModule
+    public class VersioningModule : VersioningModuleBase
     {
-        public VersionChecker Checker { get; private set; }
-
-        public IVersionCheckerConfig Config { get; private set; }
-
-        public IVersionCheckerUi UserInterface { get; private set; }
-
         public VersioningModule(Configuration config)
+            : base(config)
         {
-            if (config == null) throw new ArgumentNullException("config");
-
-            Config = new VersionCheckerConfig(config);
-
-            UserInterface userInterface = new UserInterface();
-
-            Checker = new VersionChecker
-            {
-                MinCheckTime = TimeSpan.FromSeconds(1),
-                AppInfoFileLocation = Config.Url,
-                AppInfoProvider = new HttpFileProvider()
-            };
-
-            FileDownloader fileDownloader = new FileDownloader(userInterface);
-
-            UserInterface = new VersionCheckerUi(Checker, fileDownloader, userInterface, Config);
-
-            Config.UrlChanged += HandleConfigUrlChanged;
         }
 
-        private void HandleConfigUrlChanged(object sender, EventArgs eventArgs)
+        protected override IUserInterface CreateUserInterfaceHelper()
         {
-            Checker.AppInfoFileLocation = Config.Url;
+            return new UserInterface();
+        }
+
+        protected override IVersionCheckerUserInterface CreateVersionCheckerUserInterface(IUserInterface userInterface)
+        {
+            FileDownloader fileDownloader = new FileDownloader(userInterface);
+
+            return new VersionCheckerUserInterface(Checker, fileDownloader, userInterface, Config);
         }
     }
 }

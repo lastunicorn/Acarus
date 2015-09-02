@@ -16,7 +16,7 @@
 
 using System;
 using System.Configuration;
-using Versioning.Wpf;
+using DustInTheWind.Versioning.Wpf;
 
 namespace DustInTheWind.CoolApp.Wpf
 {

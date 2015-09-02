@@ -16,7 +16,7 @@
 
 using System.Windows;
 
-namespace Versioning.Wpf.Views
+namespace DustInTheWind.Versioning.Wpf.Views
 {
     /// <summary>
     /// Interaction logic for VersionCheckerWindow.xaml

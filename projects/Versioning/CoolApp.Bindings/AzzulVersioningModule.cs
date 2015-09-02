@@ -25,10 +25,10 @@ namespace DustInTheWind.CoolApp
         public AzzulVersioningModule(Configuration config)
             : base(config)
         {
-            var url = Config.Url;
+            string url = Checker.AppInfoFileLocation;
 
             if (string.IsNullOrEmpty(url))
-                Config.Url = "http://azzul.alez.ro/appinfo.xml";
+                Checker.AppInfoFileLocation = "http://azzul.alez.ro/appinfo.xml";
 
             Checker.AppName = "Azzul";
             Checker.CurrentVersion = new Version(1, 2, 3, 4);

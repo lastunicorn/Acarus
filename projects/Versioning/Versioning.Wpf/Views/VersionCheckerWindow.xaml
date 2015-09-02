@@ -1,4 +1,4 @@
-﻿<Window x:Class="Versioning.Wpf.Views.VersionCheckerWindow"
+﻿<Window x:Class="DustInTheWind.Versioning.Wpf.Views.VersionCheckerWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Check for new version"

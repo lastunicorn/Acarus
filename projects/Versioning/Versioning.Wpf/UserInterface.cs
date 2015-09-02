@@ -20,11 +20,10 @@ using System.Text;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Threading;
-using DustInTheWind.Versioning;
-using Versioning.Wpf.Properties;
+using DustInTheWind.Versioning.Wpf.Properties;
 using MessageBox = System.Windows.MessageBox;
 
-namespace Versioning.Wpf
+namespace DustInTheWind.Versioning.Wpf
 {
     internal class UserInterface : IUserInterface
     {

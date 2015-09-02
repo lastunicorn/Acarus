@@ -1,19 +1,18 @@
 using System;
 using System.Drawing;
 using System.Windows;
-using DustInTheWind.Versioning;
 using DustInTheWind.Versioning.Check;
 using DustInTheWind.Versioning.Config;
 using DustInTheWind.Versioning.Download;
-using Versioning.Wpf.Views;
+using DustInTheWind.Versioning.Wpf.Views;
 
-namespace Versioning.Wpf
+namespace DustInTheWind.Versioning.Wpf
 {
     class VersionCheckerUserInterface : IVersionCheckerUserInterface
     {
         private readonly VersionChecker versionChecker;
         private readonly FileDownloader fileDownloader;
-        private readonly UserInterface userInterface;
+        private readonly IUserInterface userInterface;
         private readonly IVersionCheckerConfig versionCheckerConfig;
 
         private VersionCheckerWindow versionCheckerWindow;
@@ -23,7 +22,7 @@ namespace Versioning.Wpf
         public Image Icon { get; set; }
 
         public VersionCheckerUserInterface(VersionChecker versionChecker, FileDownloader fileDownloader,
-            UserInterface userInterface, IVersionCheckerConfig versionCheckerConfig)
+            IUserInterface userInterface, IVersionCheckerConfig versionCheckerConfig)
         {
             if (versionChecker == null) throw new ArgumentNullException("versionChecker");
             if (fileDownloader == null) throw new ArgumentNullException("fileDownloader");

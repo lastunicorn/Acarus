@@ -7,7 +7,7 @@
     <ProjectGuid>{0910531D-649A-45DB-9CA1-DB63C6E17C68}</ProjectGuid>
     <OutputType>library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Versioning.Wpf</RootNamespace>
+    <RootNamespace>DustInTheWind.Versioning.Wpf</RootNamespace>
     <AssemblyName>Versioning.Wpf</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

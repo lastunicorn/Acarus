@@ -17,7 +17,7 @@
 using System;
 using System.Windows.Input;
 
-namespace Versioning.Wpf.Common
+namespace DustInTheWind.Versioning.Wpf.Common
 {
     public class RelayCommand : ICommand
     {

@@ -17,7 +17,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace Versioning.Wpf.Common
+namespace DustInTheWind.Versioning.Wpf.Common
 {
     internal class ViewModelBase : INotifyPropertyChanged
     {

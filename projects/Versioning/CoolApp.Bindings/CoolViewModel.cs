@@ -65,7 +65,7 @@ namespace DustInTheWind.CoolApp
                 OnPropertyChanged();
 
                 if (!IsInitializing)
-                    versioningModule.Config.CheckAtStartUp = checkAtStartUp;
+                    versioningModule.CheckAtStartUp = checkAtStartUp;
             }
         }
 
@@ -93,10 +93,10 @@ namespace DustInTheWind.CoolApp
             Initialize(() =>
             {
                 AzzulVersion = versioningModule.Checker.CurrentVersion.ToString();
-                CheckAtStartUp = versioningModule.Config.CheckAtStartUp;
+                CheckAtStartUp = versioningModule.CheckAtStartUp;
             });
 
-            versioningModule.Config.CheckAtStartUpChanged += HandleVersioningOptionsCheckAtStartUpChanged;
+            versioningModule.CheckAtStartUpChanged += HandleVersioningOptionsCheckAtStartUpChanged;
             versioningModule.Checker.CheckCompleted += HandleVersionCheckerCheckCompleted;
         }
 
@@ -115,7 +115,7 @@ namespace DustInTheWind.CoolApp
 
         private void HandleVersioningOptionsCheckAtStartUpChanged(object sender, EventArgs e)
         {
-            CheckAtStartUp = versioningModule.Config.CheckAtStartUp;
+            CheckAtStartUp = versioningModule.CheckAtStartUp;
         }
 
         public void CheckAzzulButtonWasClicked(object coolForm)
